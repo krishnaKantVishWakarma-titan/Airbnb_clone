@@ -468,7 +468,7 @@ export default function Header() {
         <>
                             
             {/* desktop version  */}
-            <div className="header">
+            <div className="header" onClick={() => alert("j")}>
                 <div className="headUpTxt">
                     <FormattedMessage 
                         id="covidTitle"
