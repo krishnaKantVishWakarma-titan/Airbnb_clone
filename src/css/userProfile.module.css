@@ -1,0 +1,291 @@
+
+.head01 {
+    float: left;
+    border-radius: 50px;
+    /* background-color: blue; */
+    cursor: pointer;
+}
+.head01 img {
+    float: left;
+    width: 20px;
+    padding: 11px 8px;
+}
+.head01:hover {
+    background-color: rgba(236, 236, 236, 0.707);
+}
+
+/* body */
+.ud0 {
+    float: left;
+    width: 90%;
+    max-width: 1000px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 40px;
+    font-family: 'Segoe UI Regular';
+}
+.ud01 {
+    float: left;
+    width: 30%;
+    border: 1px solid rgb(214, 214, 214);
+    border-radius: 10px;
+}
+.ud01img {
+    margin-top: 50px;
+    float: left;
+    background-color: rgb(231, 231, 231);
+    width: 20%;
+    padding: 5%;
+    border-radius: 50px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.ud011 {
+    width: 100%;
+    margin-top: 15px;
+    float: left;
+    text-align: center;
+    text-decoration: underline;
+    color: grey;
+    cursor: pointer;
+}
+.ud011:hover {
+    color: black;
+}
+.ud012 {
+    float: left;
+    margin-top: 30px;
+    width: 85%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.ud0121 {
+    float: left;
+    width: 20px;
+}
+.ud0122 {
+    float: left;
+    width: 100%;
+    margin-top: 4px;
+    font-size: 18px;
+}
+.ud0123 {
+    float: left;
+    width: 100%;
+    font-size: 15px;
+    color: rgb(86, 86, 86);
+}
+.ud0124 {
+    border: 1px solid rgb(83, 83, 83);
+    float: left;
+    width: calc(100% - 32px);
+    margin-top: 15px;
+    border-radius: 7px;
+    padding: 6px 15px;
+    padding-bottom: 8px;
+    font-size: 15px;
+    cursor: pointer;
+}
+.ud013 {
+    float: left;
+    width: 85%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+}
+.ud0131 {
+    float: left;
+    width: 100%;
+}
+.ud0132 {
+    float: left;
+    width: 100%;
+    margin-top: 4px;
+    margin-bottom: 70px;
+}
+.ud01321 {
+    float: left;
+    width: 15px;
+    margin-top: 4px;
+    margin-right: 7px;
+}
+.ud01322 {
+    float: left;
+    width: calc(100% - 22px);
+}
+.ud02 {
+    float: left;
+    margin-left: 7%;
+    padding-top: 10px;
+    width: calc(100% - 40% - 7%);
+}
+.ud021 {
+    float: left;
+    width: 100%;
+    font-size: 30px;
+}
+.ud022 {
+    float: left;
+    width: 100%;
+    font-size: 16px;
+    color: grey;
+}
+.ud023 {
+    float: left;
+    text-decoration: underline;
+    margin-top: 20px;
+    cursor: pointer;
+    color: grey;
+    margin-bottom: 15px;
+}
+.ud023:hover {
+    color: black;
+}
+.ud024 {
+    float: left;
+    width: 100%;
+    margin-top: 25px;
+}
+.ud0241 {
+    float: left;
+    background-color: rgb(231, 231, 231);
+    width: 60px;
+    padding: 15px;
+    border-radius: 200px;
+}
+.ud0242 {
+    float: left;
+    margin-left: 20px;
+    width: calc(100% - 110px);
+}
+.ud02421 {
+    float: left;
+    width: 100%;
+    font-size: 15px;
+    margin-top: 5px;
+}
+.ud02422 {
+    float: left;
+    width: 99%;
+    border: 1px solid rgb(117, 117, 117);
+    text-align: center;
+    margin-top: 15px;
+    padding: 5px 0;
+    padding-bottom: 9px;
+    color: rgb(78, 78, 78);
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    background-color: rgba(240, 248, 255, 0.544);
+}
+.ud02422:hover {
+    color: black;
+    border: 1px solid black;
+    background-color: rgba(224, 240, 255, 0.816);
+}
+.ud025, .ud026, .ud027, .ud0251 {
+    float: left;
+    width: 100%;
+}
+.ud025 {
+    margin-top: 20px;
+}
+.ud0251 {
+    font-size: 18px;
+}
+.ud0252 {
+    margin-top: 7px;
+    border-radius: 5px;
+    border: 1px solid rgb(117, 117, 117);
+    float: left;
+    height: 70px;
+    padding: 10px;
+    width: calc(70% - 20px);
+    margin-bottom: 15px;
+}
+.ud0254 {
+    margin-top: 7px;
+    border-radius: 5px;
+    border: 1px solid rgb(117, 117, 117);
+    float: left;
+    padding: 7px 10px;
+    width: calc(70% - 20px);
+    margin-bottom: 15px;
+}
+.ud0253 {
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.ud0255 {
+    float: left;
+    text-decoration: underline;
+    margin-top: 5px;
+    cursor: pointer;
+}
+.ud0256 {
+    float: right;
+    background-color: rgb(220, 0, 179);
+    color: white;
+    padding: 5px 10px;
+    padding-bottom: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+.ud026 {
+    float:left;
+    font-size: 15px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+@media only screen and (max-width: 700px) {
+    .um1 {
+        float: left;
+        width: 100%;
+    }
+    .um11 {
+        float: left;
+        width: 60%;
+    }
+    .um111 {
+        float: left;
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .ud022 {
+        font-size: 13px;
+    }
+    .um12 {
+        float: left;
+        width: calc(100% - 60% - 5px);
+        margin-left: 5px;
+    }
+    .um12 img {
+        float: right;
+        width: 40%;
+        background-color: rgb(231, 231, 231);
+        padding: 10px;
+        border-radius: 500px;
+    }
+    .um131 {
+        float: right;
+        text-decoration: underline;
+        margin-top: 5px;
+        cursor: pointer;
+    }
+    .ud0242 {
+        float: left;
+        width: 100%;
+        margin-left: 0;
+    }
+    .ud0252, .ud0254 {
+        width: calc(100% - 23px);
+    }
+    .ud013, .ud012 {
+        width: 100%;
+    }
+}

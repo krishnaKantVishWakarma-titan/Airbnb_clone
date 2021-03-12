@@ -1,0 +1,58 @@
+/* .DateRangePicker {
+    width: 83%;
+    margin-top: 15px;
+    border-radius: 19px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.DateInput::before {
+    width:20px;
+    content: '';
+    height: 20px;
+    background-image: url('../img/icons/checkIn.png');
+    background-size: cover;
+    background-position: top;
+    float: left;
+}
+.DateRangePickerInput_arrow {
+    float: left;
+}
+
+.DateRangePickerInput__withBorder {
+    width: 100%;
+}
+.DateInput {
+    width: calc(40%);
+    position: relative;
+    float:left;
+    /* background-color: blue; */
+    /* margin-left: 2px;
+    margin-top: 2px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.DateInput_input {
+    width: calc(100% - 30px);
+    font-size: 13.333px;
+    margin-left: 3px;
+    margin-top: 0;
+    height: 15px;
+    margin-top: 2px;
+    /* background-color: red; */
+    /* cursor: pointer;
+    float: left;
+    padding: 1px 2px;
+}
+.DayPicker_transitionContainer__horizontal {
+    z-index: 1; */
+    /* top: 0; */
+    /* position: absolute; */
+    
+/* }  */
+
+/* .datePicker {
+    position: absolute;
+    right: 0;
+    overflow: hidden;
+} */

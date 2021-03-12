@@ -1,0 +1,318 @@
+@font-face {
+    font-family: 'Segoe UI Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Regular'), url('../fonts/Segoe\ UI.woff') format('woff');
+}
+
+.desk {
+    display: block;
+}
+.mobile {
+    display: none;
+}
+
+.header0 {
+    float: left;
+    border-bottom: 1px solid lightgray;
+    width: calc(100% - 50px);
+    padding: 20px 25px;
+}
+
+.header01 {
+    float: left;
+    margin-left: 20px;
+}
+.header011 {
+    display: inline-block;
+    margin-right: 25px;
+    font-family: 'Segoe UI Regular';
+    padding: 6px 0;
+    cursor: pointer;
+    padding-bottom: 8px;
+    font-size: 14px;
+}
+.header011:hover {
+    font-weight: 600;
+    border-bottom: 3px solid rgb(123, 0, 238);
+}
+.header02 {
+    width: 250px;
+    float: right;
+}
+.header021 {
+    float: left;
+    color: white;
+    font-family: 'Segoe UI Regular';
+    font-size: 14px;
+    cursor: pointer;
+    text-decoration: none;
+}
+.header021 img {
+    width: 60px;
+    margin-left: 15px;
+}
+.header021 p {
+    background-color: #0277bd;
+    padding: 7px;
+    padding-bottom: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    width: 150px;
+    text-align: center;
+}
+.header021 p:hover {
+    background-color: #02639b;
+}
+
+.proHome0 {
+    float: left;
+    max-width: 1000px;
+    width: 90%;
+    margin-top: 50px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.proHome01 {
+    float: left;
+    width: 100%;
+    font-family: 'Segoe UI Regular';
+    font-size: 28px;
+    font-weight: 600;
+    color: rgb(49, 49, 49);
+    margin-bottom: 35px;
+}
+.proHome011 {
+    float: left;
+    width: 55%;
+}
+.proHome012 {
+    float: left;
+    width: calc(40% - 60px);
+    margin-left: 3%;
+    padding: 20px 30px;
+    border-radius: 7px;
+    box-shadow: 2px 2px 5px rgb(218, 216, 216);
+    margin-bottom: 30px;
+}
+.proHome0111 {
+    width: calc(100% - 60px);
+    padding: 20px 30px;
+    border-radius: 7px;
+    box-shadow: 2px 2px 5px rgb(218, 216, 216);
+    margin-bottom: 30px;
+}
+.proHome0111head {
+    font-family: 'Segoe UI Regular';
+    font-size: 17px;
+    color: rgb(52, 52, 52);
+    font-weight: 600;
+}
+
+.listHome0 {
+    float: left;
+    width: 90%;
+    max-width: 1300px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+.loading0 {
+    float: left;
+    width: 100%;
+    margin-top: 100px;
+}
+.loading01 {
+    float: left;
+    width: 100px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+.addCar0 {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+}
+.addCar0Btn {
+    float: right;
+    background-color: rgb(255, 0, 98);
+    color: white;
+    font-family: 'Segoe UI Regular';
+    padding: 5px 19px;
+    padding-bottom: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.addCar0Btn:hover {
+    box-shadow: 1px 1px 5px rgb(255, 182, 210);
+}
+
+@media only screen and (max-width: 700px) {
+    .desk {
+        display: none;
+    }
+    .mobile {
+        display: block;
+    }
+    .headerMob0 {
+        float: left;
+        width: 100%;
+    }
+    .headerMob0img {
+        float: left;
+        width: 24px;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+    .headerMob02 {
+        float: right;
+        margin-right: 20px;
+        border-radius: 50px;
+        background-color: blue;
+        margin-top: 14px;
+    }
+    .headerMob02img {
+        float: left;
+        width: 20px;
+        padding: 10px;
+        padding-bottom: 12px;
+        padding-left: 12px;
+    }
+    .headerMob01 {
+        float: left;
+        margin-top: 17px;
+        font-family: 'Segoe UI Regular';
+        font-size: 20px;
+        margin-left: 15px;
+        color: rgb(47, 47, 47);
+    }
+    .headerMob02Side {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        top: 0;
+    }
+    .headerMob02Side1 {
+        float: left;
+        width: 250px;
+        height: 100%;
+        background-color: white;
+    }
+    .headerMob02Side2 {
+        float: left;
+        width: calc(100% - 250px);
+        height: 100%;
+        background-color: rgba(61, 61, 61, 0.238);
+    }
+    .headerMob02Side1 p {
+        float: left;
+        font-family: 'Segoe UI Regular';
+        width: 80%;
+        margin-top: 15px;
+        margin-left: 50%;
+        transform: translateX(-50%);
+    }
+    .proHome0 {
+        margin-top: 10px;
+    }
+    .proHome011 {
+        width: 100%;
+    }
+    .proHome0111 {
+        margin-bottom: 25px;
+    }
+    .proHome012 {
+        width: calc(100% - 60px);
+        margin-left: 0;
+    }
+
+    .listHomeMob0head {
+        float: left;
+        width: 100%;
+        font-family: 'Segoe UI Regular';
+        font-size: 18px;
+        margin-top: 15px;
+        margin-bottom: 25px;
+        font-weight: 600;
+        color: rgb(49, 49, 49);
+    }
+    .listHomeMob01 {
+        float: left;
+        width: calc(100% - 30px);
+        padding: 20px 15px;
+        margin-bottom: 25px;
+        border-radius: 7px;
+        box-shadow: 2px 2px 5px rgb(218, 216, 216);
+    }
+    .listHomeMob011 {
+        float: left;
+        width: 100%;
+    }
+    .listHomeMob011 img {
+        float: left;
+        width: 100px;
+        height: 80px;
+    }
+    .listHomeMob0111 {
+        float: left;
+        width: calc(100% - 130px);
+        margin-left: 20px;
+    }
+    .listHomeMob01111 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        float: left;
+        font-family: 'Segoe UI Regular';
+        font-size: 20px;
+        width: 100%;
+        margin-top: 10px;
+    }
+    .listHomeMob01112 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        float: left;
+        font-family: 'Segoe UI Regular';
+        font-size: 15px;
+        width: 100%;
+    }
+    .listHomeMob012 {
+        float: left;
+        width: 100%;
+        margin-top: 15px;
+    }
+    .listHomeMob0121 {
+        float: left;
+        width: 33.33%;
+    }
+    .listHomeMob01211 {
+        float: left;
+        width: auto;
+        margin-left: 10px;
+        font-family: 'Segoe UI Regular';
+    }
+    .listHomeMob0121 img {
+        float: left;
+        width: 20px;
+        height: 20px;
+        margin-top: 2px;
+        margin-left: 5px;
+    }
+    .listHomeMob013 {
+        float: right;
+        width: 100px;
+        margin-top: 20px;
+    }
+    .listHomeMob013 img {
+        width: 20px;
+        height: 20px;
+        padding: 7px;
+        margin-right: 10px;
+        border-radius: 55px;
+        background-color: rgba(201, 201, 201, 0.409);
+    }
+}

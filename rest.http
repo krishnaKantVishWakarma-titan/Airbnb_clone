@@ -1,0 +1,22 @@
+POST  https://checkin031.herokuapp.com/api/register 
+Content-Type: application/json
+
+
+{
+    "name":"sanket babar",
+    "email":"testing@gmail.com",
+    "password":"dfhdjhsdh"
+}
+
+
+//can we do this after dinner
+// ok 
+
+###
+POST  https://checkin031.herokuapp.com/api/upload
+Content-Type: application/json
+
+
+{
+    "file":["/D:/wallpapers/7_wjNH_OcAU_Full.jpg","/D:/wallpapers/7sJrB21mN_A_Full.jpg"]
+}

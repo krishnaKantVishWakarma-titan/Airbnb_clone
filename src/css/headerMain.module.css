@@ -1,0 +1,389 @@
+.headBody1 {
+    float: left;
+    width: 100%;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(224, 224, 224);
+}
+.headUpNavMain {
+    float: left;
+    width: 100%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+}
+.headUpNavMainT {
+    float: left;
+    width: 100%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    height: 150px;
+    background-color: white;
+}
+.headUpNav {
+    float: right;
+    width: auto;
+    margin-top: 16px;
+    margin-right: 50px;
+}
+.headUpNavMain1 {
+    float: left;
+    width: 20px;
+    padding: 9px;
+    padding-top: 10px;
+    margin-top: 17px;
+    border-radius: 30px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+.headUpNavMain1:hover {
+    background-color: #0278bd2b;
+}
+.headUpNavMain1 img {
+    width: 100%;
+}
+.headUpNavLink {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-family: calibri;
+    font-weight: 500;
+}
+.headUpNavLink span {
+    padding-top: 5px;
+    margin-right: 20px;
+    color: rgb(0, 0, 0);
+}
+.headUpNav a {
+    float: left;
+    padding-top: 4px;
+}
+.headUpNav a span {
+    border-radius: 50px;
+    padding: 5px 12px;
+    font-size: 14px;
+    padding-bottom: 7px;
+    color: rgb(0, 0, 0);
+    font-weight: 600;
+    margin-right: 5px;
+}
+.headUpNav a span:hover {
+    background-color: rgba(193, 193, 193, 0.217) !important;
+}
+.headUpNav a img {
+    width: 20px;
+    padding: 5px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+.headUpNav a img:hover {
+    background-color: rgba(193, 193, 193, 0.347) !important;
+}
+.headUpNav span {
+    cursor: pointer;
+    margin-left: 15px;
+    font-weight: 600;
+    margin-top: 2px;
+    float: left;
+}
+.headUpNav span img {
+    width: 60px;
+    float: left;
+}
+
+.headNavE {
+    float: left;
+    width: 400px;
+    padding: 2px 20px;
+    border-radius: 50px;
+    margin-top: 14px;
+    position: absolute;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: 1px solid rgb(223, 223, 223);
+    cursor: pointer;
+}
+.headNavET {
+    float: left;
+    width: 550px;
+    padding: 2px 0;
+    border-radius: 50px;
+    margin-top: 60px;
+    position: absolute;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: 1px solid rgb(223, 223, 223);
+    cursor: pointer;
+}
+.headNavE:hover {
+    box-shadow: 0 2px 3px rgb(230, 230, 230);
+}
+.headNavEMinCarList {
+    float: left;
+    width: 400px;
+    padding: 5px 20px;
+    border-radius: 50px;
+    margin-top: 10px;
+    position: absolute;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+    border: 1px solid rgb(223, 223, 223);
+}
+
+.headNav0 {
+    float: left;
+    width: calc(100% - 45px);
+}
+.headNav1 {
+    float: left;
+    width: 40px;
+}
+.headNav1T {
+    float: right;
+    width: 40px;
+}
+.headNav1T img {
+    float: right;
+    margin-top: 3px;
+    margin-right: 6px;
+    width: calc(100% + 5px);
+}
+.headNav1 img {
+    float: right;
+    margin-right: -19px;
+    margin-top: 2px;
+    width: calc(100% - 10px);
+}
+.headNav01 {
+    display: inline-block;
+    width: 35%;
+    border-right: 1px solid rgb(223, 223, 223);
+}
+.headNav01T {
+    /* display: inline-block; */
+    float: left;
+    position: relative;
+    width: calc(33.33% - 20px);
+    border-right: 1px solid rgb(223, 223, 223);
+    padding-left: 20px;
+    border-radius: 40px;
+    border: none;
+}
+.headNav01T:hover {
+    box-shadow: 3px 3px 8px rgb(204, 204, 204);
+}
+.headNav01T:active {
+    box-shadow: 3px 3px 8px rgb(204, 204, 204);
+}
+.headNav0111 {
+    display: inline-block;
+    width: 29%;
+}
+.headNav012 {
+    font-size: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 500;
+    margin-top: 2px;
+    margin-bottom: 8px;
+
+}
+.headNav011 {
+    font-size: 17px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    padding: 8px 0;
+    margin-right: 2px;
+    font-weight: 600;
+    color: grey;
+}
+.headNav011T {
+    font-size: 17px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    padding: 8px 0 0 0;
+    margin-right: 2px;
+    font-weight: 600;
+    color: rgb(129, 129, 129);
+}
+.headNav0111TE {
+    display: inline-block;
+    width: calc(100% - 40px);
+}
+.headSideBar {
+    background-color: white;
+    position: absolute;
+    width: 230px;
+    top: 40px;
+    border: 1px solid rgb(199, 199, 199);
+    right: 50px;
+    border-radius: 6px;
+    padding: 10px 0;
+}
+.headSideBar p {
+    padding: 7px 15px;
+    cursor: pointer;
+    float: left;
+    width: calc(100% - 30px);
+    font-family: calibri;
+}
+.headSideBar p:hover {
+    background-color: rgba(232, 232, 238, 0.585);
+    font-weight: 600;
+}
+
+.headSideBar011S0 {
+    float: left;
+    width: 90%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.headSideBar011S01 {
+    float: left;
+    width: 35px;
+    height: 35px;
+}
+.headSideBar011S01 img {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(224, 224, 224);
+    border-radius: 40px;
+    float: left;
+}
+.headSideBar011S02 {
+    float: left;
+    width: calc(100% - 45px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 10px;
+    font-size: 14px;
+    font-family: 'Segoe UI Regular';
+}
+.headSideBar011S021 {
+    float: left;
+    font-size: 12px;
+    color: rgb(62, 62, 62);
+    font-family: 'Segoe UI Regular';
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.headSideBar011S1 {
+    float: left;
+    width: 90%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.headSideBar011S1 button {
+    float: left;
+    width: 100%;
+    margin-top: 7px;
+    margin-bottom: 10px;
+    border: 1px solid lightgray;
+    padding: 5px 0;
+    font-family: 'Segoe UI Regular';
+    cursor: pointer;
+}
+
+hr {
+    background-color: rgb(233, 233, 233);
+}
+.headNav0 input {
+    border: none;
+    margin-top: 10px;
+    width: 100%;
+    outline: none;
+}
+
+/* top bar */
+.topBar0 {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.586);
+}
+/* ::-webkit-scrollbar {display:none;} */
+.topBar01 {
+    float: left;
+    width: 550px;
+    padding: 23px 0;
+    background-color: white;
+    box-shadow: 3px 3px 9px rgba(105, 105, 105, 0.374);
+    margin-top: -15px;
+    border-radius: 30px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.topBar01DAte {
+    float: left;
+    width: auto;
+    height: auto;
+    background-color: white;
+    box-shadow: 3px 3px 9px rgba(105, 105, 105, 0.374);
+    margin-top: -15px;
+    border-radius: 30px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.headNav012 input {
+    border: none;
+    outline: none;
+}
+.topBar011 {
+    float: left;
+    width: calc(100% - 40px);
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.topBar011 img {
+    width: 20px;
+    float: left;
+    padding: 7.5px 15px;
+    border-radius: 5px;
+    background-color: rgb(233, 233, 233);
+}
+.topBar011 p {
+    width: calc(100% - 80px);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    float: left;
+    color: grey;
+    padding: 8px 0;
+    margin-left: 15px;
+    border-radius: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.topBar012 {
+    float: left;
+    width: calc(100% - 60px);
+    padding: 10px 30px;
+    margin-bottom: 15px;
+}
+.topBar012 p {
+    float: left;
+    width: calc(100% - 90px);
+    color: grey;
+    font-size: 14px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.topBar012 input {
+    float: left;
+    width: 90px;
+    border: none;
+    outline: none;
+    text-align: center;
+}
+
+.headNav012Over {
+    float: left;
+    position: fixed;
+    background-color: white;
+    width: 500px;
+    border-radius: 9px;
+    box-shadow: 3px 3px 9px rgba(105, 105, 105, 0.374);
+}

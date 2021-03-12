@@ -1,0 +1,328 @@
+@font-face {
+    font-family: 'Segoe UI Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Regular'), url('../fonts/Segoe\ UI.woff') format('woff');
+}
+
+.b0 {
+    font-family: 'Segoe UI Regular';
+    float: left;
+    width: 90%;
+    max-width: 1100px;
+    margin-top: 40px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.b1 {
+    float: left;
+    width: 60%;
+}
+.b2 {
+    float: left;
+    width: 40%;
+}
+
+.b11 {
+    float: left;
+    width: 100%;
+    font-size: 29px;
+    font-weight: 600;
+}
+.b12 {
+    float: left;
+    width: 100%;
+    font-size: 21px;
+    margin-top: 10px;
+    font-weight: 600;
+}
+.b13 {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+}
+.b131 {
+    float: left;
+    width: 100%;
+    font-size: 17px;
+}
+.b132 {
+    float: left;
+    width: 100%;
+    font-size: 14px;
+    color: rgb(90, 90, 90);
+}
+.b133 {
+    float: left;
+    width: 100%;
+    margin-top: 1px;
+    font-size: 14px;
+    color: rgb(90, 90, 90);
+}
+.b14 {
+    float: left;
+    width: 100%;
+    margin-top: 1px;
+    font-size: 23px;
+    font-weight: 600;
+    margin-top: 25px;
+}
+.b15 {
+    float: left;
+    width: 90%;
+    margin-top: 17px;
+}
+.b151, .b1511, .b1512 {
+    float: left;
+    width: 100%;
+}
+.b15111 {
+    float: left;
+    width: calc(100% - 80px);
+    font-size: 18px;
+    font-weight: 600;
+    color: rgb(61, 61, 61);
+}
+.b15112 {
+    float: left;
+    width: 80px;
+    font-size: 15px;
+    font-weight: 600;
+    color: rgb(61, 61, 61);
+}
+.b15112 input {
+    float:right;
+    margin-right: 10px;
+    margin-top: 4px;
+}
+.b1512 {
+    font-size: 14px;
+    color: rgb(99, 98, 98);
+    padding-bottom: 18px;
+}
+.b1511 {
+    padding-bottom: 3px;
+}
+
+.b16 {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+}
+.b161 {
+    float: left;
+    width: 80%;
+    margin-left: 2px;
+    padding: 12px 8px;
+    border-radius: 7px;
+    margin-bottom: 20px;
+    border: 1px solid rgb(194, 193, 193);
+}
+.b162 {
+    float: left;
+    width: 80%;
+    border-radius: 7px;
+    border: 1px solid rgb(194, 193, 193);
+}
+.b1621, .b1622 {
+    float: left;
+    width: 100%;
+}
+.b1621 input {
+    float: left;
+    width: calc(100% - 17px);
+    border-radius: 7px 7px 0 0;
+    padding: 12px 8px;
+    border: none;
+    margin-bottom: 1px;
+    border-bottom: 1px solid rgb(194, 193, 193);
+}
+.b16221 {
+    float: left;
+    width: 50%;
+}
+.b16221 input {
+    float: left;
+    width: calc(100% - 17px);
+    border-radius: 7px;
+    padding: 12px 8px;
+    border: none;
+}
+
+.b163 {
+    float: left;
+    width: 80%;
+    margin: 20px 0;
+    border-radius: 7px;
+    border: 1px solid rgb(194, 193, 193);
+}
+.b163 input {
+    float: left;
+    width: calc(100% - 17px);
+    border-radius: 7px;
+    padding: 12px 8px;
+    border: none;
+}
+
+.b164 {
+    float: left;
+    width: 100%;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.b141 {
+    float: left;
+    width: 90%;
+    margin-top: 15px;
+}
+.b141 button {
+    float: right;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    outline: none;
+    color: white;
+    font-size: 17px;
+    background-color: rgb(252, 16, 63);
+}
+.b1411 {
+    float: left;
+    margin-top: 5px;
+}
+
+.b17 {
+    float: left;
+    width: 100%;
+    margin-top: 15px;
+}
+.b171 {
+    float: left;
+    width: 100%;
+    margin-bottom: 12px;
+    font-size: 14px;
+    color: rgb(99, 98, 98);
+}
+
+.b18 {
+    float: left;
+    margin-top: 30px;
+    margin-bottom: 50px;
+    cursor: pointer;
+    outline: none;
+    background: linear-gradient(to right, #e9023c 0%, #cc0066 100%);
+    padding: 15px 35px;
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 17px;
+}
+.b18:hover {
+    text-decoration: underline;
+}
+
+.b2E {
+    float: right;
+    width: calc(95% - 66px);
+    border-radius: 10px;
+    padding: 35px 33px;
+    border: 1px solid rgb(197, 197, 197);
+}
+.b21 {
+    float: left;
+}
+.b22 {
+    float: left;
+    width: 120px;
+}
+.b22 img {
+    width: 100%;
+    border-radius: 5px;
+    height: 100%;
+}
+.b23 {
+    float: left;
+    width: calc(100% - 120px - 10px);
+    margin-left: 10px;
+}
+.b231 {
+    float:left;
+    width: 100%;
+    font-size: 14px;
+    color: grey;
+    margin-top: -5px;
+}
+.b232 {
+    float:left;
+    width: 100%;
+    font-size: 17px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-weight: 600;
+    margin-top: 3px;
+}
+.b233 {
+    float:left;
+    width: 100%;
+    font-size: 14px;
+    margin-top: 2px;
+}
+.b234 {
+    float:left;
+    width: 100%;
+    font-size: 13px;
+    margin-top: 2px;
+    font-weight: 600;
+    color: rgb(141, 141, 141);
+}
+.b22x {
+    float:left;
+    width: 100%;
+    margin-top: 17px;
+}
+.b22x1 {
+    float:left;
+    width: 100%;
+    font-size: 22px;
+}
+.b22x2 {
+    float:left;
+    width: 100%;
+    margin-top: 8px;
+}
+.b22x21 {
+    float:left;
+}
+.b22x22 {
+    float: right;
+}
+.b22x23 {
+    float:left;
+    text-decoration: underline;
+}
+.b22x24 {
+    float:left;
+    font-size: 17px;
+    font-weight: 600;
+}
+.b23x {
+    float:left;
+    width: 100%;
+    margin-top: 17px;
+}
+.b23x1 {
+    float:left;
+    width: 100%;
+    font-size: 15px;
+}
+.b23x2 {
+    float:left;
+    width: 100%;
+    font-size: 14px;
+    color: grey;
+    margin-top: 2px;
+    margin-bottom: 15px;
+}

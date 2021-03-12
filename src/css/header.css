@@ -1,0 +1,1172 @@
+@font-face {
+font-family: 'Segoe UI Regular';
+font-style: normal;
+font-weight: normal;
+src: url('../fonts/Segoe UI.woff') format('woff');
+}
+
+@font-face {
+font-family: 'Segoe UI Bold';
+font-style: normal;
+font-weight: normal;
+src: url('../fonts/Segoe UI Bold.woff') format('woff');
+}
+
+/* desktop version's */
+.headingMobile0 {
+    display: none;
+}
+
+.headUpTxt {
+    background-color: black;
+    text-align: center;
+    color: white;
+    padding: 15px 0;
+    font-family: calibri;
+}
+.headBodyTxt1 {
+    float: left;
+    width: 90%;
+    margin-left: 10%;
+    margin-top: 70px;
+    /* background-color: blue; */
+}
+.headBody {
+    background-image: url(../img/banners/table-3143080_1920.png);
+    background-size: cover;
+    background-position: top;
+    height: 600px;
+}
+.headUpNavMain {
+    float: left;
+    width: 100%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+}
+.headUpNav1 {
+    float: right;
+    width: auto;
+    margin-top: 5px;
+    margin-right: 50px;
+}
+.headUpNavLink1 {
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    font-family: calibri;
+    font-weight: 500;
+    cursor: pointer;
+}
+.headUpNavLink1 span {
+    padding-top: 5px;
+    margin-right: 20px;
+    color: white;
+}
+.headUpNav1 a {
+    float: left;
+    padding-top: 4px;
+}
+.header123 {
+    color: white;
+}
+.headUpNav1 a span {
+    border-radius: 50px;
+    padding: 5px 12px;
+    font-size: 12px;
+    padding-bottom: 7px;
+    color: rgb(255, 255, 255);
+    font-weight: 600;
+    margin-right: 5px;
+}
+.headUpNav1 a span:hover {
+    background-color: rgba(193, 193, 193, 0.217) !important;
+}
+.headUpNav1 a img {
+    width: 20px;
+    padding: 5px;
+    border-radius: 50px;
+}
+.headUpNav1 a img:hover {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+}
+.headUpNav1 span {
+    cursor: pointer;
+    margin-left: 15px;
+    font-weight: 600;
+    margin-top: 2px;
+    float: left;
+}
+.headUpNav1 span img {
+    width: 60px;
+    float: left;
+}
+
+.headNav {
+    float: left;
+    width: 700px;
+    padding: 5px 20px;
+    border-radius: 50px;
+    margin-top: 25px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    background-color: white;
+}
+
+.headNav0 {
+    float: left;
+    width: calc(100% - 45px);
+}
+.headNav1 {
+    float: left;
+    width: 45px;
+}
+.headNav1 img {
+    float: right;
+    margin-right: -14px;
+    width: calc(100% - 8px);
+}
+.headNav01 {
+    display: inline-block;
+    width: 24%;
+    border-right: 1px solid black;
+}
+.headNav0111 {
+    display: inline-block;
+    width: 24%;
+}
+.headNav011 {
+    font-size: 17px;
+    font-family: 'calibri';
+    font-weight: 600;
+}
+.headNav012 {
+    font-size: 13px;
+    font-family: 'calibri';
+    font-weight: 500;
+}
+.headSideBar {
+    background-color: white;
+    position: absolute;
+    width: 230px;
+    top: 70px;
+    right: 55px;
+    border-radius: 6px;
+    padding: 10px 0;
+}
+.headSideBar p {
+    padding: 7px 15px;
+    cursor: pointer;
+    float: left;
+    width: calc(100% - 30px);
+    font-family: calibri;
+}
+.headSideBar p:hover {
+    background-color: rgba(232, 232, 238, 0.585);
+    font-weight: 600;
+}
+hr {
+    background-color: rgb(233, 233, 233);
+}
+
+.headBodyExpl1 {
+    float: left;
+    width: 50%;
+}
+.headBodyExplore {
+    float: left;
+    width: 90%;
+    max-width: 1000px;
+    margin-top: 70px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.headBodyExpl11 {
+    float: right;
+    width: 60%;
+    position:relative;
+    background-color: rgba(187, 187, 187, 0.347);
+    min-width: 300px;
+    margin-top: 20px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+.headBodyExpl111 {
+    float: left;
+    z-index: 0;
+    width: 85%;
+    background-color: rgb(255, 255, 255);
+    border-radius: 5px;
+    margin-left: 50%;
+    margin-top: 15px;
+    transform: translateX(-50%);
+}
+.headBodyExpl1111 {
+    float: left;
+    width: 18px;
+    height: 18px;
+    padding: 7px;
+}
+.headBodyExpl1111 img {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+.headBodyExpl1112 {
+    float: left;
+    width: calc(100% - 32px);
+    height: 28px;
+}
+.headBodyExpl1112 input {
+    width: 90%;
+    border-radius: 5px;
+    border: none;
+    height: 100%;
+    margin-top: 2px;
+    float: left;
+    outline: none;
+    padding-left: 4px;
+}
+.headBodyExpl1112SearchTab {
+    position: absolute;
+    margin-top: 50px;
+    width: 270px;
+    border-radius: 12px;
+    box-shadow: 2px 2px 12px rgb(145, 145, 145);
+    margin-left: 10px;
+    z-index: 1000000000 !important;
+    background-color: rgb(255, 255, 255);
+}
+.headBodyExpl1112SearchTabUl {
+    /* padding-top: 5px; */
+    list-style-type: none;
+}
+.headBodyExpl1112SearchTabUl li {
+    padding: 7px 18px;
+    cursor: pointer;
+    font-size: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color:rgb(78, 78, 78);
+}
+.headBodyExpl1112SearchTabUl li:hover {
+    background-color: rgba(240, 240, 240, 0.483);
+    color: black;
+}
+.headBodyExpl112 {
+    float: left;
+    width: 43%;
+    margin-left: 5%;
+}
+.headBodyExpl113 {
+    float: left;
+    width: 48%;
+    /* margin-left: %; */
+}
+.headBodyExpl114 {
+    float: left;
+    width: 85%;
+    margin-left: 50%;
+    margin-top: 15px;
+    transform: translateX(-50%);
+}
+.headBodyExpl1141 {
+    float: left;
+    font-size: 15px;
+    padding: 8px 12px;
+    outline: none;
+    cursor: pointer;
+    background-color: #0277bd;
+    color: white;
+    z-index: -1;
+    border: none;
+    border-radius: 6px;
+}
+.headBodyExpl1141 img {
+    width: 14px;
+    float: left;
+    margin-right: 5px;
+    margin-top: 1px;
+}
+
+.headBodyTxt {
+    float: left;
+    width: 100%;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 50px;
+    font-weight: 600;
+}
+
+@media only screen and (max-width: 1111px) and (min-width: 888px) {
+    .headBodyTxt {
+        font-size: 40px;
+    }
+}
+@media only screen and (max-width: 888px) {
+    .headBodyTxt {
+        font-size: 30px;
+    }
+}
+.signupPage {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    backdrop-filter: saturate(180%) blur(20px);
+    background-color: rgba(191, 191, 191, 0.456);
+    top: 0;
+}
+.sign0 {
+    float: left;
+    width: 800px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    height: 500px;
+    background-color: white;
+    margin-top: 120px;
+    font-family: calibri;
+}
+.sign01 {
+    float: left;
+    width: 50%;
+    height: 100%;
+    font-family: calibri;
+}
+.sign011 {
+    float: left;
+    width: 100%;
+}
+.sign011 img {
+    width: calc(100% - 25%);
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 30px;
+}
+.sign012 {
+    float: left;
+    margin-top: 50px;
+    text-align: center;
+    width: 100%;
+    text-decoration: underline;
+    cursor: pointer;
+}
+.sign02 {
+    float: left;
+    width: 50%;
+    height: 100%;
+}
+.sign021 {
+    float: left;
+    margin-top: 35px;
+    width: 85%;
+    margin-bottom: 20px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    font-weight: 600;
+}
+.sign021Ex {
+    float: left;
+    margin-top: 10px;
+    width: 85%;
+    margin-bottom: 20px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    font-weight: 600;
+}
+.sign022 {
+    float: left;
+    margin-top: 10px;
+    width: 85%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    font-size: 25px;
+    font-weight: 600;
+    padding-bottom: 7px;
+    margin-bottom: 7px;
+    border-bottom: 2px solid rgb(199, 199, 199);
+}
+.sign0221 {
+    float: left;
+    width: 20px;
+    height: 20px;
+}
+.sign0221 img {
+    width:100%;
+}
+.sign0222 {
+    float: left;
+    width: calc(100% - 58px);
+}
+.sign0222 input {
+    width:100%;
+    margin: 0 5px;
+    padding-top: 2px;
+    border: none;
+    margin-top: 3px;
+    outline: none;
+    float: left;
+    height: 20px;
+}
+.sign0223 {
+    float: right;
+    width: 16px;
+    height: 16px;
+}
+.sign0223 img {
+    width:100%;
+}
+.sign023 {
+    float: left;
+    margin-top: 15px;
+    width: 85%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.sign0231 {
+    float: left;
+}
+.sign0232 {
+    margin-left: 8px;
+    float: left;
+    margin-top: -1px;
+    font-size: 16px;
+}
+.sign023 button {
+    padding: 15px 25px;
+    border: none;
+    border-radius: 8px;
+    outline:auto;
+    cursor: pointer;
+    background-color: blue;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+}
+.sign024 {
+    float: left;
+    margin-top: 25px;
+    width: 85%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.sign024Ex {
+    float: left;
+    margin-top: 30px;
+    width: 85%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.sign0241 {
+    float: left;
+    font-size: 14px;
+    font-weight: 600;
+    margin-right: 10px;
+    margin-top: 3px;
+}
+.sign024For1 {
+    float: left;
+    margin-top: 15px;
+    cursor: pointer;
+    width: 85%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.sign024For1:hover {
+    font-weight: 600;
+    text-decoration: underline;
+}
+.sign0223Error {
+    float: left;
+    font-size: 14px;
+    color: red;
+    width: 85%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.sign0242 {
+    width: 25px;
+    margin-right: 15px;
+    cursor: pointer;
+    float: left;
+}
+.sign0242 img {
+    width: 100%;
+}
+
+.Closebtn {
+    margin-bottom: 10px;
+}
+.Closebtn div {
+    float: right;
+    margin-right: 15px;
+    margin-top: 10px;
+    cursor: pointer;
+    font-family: calibri;
+}
+.Closebtn div:hover {
+    font-weight: 600;
+}
+
+
+/* header min HM */
+.headerMinCont {
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.headerMinArrow {
+    float: left;
+    width: 25px;
+    margin-left: 15px;
+    margin-top: 15px;
+}
+.headerMinArrow img {
+    width: 100%;
+}
+.headerMinRightBtn {
+    float: right;
+    margin-right: 50px;
+    margin-top: 12px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 5px 8px;
+    padding-top: 3px;
+    font-size: 15px;
+    border: 1px solid rgb(79, 0, 248);
+    color: rgb(79, 0, 248);
+    border-radius: 9px;
+}
+.headerMinTitle {
+    position: absolute;
+    color:#0277bd;
+    font-weight: 600;
+    top: 15px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    left: 50%;
+    font-weight: bold;
+    transform: translateX(-50%);
+    font-size: 25px;
+}
+.GoogleBtn {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: white;
+    outline: none;
+    cursor: pointer;
+}
+.GoogleBtn img {
+    width: 100%;
+}
+
+
+/* dates picker */
+.dateCont0 {
+    position:fixed;
+    top: 0;
+    width: 100%;
+    background-color: rgba(39, 39, 39, 0.496);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.dateCont01 {
+    overflow: hidden;
+    border-radius: 4px;
+}
+.dateCont01CloseBtn {
+    width: 100%;
+    background-color: white;
+    justify-content: flex-end;
+}
+.dateCont01CloseBtn button {
+    color: white;
+    background-color: #0277bd;
+    border: none;
+    cursor: pointer;
+    float: right;
+    outline: none;
+    margin-bottom: 7px;
+    font-size: 15px;
+    padding: 8px 15px;
+    padding-bottom: 10px;
+    border-radius: 0 0 4px 4px;
+}
+.dateCont01CloseBtn1 {
+    width: 100%;
+    justify-content: flex-end;
+}
+.dateCont01CloseBtn1 button {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.878);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    margin-bottom: 7px;
+    font-size: 15px;
+    padding: 12px 12px;
+    border-radius: 50px;
+}
+.dateCont01CloseBtn1 button img {
+    float: left;
+    width: 10px;
+}
+.dateCont01CloseBtn1 button:hover {
+    background-color: rgb(213, 213, 213);
+}
+
+.dateCont01CloseBtn1Search {
+    margin-top: -45px;
+}
+.dateCont01CloseBtn1Search button {
+    color: white;
+    background-color: rgba(255, 255, 255, 0.878);
+    border: none;
+    cursor: pointer;
+    outline: none;
+    margin-bottom: 7px;
+    font-size: 15px;
+    padding: 12px 12px;
+    border-radius: 50px;
+}
+.dateCont01CloseBtn1Search button img {
+    float: left;
+    width: 10px;
+}
+.dateCont01CloseBtn1Search button:hover {
+    background-color: rgb(213, 213, 213);
+}
+
+.deskSearch0 {
+    width: 50%;
+    height: 400px;
+    background-color: white;
+    border-radius: 15px;
+}
+.deskSearch0N {
+    width: 40%;
+    height: 350px;
+    background-color: white;
+    border-radius: 15px;
+}
+.deskSearch0N1 {
+    float: left;
+    width: 80%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 20px;
+    height: 220px;
+}
+.deskSearch0N10 {
+    float: left;
+    width: 100%;
+}
+.deskSearch0N101 {
+    float: left;
+    width: 50%;
+    margin-bottom: 35px;
+}
+.deskSearch0N101 {
+    font-family: 'Segoe UI Regular';
+    font-size: 20px;
+}
+.deskSearch0N102 {
+    width: 140px;
+    float: right;
+}
+.deskSearch0N102 img {
+    float: left;
+    width: 30px;
+    cursor: pointer;
+}
+.deskSearch0N1021 {
+    float: left;
+    padding-top: 2px;
+    width: 33.33%;
+    text-align: center;
+    font-family: 'Segoe UI Regular';
+}
+.deskSearch0N1head {
+    float: left;
+    width: 100%;
+    font-family: 'Segoe UI Regular';
+    font-size: 17px;
+    margin-bottom: 20px;
+    text-align: center;
+    margin-top: 10px;
+}
+.deskSearch01 {
+    float: left;
+    width: 80%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    border: 1px solid rgb(194, 194, 194);
+    border-radius: 50px;
+    padding: 10px 0;
+    margin-top: 50px;
+    margin-bottom: 10px;
+}
+.deskSearch01 img {
+    width: 20px;
+    height: 20px;
+    float: left;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+.deskSearch01 input {
+    float: left;
+    width: calc(100% - 80px);
+    border: none;
+    outline: none;
+    margin-top: 1px;
+}
+.deskSearch02 {
+    float: left;
+    width: 80%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10px;
+    height: 220px;
+}
+.deskSearch021 {
+    float: left;
+    width: 95%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+.deskSearch021:hover {
+    background-color: rgb(236, 236, 236);
+}
+.deskSearch021 img {
+    float: left;
+    width: 25px;
+    margin-right: 15px;
+}
+.deskSearch0211 {
+    float: left;
+    width: calc(100% - 50px);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: 'Segoe UI Regular';
+    overflow: hidden;
+}
+.deskSearch03 {
+    float: left;
+    width: 100%;
+}
+.deskSearch03 button {
+    float: right;
+    margin-top: 5px;
+    border: none;
+    font-family: 'Segoe UI Regular';
+    color: white;
+    background-color: #0277bd;
+    padding: 8px 20px;
+    margin-right: 40px;
+    border-radius: 4px;
+    padding-bottom: 10px;
+    outline: none;
+    cursor: pointer;
+}
+
+.sign0Check0 {
+    float: left;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    width: 450px;
+    margin-top: 40px;
+}
+.sign0Check1 {
+    float: left;
+    margin-top: 25px;
+    margin-left: 50%;
+    width:auto;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+.sign0Check1:hover {
+    font-weight: 600;
+}
+
+.headSideBar011S0 {
+    float: left;
+    width: 90%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+.headSideBar011S01 {
+    float: left;
+    width: 35px;
+    height: 35px;
+}
+.headSideBar011S01 img {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(224, 224, 224);
+    border-radius: 40px;
+    float: left;
+}
+.headSideBar011S02 {
+    float: left;
+    width: calc(100% - 45px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-left: 10px;
+    font-size: 14px;
+    font-family: 'Segoe UI Regular';
+}
+.headSideBar011S021 {
+    float: left;
+    font-size: 12px;
+    color: rgb(62, 62, 62);
+    font-family: 'Segoe UI Regular';
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.headSideBar011S1 {
+    float: left;
+    width: 90%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.headSideBar011S1 button {
+    float: left;
+    width: 100%;
+    margin-top: 7px;
+    margin-bottom: 10px;
+    border: 1px solid lightgray;
+    padding: 5px 0;
+    font-family: 'Segoe UI Regular';
+    cursor: pointer;
+}
+
+
+@media only screen and (max-width: 700px) {
+    .sign0Check0 {
+        float: left;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        width: 90%;
+        margin-top: 80px;
+    }
+    .sign0Check1 {
+        border-radius: 4px;
+        float: left;
+        margin-top: 50px;
+        margin-left: 50%;
+        width:auto;
+        transform: translateX(-50%);
+        cursor: pointer;
+        padding: 10px 20px;
+        color:white;
+        background-color: blue;
+        padding-bottom: 15px;
+    }
+    .header {
+        display: none;
+    }
+    .headingMobile0 {
+        display:block;
+        background-color: black;
+    }
+    .headingMobile02 {
+        float: left;
+        background-color: rgb(0, 0, 0);
+        height: 600px;
+        overflow: hidden;
+        width: 100%;
+    }
+    .headingMobile0211Sid0 {
+        float: left;
+        width: 100%;
+    }
+    .headingMobile0211Sid01 {
+        float: left;
+        width: 20px;
+        margin-top: 30px;
+        margin-left: 15px;
+    }
+    .headingMobile0211Sid01 img {
+        width:100%;
+    }
+    .headingMobile021 {
+        float: left;
+        width: 100%;
+        height: 100%;
+        background-image: url(../img/banners/table-3143080_1920.png);
+        background-size: cover;
+        background-position: top;
+    }
+    .headingMobile0211 {
+        float: left;
+        width: 100%;
+        height: 100%;
+        border-radius: 30px 30px 0 0;
+    }
+    .headingMobile02111 {
+        float: left;
+        width: calc(100% - 75px);
+        margin: 0 15px;
+        background-color: white;
+        margin-top: 18px;
+        margin-left: 17px;
+        border-radius: 20px;
+        box-shadow: 2px 2px 12px rgb(0, 0, 0);
+    }
+    .headingMobile02111 img {
+        float: left;
+        width: 20px;
+        padding: 10px 12px;
+    }
+    .headingMobile02111 div {
+        float: left;
+        width: calc(100% - 44px);
+        margin-top: 8px;
+        text-align: justify;
+        color: grey;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-family: 'Segoe UI Regular';
+        overflow: hidden;
+    }
+    .headingMobile02112 {
+        float: left;
+        width: 100%;
+        margin-top: 90px;
+    }
+    .headingMobile02112 div {
+        float: left;
+        width: 70%;
+        font-family: 'Segoe UI Regular';
+        margin-left: 25px;
+        color: white;
+        font-size: 35px;
+    }
+    .headingMobile02112 button {
+        float: left;
+        margin-left: 25px;
+        margin-top: 40px;
+        background-color: white;
+        border: none;
+        padding: 7px 15px;
+        font-size: 16px;
+        font-family: 'Segoe UI Regular';
+        border-radius: 7px;
+        padding-bottom: 9px;
+        outline: none;
+        box-shadow: 2px 2px 12-px rgb(59, 59, 59);
+    }
+    .headingMobile04211ContScroll {
+        float: left;
+        width: 100%;
+        overflow: hidden;
+        margin-top: 10px;
+        overflow-y: scroll;
+        white-space: nowrap;
+        height: calc(100vh - 80px); 
+    }
+
+    .headingMobile04 {
+        position: fixed;
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        background-color: rgb(255, 255, 255);
+    }
+    .headingMobile042 {
+        float: left;
+        height: 600px;
+        overflow: hidden;
+        width: 100%;
+    }
+    .headingMobile0421 {
+        float: left;
+        width: 100%;
+        height: 100%;
+    }
+    .headingMobile04211 {
+        float: left;
+        width: 85%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        margin-top: 20px;
+    }
+    .headingMobile04211 img {
+        float:left;
+        width: 15px;
+        padding: 10px;
+        border-radius: 50px;
+        padding-left: 5px;
+    }
+    .headingMobile04211 input {
+        float: left;
+        font-family: 'Segoe UI Regular';
+        margin-left: 10px;
+        height: 33px;
+        font-size: 17px;
+        width: calc(100% - 55px);
+        border: none;
+        outline: none;
+    }
+    
+    .headingMobile04211Heading {
+        margin-top: 10px;
+        float: left;
+        font-size: 14px;
+        width: 85%;
+        margin-bottom: 20px;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        font-family: 'Segoe UI Regular';
+    }
+    .headingMobile04212 {
+        float: left;
+        width: 85%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        margin-bottom: 10px;
+    }
+    .headingMobile04212 img {
+        float: left;
+        width: 30px;
+        border-radius: 12px;
+        padding: 10px;
+        background-color: rgba(218, 218, 218, 0.707);
+    }
+    .headingMobile042121 {
+        float: left;
+        width: calc(100% - 78px);
+        margin-top: 13px;
+        margin-left: 10px;
+        text-align: justify;
+        color: rgb(90, 90, 90);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        font-family: 'Segoe UI Regular';
+        overflow: hidden;
+    }
+
+    .headingMobile05 {
+        position: fixed;
+        overflow: hidden;
+        width: 100%;
+        height: 100vh;
+        background-color: rgba(255, 255, 255, 0);
+    }
+    .headingMobile051 {
+        float: left;
+        padding-top: 10px;
+        width: 250px;
+        height: 100vh;
+        background-color: white;
+    }
+    .headingMobile052 {
+        float: left;
+        width: calc(100% - 250px);
+        height: 100vh;
+        background-color: rgba(165, 31, 31, 0);
+    }
+    .headingMobile0511 {
+        float: left;
+        width: 90%;
+        margin-left: 50%;
+        transform: translateX(-50%);
+        margin-top: 10px;
+    }
+    .headingMobile0511 img {
+        width: 18px;
+        float: left;
+        margin-top: 2px;
+    }
+    .headingMobile0511 p {
+        float: left;
+        margin-left: 10px;
+        width: calc(100% - 30px);
+        font-family: 'Segoe UI Regular';
+        font-size: 15px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+    .headingMobile04211 div {
+        font-family: 'Segoe UI Regular';
+        font-size: 15px;
+        margin-top: 7px;
+        float: left;
+        width: 80%;
+        text-align: center;
+    }
+    .headingMobile06 {
+        width: auto;
+        float: left;
+        margin-left: 50%;
+        /* height: 100px; */
+        /* background-color: blue; */
+        transform: translateX(-50%);
+    }
+    .headingMobile06E4 {
+        width: 85%;
+        float: left;
+        margin-left: 50%;
+        /* height: 100px; */
+        /* background-color: blue; */
+        transform: translateX(-50%);
+    }
+    .headingMobile061 {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 70px;
+    }
+    .headingMobile0611 {
+        float: left;
+        color: black;
+        font-family: 'Segoe UI Regular';
+        font-size: 17px;
+        font-weight: 600;
+        text-decoration: underline;
+        width: 100px;
+        text-align: center;
+        padding-top: 19px;
+    }
+    .headingMobile0612 {
+        float: left;
+        width: calc(100% - 100px);
+    }
+    .headingMobile0612 button {
+        float: left;
+        margin-left: 80%;
+        transform: translateX(-50%);
+        margin-top: 17px;
+        border-radius: 4px;
+        outline: none;
+        border: none;
+        background-color: blue;
+        padding: 8px 16px;
+        color: white;
+    }
+
+    /* sign in or sign up */
+    .sign0 {
+        float: left;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        font-family: 'Segoe UI Regular';
+        margin-top: 0;
+    }
+    .sign01 {
+        display: none;
+    }
+    .sign02 {
+        float: left;
+        width: 100%;
+        height: 100%;
+    }
+} 

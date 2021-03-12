@@ -1,0 +1,66 @@
+@font-face {
+    font-family: 'Segoe UI Regular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Segoe UI Regular'), url('../fonts/Segoe\ UI.woff') format('woff');
+}
+
+.footerContainerMain {
+    font-family: 'Segoe UI Regular';
+    float: left;
+    width: 100%;
+    border-top: 1px solid lightgrey;
+    background-color: rgb(236, 236, 236);
+}
+.f0 {
+    float: left;
+    width: 90%;
+    margin-top: 45px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 40px;
+}
+.f01 {
+    float: left;
+    width: 25%;
+}
+.f011 {
+    float: left;
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(37, 37, 37);
+    margin-bottom: 15px;
+}
+.f012 {
+    float: left;
+    width: 100%;
+    margin-bottom: 4px;
+}
+.f012 a {
+    font-size: 14px;
+    font-weight: 500;
+    float: left;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+}
+.f012 a:hover {
+    text-decoration: underline;
+}
+.f1 {
+    float: left;
+    width: 90%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 20px;
+}
+.f11 {
+    float: left;
+    font-size: 15px;
+}
+.f11 a {
+    cursor: pointer;
+}
+.f11 a:hover {
+    color: rgb(44, 44, 44);
+}

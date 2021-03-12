@@ -1,0 +1,87 @@
+/* table */
+.d20t {
+    float: left;
+    width: 100%;
+    padding-top: 25px;
+}
+
+/* table heading */
+.d20th {
+    font-size: 16px;
+    margin-top: 17px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.d20th1 {
+    width: 3%;
+    text-align: left;
+    padding-left: 7px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+.d20th2, .d20th3, .d20th4, .d20th5, .d20th6 {
+    text-align: left;
+    width: 10%;
+}
+.d20th1, .d20th2, .d20th3, .d20th4, .d20th5, .d20th6,.d20th7 {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+.d20th2 {
+    width: 30%;
+}
+.d20th7 {
+    width: 2%;
+}
+.d20th7 img {
+    width: 20px;
+    margin-top: 5px;
+    float: left;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+.d20th4, .d20th5, .d20th6 {
+    text-align: center;
+}
+
+/* table rows */
+.d20tr {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+}
+.d20tr:hover {
+    background-color: rgba(240, 240, 240, 0.163);
+}
+.d20td1 {
+    padding-left: 12px;
+}
+.d20td1, .d20td2, .d20td3, .d20td4, .d20td5, .d20td6, .d20td7 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.d20td7 {
+    text-align: center;
+}
+.d20td7 img {
+    width: 15px;
+}
+.d20td2Img {
+    float: left;
+    width: 40px;
+    height: 40px;
+}
+.d20td2Img img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+}
+.d20td2 span {
+    float: left;
+    margin-top: 8px;
+    margin-left: 10px;
+}
+
+.d20td4, .d20td5, .d20td6 {
+    text-align: center;
+}
+
