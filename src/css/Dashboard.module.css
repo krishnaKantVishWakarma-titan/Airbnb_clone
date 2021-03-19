@@ -127,11 +127,9 @@
 .d20tr:hover {
     background-color: rgba(240, 240, 240, 0.326);
 }
-.d20td1 {
-    padding-left: 12px;
-}
 .d20td1, .d20td2, .d20td3, .d20td4, .d20td5, .d20td6, .d20td7 {
     padding-top: 10px;
+    /* background-color: blue; */
     padding-bottom: 10px;
 }
 .d20td7 {

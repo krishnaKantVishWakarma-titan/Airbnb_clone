@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import '../css/components.css';
 import varimg from '../img/demo/3.png';
-import {useState, useEffect} from 'react';
+import {useState, useEffect, useCallback, useRef} from 'react';
 import starIcon from '../img/icons/star.svg';
 // mobile
 import backIconGrey from '../img/icons/backGrey.svg';
@@ -14,7 +14,6 @@ import SetFav from '../components/SetFavHostelInfo';
 import headerStyle from '../css/headerMain.module.css';
 import loading from '../img/icons/loading.gif';
 import closeBtn from '../img/icons/close.png';
-import proPic from '../img/demo/24.png';
 import FbImg from '../img/icons/facebook.png';
 import googleImg from '../img/icons/google-plus.png';
 import twitter from '../img/icons/twitter.png';
@@ -30,14 +29,19 @@ import SignUpBanner from '../img/banners/undraw_mobile_payments_vftl.png';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import TwitterLogin from "react-twitter-login";
-import { Link, useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import Reviews from '../components/Review';
-import v21 from '../img/demo/21.png';
+import addSign from '../img/icons/addSign.png';
+import minusSign from '../img/icons/minusSign.png';
+// import v21 from '../img/demo/21.png';
 // import Map from '../components/Map';
 // import ImageSlider from '../components/ImageSlider';
 // base url
 import url from '../data/urls.json';
 import Map from "../components/Map";
+import swal from 'sweetalert';
+// date
+import { DateRange } from 'react-date-range';
 
 export default function HotelInfo() {
 
@@ -71,8 +75,12 @@ export default function HotelInfo() {
 
     const [langView, SetLAngView] = useState(false);
     const [userName, setUserName] = useState("null"); 
+    const [isAdmin, setIsAdmin] = useState(true);
     // run only once
     useEffect(() => {
+
+        localStorage.removeItem("startDate");
+        localStorage.removeItem("endDate");
 
         if (localStorage.getItem("token") === null) {
             setIsSignedIn(false);
@@ -94,6 +102,10 @@ export default function HotelInfo() {
         .then(res => res.json())
         .then(res => {
             console.log("hostdetail");
+            console.log(res.data);
+            if (res.data.userId === parseInt(JSON.parse(localStorage.getItem("token")).userId)) {
+                setIsAdmin(false);
+            }
             getUserDetails(res.data);
 
         })
@@ -221,7 +233,6 @@ export default function HotelInfo() {
 
     // google authentications
     const responseGoogle = resp => {
-
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -229,22 +240,41 @@ export default function HotelInfo() {
         method: 'POST',
         headers: myHeaders,
         body: JSON.stringify({
-            fname: resp.profileObj.givenName,
-            lname: resp.profileObj.familyName,
+            name: resp.profileObj.givenName + " " + resp.profileObj.familyName,
             email: resp.profileObj.email,
-            password: "",
-            login_type: "google0auth",
-            login_id: resp.profileObj.googleId,
-            profile_pic: resp.profileObj.imageUrl 
+            login_type: "google"
         }),
         redirect: 'follow'
         };
 
-        fetch("http://localhost:8080/setUser", requestOptions)
-        .then(response => response.text())
-        .then(result => alert(result))
-        .catch(error => console.log('error', error));
-        // alert("success !!!")
+        fetch(url.baseUrl+"socialAuth", requestOptions)
+        .then(response => response.json())
+        .then(res => {
+            if (res.code === 206) {
+                swal("", "Email not found !!!", "error");
+                setSignInPage(false);
+                setSignupPage(true);
+            }
+            if (res.code === 200) {
+                var userData = {
+                    "userId": res.user.id,
+                    "userToken": res.user.logintoken,
+                    "userName": res.user.name,
+                    "userEmail": res.user.email,
+                    "userProfile": res.user.profile_pic
+                }
+                if (localStorage.getItem("token") === null) {
+                    localStorage.setItem("token", JSON.stringify(userData));
+                    setUserName(res.user.name);
+                    setSignInPage(false);
+                    setIsSignedIn(true);
+
+                } else {
+                    alert("Storage error")
+                }
+            }
+        })
+        .catch(error => alert("not able to login"));
     }
     const responseGoogleFail = resp => {
         console.log("Google auth fail : "+resp);
@@ -318,6 +348,123 @@ export default function HotelInfo() {
         }
     }
 
+    useEffect(() => {
+        console.log(person)
+    }, [person]);
+    
+    // date
+    const outRefDate = useRef(null);
+    const inRefDate = useRef(null);
+    const clickHandleDate = e => {
+        if (inRefDate.current.contains(e.target)) return;
+        setDateView(false);
+    }
+    // Guest
+    const outRefGuest = useRef(null);
+    const inRefGuest = useRef(null);
+    const clickHandleGuest = e => {
+        if (inRefGuest.current.contains(e.target)) return;
+        setNoOfGuest(false);
+    }
+    const [noOfGuest,setNoOfGuest] = useState(false);
+    const [guestAdult, setGuestAdult] = useState(0);
+    const [guestChild, setGuestChild] = useState(0);
+    const [guestInfant, setGuestInfant] = useState(0);
+    const guestVal = sign => {
+
+        if (sign === "+") {
+            if (guestAdult+1 <= 6) {
+                if (guestAdult >= 0) {
+                    setGuestAdult(preV => preV + 1);
+                    console.log("+"+(guestAdult+1));
+                }
+            }
+        } else {
+            if (guestAdult > 0) {
+                setGuestAdult(preV => preV - 1);
+                console.log("-"+(guestAdult-1));
+            }
+        }
+    }
+    const childVal = sign => {
+
+        if (sign === "+") {
+            if (guestChild+1 <= 6) {
+                if (guestChild >= 0) {
+                    setGuestChild(preV => preV + 1);
+                }
+            }
+        } else {
+            if (guestChild > 0) {
+                setGuestChild(preV => preV - 1);
+            }
+        }
+    }
+    const infantVal = sign => {
+
+        if (sign === "+") {
+            if (guestInfant+1 <= 6) {
+                if (guestInfant >= 0) {
+                    setGuestInfant(preV => preV + 1);
+                }
+            }
+        } else {
+            if (guestInfant > 0) {
+                setGuestInfant(preV => preV - 1);
+            }
+        }
+    }
+    
+    // dates
+    const [dateView, setDateView] = useState(false);
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
+
+    // useEffect(() => {
+    //     if (localStorage.getItem("startDate") != null) {
+    //         setStartDate(new Date(localStorage.getItem("startDate")));
+    //         setEndDate(new Date(localStorage.getItem("endDate")));
+    //     }
+    // }, [startDate, endDate]);
+
+    const [dateApplyBtn, setDateApplyBtn] = useState(false);
+    const selectionRange = {
+        startDate: startDate,
+        endDate: endDate,
+        key: "selection"
+    };
+    const onDateApply = useCallback(() => {
+        console.log("startDate: ", startDate);
+        console.log("endDate: ", endDate);
+        localStorage.setItem("startDate", startDate);
+        localStorage.setItem("endDate", endDate);
+    }, [startDate, endDate]);
+    function handleDateSelect(ranges) {
+        setStartDate(ranges.selection.startDate);
+        setEndDate(ranges.selection.endDate);
+        setDateApplyBtn(true);
+    }
+    const bookingHandle = () => {
+        if (localStorage.getItem("token") === null) {
+            setSignInPage(true);
+        } else {
+            if (localStorage.getItem("startDate") === null) {
+                setDateView(true);
+            } else {
+                setNoOfGuest(true);
+            }
+        }
+    }
+    const finalHandle = () => {
+        history.push('/Booking', {
+            startDate: localStorage.getItem("startDate"),
+            endDate: localStorage.getItem("endDate"),
+            noOfAdult: guestAdult,
+            noOfChildren: guestChild,
+            noOfInfant: guestInfant,
+            hostingId: person.id
+        });
+    }
     if(!person) {
         return (<div style={{display: "flex", alignContent: "center", justifyContent: "center"}}><img style={{marginTop: "20%", width: "100px"}} src={loading} alt="" /></div>)
     } else {
@@ -344,8 +491,13 @@ export default function HotelInfo() {
 
                             <div className="carInfo01">
                                 
-                                <div className="carInfo01img1"><img src={bg} alt="" /></div>
-                                <div className="carInfo01img2"><img src={bg} alt="" /><img src={bg} alt="" /></div>
+                                
+                                {person.imageList[0] ? <div className="carInfo01img1"><img src={person.imageList[0]} alt="" /></div> : <div className="carInfo01img1"><img src={bg} alt="" /></div>}
+                                <div className="carInfo01img2">
+                                    {person.imageList[1] ? <img src={person.imageList[1]} alt="" /> : <img src={bg} alt="" />}
+                                    {person.imageList[2] ? <img src={person.imageList[2]} alt="" /> : <img src={bg} alt="" />}
+                                    {/* <img src={bg} alt="" /> */}
+                                </div>
                                 <div className="carInfo01img3">5+ Photos</div>
 
                             </div>
@@ -355,12 +507,12 @@ export default function HotelInfo() {
                                     <div className="hotelInfo0S">
                                         <div className="hotelInfo1">
                                             <div className="hotelInfo01">{person.listingTitle}</div>
-                                            <div className="hotelInfo01I0">St.Some address</div>
+                                            <div className="hotelInfo01I0">{person.addrStreet}, {person.addrCity}, {person.addrState}</div>
                                             <div style={{marginBottom: "15px", marginTop: "5px", float: "left"}}>{person.noOfGuests} guests . {person.bedrooms} bedroom . {person.noOfBed} bed . {person.baths} bathroom</div>
                                         </div>
                                     </div>
 
-                                    <div className="hotelInfo0S1">
+                                    {/* <div className="hotelInfo0S1">
                                         <div className="hotelInfo1">
                                             <div className="hotelInfo01">About Apartment</div>
                                             <div className="hotelInfo01I1">
@@ -369,7 +521,7 @@ export default function HotelInfo() {
                                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque repellat nisi voluptatum repellendus! Repudiandae, maiores laudantium esse doloribus blanditiis nihil aliquam enim ea doloremque saepe quis provident eaque cum ratione?
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> */}
 
                                     <div className="hotelInfo0S1">
                                         <div className="hotelInfo1">
@@ -393,7 +545,7 @@ export default function HotelInfo() {
                                 </div>
                             </div>
                             <div className="Map00">
-                                <Map />
+                                <Map lat={person.lat} lng={person.lng} />
                             </div>
                         </div>
                     </div>
@@ -401,12 +553,14 @@ export default function HotelInfo() {
                     <div className="carInfo1">
                         <div className="carInfo10">
                             <div className="carInfo101">$ {person.basePrice}/night</div>
-                            <div className="hotelInfo03">
-                                <SetFav val={person.isFav} id={person.id} isFavid={person.isFavid} openLogin={() => setSignInPage(true)} />
-                            </div>
+                            {isAdmin && (
+                                <div className="hotelInfo03">
+                                    <SetFav val={person.isFav} id={person.id} isFavid={person.isFavid} openLogin={() => setSignInPage(true)} />
+                                </div>
+                            )}
                         </div>
                         <div className="carInfo11">
-                            <img src={proPic} alt="" />
+                            <img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" />
                         </div>
                         <div className="carInfo12">{p.name}</div>
                         <div className="carInfo13">(Host)</div>
@@ -416,9 +570,13 @@ export default function HotelInfo() {
                                 . 68 Reviews
                             </spna>
                         </div>
-                        <div className="carInfo15"><button onClick={() => history.push('/Booking')}>Book Now</button></div>
-                        <div className="carInfo16">OR</div>
-                        <div className="carInfo17"><button>Add car to booking</button></div>
+                        {isAdmin && (
+                            <>
+                                <div className="carInfo15"><button onClick={bookingHandle}>Book Now</button></div>
+                                <div className="carInfo16">OR</div>
+                                <div className="carInfo17"><button>Add car to booking</button></div>
+                            </>
+                        )}
                     </div>
                     
                 </div>
@@ -479,6 +637,78 @@ export default function HotelInfo() {
                         </div>
                     </div>
                 </div>
+
+                {/* date */}
+                {dateView && (
+
+                    <div className="dateCont0" ref={outRefDate} onClick={e => clickHandleDate(e)}>
+                        <div className="dateCont01" ref={inRefDate} onClick={e => clickHandleDate(e)}>
+                            <DateRange
+                                showSelectionPreview={true}
+                                moveRangeOnFirstSelection={false}
+                                isOutsideRange={() => false}
+                                months={2}
+                                direction="horizontal"
+                                ranges={[selectionRange]} 
+                                onChange={handleDateSelect}
+                                minDate={new Date()}
+                            />
+                            {dateApplyBtn && (
+                                <div className="dateCont01CloseBtn"><button onClick={() => {
+                                    setDateView(false);
+                                    onDateApply();
+                                    setNoOfGuest(true);
+                                }}>Apply dates</button></div>
+                            )}
+                        </div>
+                    </div>
+
+                )}
+                {noOfGuest && (
+                    <div className="dateCont0" ref={outRefGuest} onClick={e => clickHandleGuest(e)}>
+                        <div className="deskSearch0N" ref={inRefGuest} onClick={e => clickHandleGuest(e)}>
+
+                            <div className="deskSearch0N1">
+
+                                <div className="deskSearch0N1head">No. of guests</div>
+                                
+                                <div className="deskSearch0N10">
+                                    <div className="deskSearch0N101">Adults</div>
+                                    <div className="deskSearch0N102">
+                                        <img src={minusSign} alt="" onClick={() => guestVal("-")} />
+                                        <div className="deskSearch0N1021">{guestAdult}</div>
+                                        <img src={addSign} alt="" onClick={() => guestVal("+")} /> 
+                                    </div>
+                                </div>
+
+                                <div className="deskSearch0N10">
+                                    <div className="deskSearch0N101">Childrens</div>
+                                    <div className="deskSearch0N102">
+                                        <img src={minusSign} alt="" onClick={() => childVal("-")} />
+                                        <div className="deskSearch0N1021">{guestChild}</div>
+                                        <img src={addSign} alt="" onClick={() => childVal("+")} /> 
+                                    </div>
+                                </div>
+
+                                <div className="deskSearch0N10">
+                                    <div className="deskSearch0N101">Infants</div>
+                                    <div className="deskSearch0N102">
+                                        <img src={minusSign} alt="" onClick={() => infantVal("-")} />
+                                        <div className="deskSearch0N1021">{guestInfant}</div>
+                                        <img src={addSign} alt="" onClick={() => infantVal("+")} /> 
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            {/* next button */}
+                            <div className="deskSearch03" style={{marginTop: "25px"}}>
+                                <button onClick={finalHandle}>Book</button>
+                            </div>
+
+                        </div>
+                    </div>
+                )}
 
                 {sideBar && (
                     isSignedIn ? 

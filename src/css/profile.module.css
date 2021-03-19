@@ -112,7 +112,8 @@
 .listHome0 {
     float: left;
     width: 90%;
-    max-width: 1300px;
+    margin-top: 50px;
+    max-width: 1000px;
     margin-left: 50%;
     transform: translateX(-50%);
 }
@@ -132,7 +133,8 @@
 .addCar0 {
     float: left;
     width: 100%;
-    margin-top: 20px;
+    margin-bottom: 40px;
+    margin-top: 10px;
 }
 .addCar0Btn {
     float: right;

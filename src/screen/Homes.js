@@ -53,6 +53,7 @@ import SignUpBanner from '../img/banners/undraw_mobile_payments_vftl.png';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import TwitterLogin from "react-twitter-login";
+import swal from 'sweetalert';
 
 import searchIcon from '../img/icons/searchSmallStrips.svg';
 
@@ -177,6 +178,7 @@ export default function Homes() {
                     console.log(res.data)
                     setPlaces(res.data);
                 } else {
+                    console.log(res.data)
                     getSavedList(JSON.parse(localStorage.getItem("token")).userId, res.data);
                 }
                 // getSavedList(JSON.parse(localStorage.getItem("token")).userId, res.data);
@@ -216,7 +218,8 @@ export default function Homes() {
         })
         .then(res => res.json())
         .then(res => {
-            console.log(res.result);
+            // console.log("main result")
+            // console.log(res.result);
             placesNearby(2, val);
             if (localStorage.getItem("token") === null) {
                 setPlaces(res.result);
@@ -237,22 +240,22 @@ export default function Homes() {
         })
         .then(res => res.json())
         .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             for (var has in data) {
                 for (var key in res.data) {
 
                     //search id
-                    console.log(data[has].id)
-                    console.log(res.data[key].hosting_id)
+                    // console.log(data[has].id)
+                    // console.log(res.data[key].hosting_id)
 
                     if (data[has].id === res.data[key].hosting_id) {
-                        console.log("keishna")
+                        // console.log("keishna")
                         data[has].isFav = true;
                         data[has].isFavid = res.data[key].Id
                     }
                 }
             }
-            console.log(data);
+            // console.log(data);
             setPlaces(data);
         })
         .catch(error => console.log(error));
@@ -439,7 +442,6 @@ export default function Homes() {
 
     // google authentications
     const responseGoogle = resp => {
-
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -447,22 +449,41 @@ export default function Homes() {
         method: 'POST',
         headers: myHeaders,
         body: JSON.stringify({
-            fname: resp.profileObj.givenName,
-            lname: resp.profileObj.familyName,
+            name: resp.profileObj.givenName + " " + resp.profileObj.familyName,
             email: resp.profileObj.email,
-            password: "",
-            login_type: "google0auth",
-            login_id: resp.profileObj.googleId,
-            profile_pic: resp.profileObj.imageUrl 
+            login_type: "google"
         }),
         redirect: 'follow'
         };
 
-        fetch("http://localhost:8080/setUser", requestOptions)
-        .then(response => response.text())
-        .then(result => alert(result))
-        .catch(error => console.log('error', error));
-        // alert("success !!!")
+        fetch(url.baseUrl+"socialAuth", requestOptions)
+        .then(response => response.json())
+        .then(res => {
+            if (res.code === 206) {
+                swal("", "Email not found !!!", "error");
+                setSignInPage(false);
+                setSignupPage(true);
+            }
+            if (res.code === 200) {
+                var userData = {
+                    "userId": res.user.id,
+                    "userToken": res.user.logintoken,
+                    "userName": res.user.name,
+                    "userEmail": res.user.email,
+                    "userProfile": res.user.profile_pic
+                }
+                if (localStorage.getItem("token") === null) {
+                    localStorage.setItem("token", JSON.stringify(userData));
+                    setUserName(res.user.name);
+                    setSignInPage(false);
+                    setIsSignedIn(true);
+
+                } else {
+                    alert("Storage error")
+                }
+            }
+        })
+        .catch(error => alert("not able to login"));
     }
     const responseGoogleFail = resp => {
         console.log("Google auth fail : "+resp);
@@ -520,9 +541,7 @@ export default function Homes() {
 
             })
             .catch(error => console.log(error));
-
         }
-
     }
 
     const responseFacebook = resp => {
@@ -542,6 +561,11 @@ export default function Homes() {
     // mobile
     const [editMobOption, setEditMobOption] = useState(false);
     const [filterOption, setFilterOption] = useState(false);
+
+    // filters
+    const [filter1, setFilter1] = useState(true);
+    const [filter2, setFilter2] = useState(true);
+    const [filter3, setFilter3] = useState(true);
 
     if (!places) {
         return (<div style={{display: "flex", alignContent: "center", justifyContent: "center"}}><img style={{marginTop: "20%", width: "100px"}} src={loading} alt="" /></div>)
@@ -563,8 +587,6 @@ export default function Homes() {
                                 <span onMouseEnter={() => setSideBar(true)} onMouseLeave={() => setSideBar(false)}>
                                     <img src={sidebarIcon} alt="" />
                                 </span>
-
-                                
 
                             </div>
 
@@ -607,7 +629,9 @@ export default function Homes() {
                     {/* hosting list */}
                     <div className="DetailListCont">
 
-                        {places.map((val, ind) => {return (
+                        {places
+                        // .filter(item => item.whatGuestBook == filter1)
+                        .map((val, ind) => {return (
                             <div className="DetailList0" key={ind}>
                                 <div className="DetailList01">
                                     <ImageSlider images={val.imageList} />
@@ -930,28 +954,28 @@ export default function Homes() {
                             <div className="PlacesNearYou911">
     
                                 <div className="PlacesNearYou9111">
-                                    <div className="PlacesNearYou91111"><input type="checkbox" /></div>
+                                    <div className="PlacesNearYou91111"><input type="checkbox" checked={filter1} onChange={e => setFilter1(e.target.checked)} /></div>
                                     <div className="PlacesNearYou91112">
                                         <div className="PlacesNearYou911111">Entire place</div>
                                         <div className="PlacesNearYou911112">Have a place to your self</div>
                                     </div>
                                 </div>
                                 <div className="PlacesNearYou9111">
-                                    <div className="PlacesNearYou91111"><input type="checkbox" /></div>
+                                    <div className="PlacesNearYou91111"><input type="checkbox"  checked={filter2} onChange={e => setFilter2(e.target.checked)} /></div>
                                     <div className="PlacesNearYou91112">
                                         <div className="PlacesNearYou911111">Shared spaces</div>
                                         <div className="PlacesNearYou911112">Stay in a shared space, like a common room</div>
                                     </div>
                                 </div>
-                                <div className="PlacesNearYou9111">
-                                    <div className="PlacesNearYou91111"><input type="checkbox" /></div>
+                                {/* <div className="PlacesNearYou9111">
+                                    <div className="PlacesNearYou91111"><input type="checkbox" checked /></div>
                                     <div className="PlacesNearYou91112">
                                         <div className="PlacesNearYou911111">Private room</div>
                                         <div className="PlacesNearYou911112">Have your own room and share some common spaces</div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="PlacesNearYou9111">
-                                    <div className="PlacesNearYou91111"><input type="checkbox" /></div>
+                                    <div className="PlacesNearYou91111"><input type="checkbox"  checked={filter3} onChange={e => setFilter3(e.target.checked)} /></div>
                                     <div className="PlacesNearYou91112">
                                         <div className="PlacesNearYou911111">Hotel room</div>
                                         <div className="PlacesNearYou911112">Have a private or shared room in a boutique hotel, hostel, and more</div>
@@ -959,9 +983,9 @@ export default function Homes() {
                                 </div>
     
                             </div>
-                            <div className="PlacesNearYou912">
+                            {/* <div className="PlacesNearYou912">
                                 <button>Apple</button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 )}
@@ -985,7 +1009,7 @@ export default function Homes() {
                                         isSignedIn ? 
                                             <div className={headerStyle.headSideBar} onMouseEnter={() => setSideBar(true)} onMouseLeave={() => setSideBar(false)}>
                                                 <div className="headSideBar011S0">
-                                                <div className="headSideBar011S01"><img src={userIcon} alt="" /></div>
+                                                <div className="headSideBar011S01"><img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" /></div>
                                                 <div className="headSideBar011S02">{userName} 
                                                     <div className="headSideBar011S021">{JSON.parse(localStorage.getItem("token")).userEmail}</div>
                                                 </div>

@@ -32,7 +32,10 @@ import currencyName from '../data/currencyName.json';
 
 import { useHistory } from 'react-router-dom';
 import Switch from "react-switch";
-// import swal from 'sweetalert';
+
+// import S3 from 'react-aws-s3';
+import {uploadFile} from 'react-s3'
+import swal from 'sweetalert';
 
 const mapContainerStyle = {
     width: "100%",
@@ -42,6 +45,14 @@ const option = {
     disableDefaultUI: true,
     zoomControl: true
 };
+
+const config = {
+    bucketName: 'checkin-images-upload',
+    region: 'ap-south-1',
+    accessKeyId: 'AKIASYXDSNXSLCU3MSKO',
+    secretAccessKey: '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'
+  };
+//   const ReactS3Client = new S3(config);
 
 export default function HostYourApartment() {
 
@@ -98,6 +109,25 @@ export default function HostYourApartment() {
     const p13_3 = useRef(null);
     const p13_4 = useRef(null);
 
+    // upload video to s3
+    const [videoUploading, setvideoUploading] = useState(false);
+    const [videoList, updateVideoList] = useState([]);
+    const fileInput = useRef();
+    const handleClickUploadImage = e => {
+        e.preventDefault();
+        console.log(fileInput.current);
+        let file = fileInput.current.files[0];
+        setvideoUploading(true);
+        
+        uploadFile(file, config)
+            .then(res => {
+                updateVideoList([...videoList, res.location]);
+                console.log(res)
+                setvideoUploading(false);
+            })
+            .catch(e => console.log(e))
+    }
+
     // images
     const [imageList, setImageList] = useState([]);
     const [selectedImage, setSelectedImage] = useState([]);
@@ -119,6 +149,7 @@ export default function HostYourApartment() {
         .then(response => response.json())
         .then(result => {
             var imageLink = result.Data;
+            console.log(result.data)
             imageLink.map(val => setImageList(prevImg => prevImg.concat(val.Location)));
         })
         .catch(error => console.log('error', error));
@@ -209,6 +240,41 @@ export default function HostYourApartment() {
             return <div className="uploadedImage"><img src={photo} key={photo} alt="" /></div>
         })
     }
+
+    // map
+    const [center, setCenter] = useState({
+        lat: 43,
+        lng: 43
+    });
+    const [address, setAddress] = useState('');
+    const [markers, setMarkers] = useState([]);
+    const onMapClick = useCallback(e => {
+        console.log(e.latLng.lat(), e.latLng.lng())
+        setMarkers([{
+            lat: e.latLng.lat(),
+            lng: e.latLng.lng(),
+        }]);
+    }, []);
+    const mapRef = useRef();
+    const onMapLoad = useCallback(map => {
+        mapRef.current = map;
+    }, []);
+    const handleSelect = async address => {
+        setAddress(address);
+        geocodeByAddress(address)
+        .then(results => getLatLng(results[0]))
+        .then(latLng => {
+        setCenter({
+            lat: latLng.lat,
+            lng: latLng.lng
+        });
+        console.log('Success', latLng);
+        })
+        .catch(error => console.error('Error', error));
+    };
+    useEffect(() => {
+        console.log(markers);
+    }, [markers]);
 
     // states variables
     const [allVar, setAllVar] = useState({
@@ -457,16 +523,20 @@ export default function HostYourApartment() {
             "addrHouseNumber":allVar.addrHouseNumber,
             "addrStreet":allVar.addrStreet,
             "addrCity":allVar.addrCity,
-            "addrState":allVar.addrState
+            "addrState":allVar.addrState,
+
+            "lat": markers[0].lat,
+            "lng": markers[0].lng,
+            "forGuestOnly": "",
+            "video": videoList[0]
         }),
         redirect: 'follow'
         };
 
         fetch(url.baseUrl+ "host", requestOptions)
         .then(response => response.json())
-        .then(result => history.push("/HostProperty/"+result.id))
+        .then(result => history.push("/hotelInfo/"+result.id))
         .catch(error => console.log(error));
-
     }
 
     // currency setup
@@ -478,37 +548,7 @@ export default function HostYourApartment() {
         }
     }
 
-    // map
-    const [center, setCenter] = useState({
-        lat: 43,
-        lng: 43
-    });
-    const [address, setAddress] = useState('');
-    const [markers, setMarkers] = useState([]);
-    const onMapClick = useCallback(e => {
-        console.log(e.latLng.lat(), e.latLng.lng())
-        setMarkers([{
-            lat: e.latLng.lat(),
-            lng: e.latLng.lng(),
-        }]);
-    }, []);
-    const mapRef = useRef();
-    const onMapLoad = useCallback(map => {
-        mapRef.current = map;
-    }, []);
-    const handleSelect = async address => {
-        setAddress(address);
-        geocodeByAddress(address)
-        .then(results => getLatLng(results[0]))
-        .then(latLng => {
-        setCenter({
-            lat: latLng.lat,
-            lng: latLng.lng
-        });
-        console.log('Success', latLng);
-        })
-        .catch(error => console.error('Error', error));
-    };
+    
 
     return(
 
@@ -1086,9 +1126,15 @@ export default function HostYourApartment() {
                             <div className="HostYourApartment21">
 
                                 <div className="HostYourApartment212">
-                                    <div className="HostYourApartment2121">Add Photos</div>
-                                    <div className="HostYourApartment2122"><img src={addRectIcon} alt="" /></div>
+                                    <form onSubmit={handleClickUploadImage}>
+                                        <input ref={fileInput} type="file" accept="video/*" /><br />
+                                        {videoUploading && <div>Uploading ...</div>}
+                                        {/* <label htmlFor="file">Select video</label> */}
+                                        <button type="submit">Upload Video</button>
+                                    </form>
                                 </div>
+
+                                {/* {videoList.length > 0 ? (<div>t<div>) : (<div>f</div>)} */}
 
                             </div>
                             <div className="HostYourApartment22">

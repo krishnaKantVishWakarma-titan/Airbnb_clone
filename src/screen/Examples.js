@@ -3,6 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { Button } from "@material-ui/core";
+import { useEffect, useRef, useState } from "react";
 
 // import { useCallback, useEffect, useRef, useState } from "react";
 // import Examples from "../components/ImageSlider";
@@ -60,14 +61,17 @@ import { Button } from "@material-ui/core";
 //     const guestVal = sign => {
 
 //         if (sign === "+") {
-//             if (guestAdult >= 0) {
+//             if (guestAdult < 6) {
+//               if (guestAdult >= 0) {
 //                 setGuestAdult(preV => preV + 1);
+//               }
 //             }
 //         } else {
 //             if (guestAdult > 0) {
 //                 setGuestAdult(preV => preV - 1);
 //             }
 //         }
+//         console.log(guestAdult);
 //     }
 
 //     return(
@@ -709,49 +713,49 @@ import { Button } from "@material-ui/core";
 //   );
 // }
 
-import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
+// import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 
-export default function Example () {
-  const stripe = useStripe();
-  const elements = useElements();
+// export default function Example () {
+//   const stripe = useStripe();
+//   const elements = useElements();
 
-  const handleSubmit = async (event) => {
-    // Block native form submission.
-    event.preventDefault();
+//   const handleSubmit = async (event) => {
+//     // Block native form submission.
+//     event.preventDefault();
 
-    if (!stripe || !elements) {
-      // Stripe.js has not loaded yet. Make sure to disable
-      // form submission until Stripe.js has loaded.
-      return;
-    }
+//     if (!stripe || !elements) {
+//       // Stripe.js has not loaded yet. Make sure to disable
+//       // form submission until Stripe.js has loaded.
+//       return;
+//     }
 
-    // Get a reference to a mounted CardElement. Elements knows how
-    // to find your CardElement because there can only ever be one of
-    // each type of element.
-    const cardElement = elements.getElement(CardElement);
+//     // Get a reference to a mounted CardElement. Elements knows how
+//     // to find your CardElement because there can only ever be one of
+//     // each type of element.
+//     const cardElement = elements.getElement(CardElement);
 
-    // Use your card Element with other Stripe.js APIs
-    const {error, paymentMethod} = await stripe.createPaymentMethod({
-      type: 'card',
-      card: cardElement,
-    });
+//     // Use your card Element with other Stripe.js APIs
+//     const {error, paymentMethod} = await stripe.createPaymentMethod({
+//       type: 'card',
+//       card: cardElement,
+//     });
 
-    if (error) {
-      console.log('[error]', error);
-    } else {
-      console.log('[PaymentMethod]', paymentMethod);
-    }
-  };
+//     if (error) {
+//       console.log('[error]', error);
+//     } else {
+//       console.log('[PaymentMethod]', paymentMethod);
+//     }
+//   };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <CardElement />
-      <button type="submit" disabled={!stripe}>
-        Pay
-      </button>
-    </form>
-  );
-};
+//   return (
+//     <form onSubmit={handleSubmit}>
+//       <CardElement />
+//       <button type="submit" disabled={!stripe}>
+//         Pay
+//       </button>
+//     </form>
+//   );
+// };
 
 
 // import {CardElement} from '@stripe/react-stripe-js';
@@ -818,3 +822,123 @@ export default function Example () {
 //     </form>
 //   );
 // };
+
+
+// import S3 from 'react-aws-s3';
+// import {uploadFile} from 'react-s3'
+// const config = {
+//   bucketName: 'checkin-images-upload',
+//   region: 'ap-south-1',
+//   accessKeyId: 'AKIASYXDSNXSLCU3MSKO',
+//   secretAccessKey: '0VlUDSPXcwYyRxFYdtDNsugXDFBQg0N8XCFYrKNA'
+// };
+// // const ReactS3Client = new S3(config);
+// export default function Examples () {
+
+//   const fileInput = useRef();
+
+//   const handleClickUploadImage = e => {
+//     e.preventDefault();
+//     console.log(fileInput.current);
+//     let file = fileInput.current.files[0];
+//     // let newFileName = fileInput.current.files[0];
+    
+//     uploadFile(file, config)
+//       .then(d => console.log(d))
+//       .catch(e => console.log(e))
+//   }
+
+//   return (
+//     <>
+    
+      // <form onSubmit={handleClickUploadImage}>
+      //   <input ref={fileInput} type="file" /><br />
+      //   <button type="submit">Upload</button>
+      // </form>
+    
+//     </>
+//   );
+// }
+
+// import StripeCheckout from 'react-stripe-checkout';
+// export default function Examples () {
+//   const publishKey = 'pk_test_51IU641B0we3rFF4ATyeu6ynAS3VezsJ6FDgUXaxlqrQLMKKjA9d5rPGboWuDPzN7PJND7uuG3jkYD8lgAoewBDtT00eU6MZnNO';
+//   const onToken = token => {
+//     console.log(token);
+//     alert('pay success');
+//   }
+//   return (
+//     <>
+//       <div>krishna</div>
+//       {/* <StripeCheckout 
+//         token={onToken}
+//         stripeKey={publishKey}
+//       >
+//         confirm
+//       </StripeCheckout> */}
+//     </>
+//   );
+// }
+
+// export default function Examples () {
+//   const [list, updateList] = useState([]);
+//   const inputT = useRef(null);
+//   const onSubmit = () => {
+//     // console.log(inputT.current.value);
+//     updateList([...list, inputT.current.value])
+//   }
+//   const removeItem = index => {
+//     // alert(index)
+//     const temp = [...list];
+//     temp.splice(index, 1);
+//     updateList(temp);
+//   }
+//   useEffect(() => {
+//     console.log(list);
+//   }, [list]);
+
+//   return(
+//     <>
+    
+//       <input type="text" ref={inputT} />
+//       <button onClick={onSubmit}>Click</button>
+//       <br />
+//       <br />
+//       <br />
+//       <br />
+//       <br />
+//       <br />
+//       <ul>
+//         {list.map((val, index) => {
+//           return (
+//             <>
+//               <li key={index} onClick={() => removeItem(index)}>{val}</li>
+//             </>
+//           );
+//         })}
+//       </ul>
+
+//     </>
+//   );
+// }
+
+
+export default function Examples () {
+
+  const arr = [2, 5, 8, 7];
+
+  return (
+
+    <>
+      <div>krishna</div>
+
+      {arr
+      .filter(item => item > 5)
+      .map(item => {
+        return<p>{item}</p>
+      })}
+    
+    </>
+
+  );
+}

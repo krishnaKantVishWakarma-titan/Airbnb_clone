@@ -168,7 +168,7 @@ export default function Saved () {
             {sideBar && (
                 <div className={headerStyle.headSideBar} onMouseEnter={() => setSideBar(true)} onMouseLeave={() => setSideBar(false)}>
                         <div className={headerStyle.headSideBar011S0}>
-                            <div className={headerStyle.headSideBar011S01}><img src={userIcon} alt="" /></div>
+                            <div className={headerStyle.headSideBar011S01}><img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" /></div>
                             <div className={headerStyle.headSideBar011S02}>{JSON.parse(localStorage.getItem("token")).userName} 
                                 <div className={headerStyle.headSideBar011S021}>{JSON.parse(localStorage.getItem("token")).userEmail}</div>
                             </div>

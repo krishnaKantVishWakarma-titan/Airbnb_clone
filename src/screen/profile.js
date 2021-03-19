@@ -18,12 +18,13 @@ import addButton from '../img/icons/add-user-button.svg';
 
 import editIcon from '../img/icons/pencilGreyIcon.svg';
 import deleteIcon from '../img/icons/deleteRedIcon.svg';
-import userIcon from '../img/icons/user.png';
 import headerStyle from '../css/headerMain.module.css';
 
 import v1 from '../img/icons/bed.png';
 import v2 from '../img/icons/bath.png';
 import v3 from '../img/icons/year.png';
+import ImageSlider from '../components/ImageSlider';
+import { parse } from 'date-fns';
 
 export default function profile() {
 
@@ -40,7 +41,8 @@ export default function profile() {
     // tabs
     const [tab0, setTab0] = useState(true);
     const [tab1, setTab1] = useState(false);
-    const [tab2, setTab2] = useState(false)
+    const [tab2, setTab2] = useState(false);
+    const [tab3, setTab3] = useState(false);
     const activateListing = () => {
         fetch(url.baseUrl+"host/userid/"+JSON.parse(localStorage.getItem("token")).userId, {
             method: "get",
@@ -53,6 +55,41 @@ export default function profile() {
         .then(res => {
             console.log(res.data);
             setHosting(res.data);
+        })
+        .catch(error => console.log(error));
+    }
+    const [carhosting, setCarHosting] = useState(null);
+    const activateCarListing = () => {
+        fetch(url.baseUrl+"host/userid/"+JSON.parse(localStorage.getItem("token")).userId, {
+            method: "get",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res.data);
+            setCarHosting(res.data);
+        })
+        .catch(error => console.log(error));
+    }
+    const [reserList, setReserList] = useState(null);
+    const activateReservationList = () => {
+        fetch(url.baseUrl+"getListofBookings", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "userId": parseInt(JSON.parse(localStorage.getItem("token")).userId)
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res.data);
+            setReserList(res.data);
         })
         .catch(error => console.log(error));
     }
@@ -76,11 +113,11 @@ export default function profile() {
                 <div className={styles.header0}>
 
                     <div className={styles.header01}>
-                        <div onClick={() => {setTab1(false);setTab2(false);setTab0(true)}} className={styles.header011}>Home</div>
+                        <div onClick={() => {setTab1(false);setTab2(false);setTab0(true);setTab3(false);}} className={styles.header011}>Home</div>
                         <div onClick={() => history.push("/chats")} className={styles.header011}>Inbox</div>
-                        <div className={styles.header011}>Reservations</div>
-                        <div onClick={() => {setTab1(false);setTab0(false);setTab2(true);activateListing();}} className={styles.header011}>Cars</div>
-                        <div onClick={() => {setTab0(false);setTab2(false);setTab1(true);activateListing();}} className={styles.header011}>Listings</div>
+                        <div onClick={() => {setTab3(true);setTab1(false);setTab2(false);setTab0(false);activateReservationList();}} className={styles.header011}>Reservations</div>
+                        <div onClick={() => {setTab1(false);setTab0(false);setTab2(true);setTab3(false);activateCarListing();}} className={styles.header011}>Cars</div>
+                        <div onClick={() => {setTab0(false);setTab2(false);setTab1(true);setTab3(false);activateListing();}} className={styles.header011}>Listings</div>
                         <div className={styles.header011}>Help</div>
                     </div>
 
@@ -116,35 +153,25 @@ export default function profile() {
                         <div className={styles.listHome0}>
                             
                             {hosting ? (
-                                <table className={ds.d20t}>
-                                    <tbody>
-                                        <tr className={ds.d20th}>
-                                            <th className={ds.d20th1}>No</th>
-                                            <th className={ds.d20th2}>Listing</th>
-                                            <th className={ds.d20th3}>Last Modified</th>
-                                            <th className={ds.d20th4}>Bedrooms</th>
-                                            <th className={ds.d20th5}>Beds</th>
-                                            <th className={ds.d20th6}>Bathrooms</th>
-                                            <th className={ds.d20th7}><img src={settingsIcon} alt='' /></th>
-                                        </tr>
-
-                                        {hosting.map(host => {return (
-                                            <tr className={ds.d20tr} key={host.id}>
-                                                <td className={ds.d20td1}>{host.id}</td>
-                                                <td className={ds.d20td2}>
-                                                    <div className={ds.d20td2Img}><img src={adminPro} alt="" /></div>
-                                                    <span>{host.listingTitle}</span>
-                                                </td>
-                                                <td className={ds.d20td3}>23-01-2021</td>
-                                                <td className={ds.d20td4}>{host.bedrooms}</td>
-                                                <td className={ds.d20td5}>{host.noOfBed}</td>
-                                                <td className={ds.d20td6}>{host.baths}</td>
-                                                <td className={ds.d20td7}><img src={moreIcon} alt='' /></td>
-                                            </tr>
-                                        )})}
-
-                                    </tbody>
-                                </table>
+                                <>
+                                    {hosting.map((val, key) => {return (
+                                        <div className="DetailList0" key={key}>
+                                            <div className="DetailList01">
+                                                <ImageSlider images={val.imageList} />
+                                            </div>
+                                            <div className="DetailList02">
+                                                <div className="DetailList02Side0">
+                                                    <div className="DetailList02Side01">
+                                                        <div className="DetailList021" onClick={() => history.push(`/hotelInfo/${val.id}`)}>{val.whatGuestBook}</div>
+                                                        <div className="DetailList022" onClick={() => history.push(`/hotelInfo/${val.id}`)}>{val.listingTitle}</div>
+                                                    </div>
+                                                </div>
+                                                <div className="DetailList023">{val.noOfGuests} guests . Studio . {val.noOfBed} beds . {val.baths} bathroom</div>
+                                                <div className="DetailList024">$ {val.basePrice}/night</div>
+                                            </div>
+                                        </div>
+                                    )})}    
+                                </>
                             ) : (
                                 <div className={styles.loading0}><img className={styles.loading01} src={loading} alt="" /></div>
                             )}
@@ -159,7 +186,72 @@ export default function profile() {
                                     <div className={styles.addCar0Btn} onClick={() => history.push("/hostCars")}>Host your car</div>
                                 </div>
 
-                                {hosting ? (
+                                {carhosting ? (
+                                    // <table className={ds.d20t}>
+                                    //     <tbody>
+                                    //         <tr className={ds.d20th}>
+                                    //             <th className={ds.d20th1}>No</th>
+                                    //             <th className={ds.d20th2}>Listing</th>
+                                    //             <th className={ds.d20th3}>Last Modified</th>
+                                    //             <th className={ds.d20th4}>Bedrooms</th>
+                                    //             <th className={ds.d20th5}>Beds</th>
+                                    //             <th className={ds.d20th6}>Bathrooms</th>
+                                    //             <th className={ds.d20th7}><img src={settingsIcon} alt='' /></th>
+                                    //         </tr>
+
+                                    //         {hosting.map(host => {return (
+                                    //             <tr className={ds.d20tr} key={host.id}>
+                                    //                 <td className={ds.d20td1}>{host.id}</td>
+                                    //                 <td className={ds.d20td2}>
+                                    //                     <div className={ds.d20td2Img}><img src={adminPro} alt="" /></div>
+                                    //                     <span>{host.listingTitle}</span>
+                                    //                 </td>
+                                    //                 <td className={ds.d20td3}>23-01-2021</td>
+                                    //                 <td className={ds.d20td4}>{host.bedrooms}</td>
+                                    //                 <td className={ds.d20td5}>{host.noOfBed}</td>
+                                    //                 <td className={ds.d20td6}>{host.baths}</td>
+                                    //                 <td className={ds.d20td7}><img src={moreIcon} alt='' /></td>
+                                    //             </tr>
+                                    //         )})}
+
+                                    //     </tbody>
+                                    // </table>
+
+                                    <>
+                                        {carhosting.map((val, key) => {return (
+                                            <div className="DetailList0" key={key}>
+                                                <div className="DetailList01">
+                                                    <ImageSlider images={val.imageList} />
+                                                </div>
+                                                <div className="DetailList02">
+                                                    <div className="DetailList02Side0">
+                                                        <div className="DetailList02Side01">
+                                                            <div className="DetailList021" onClick={() => history.push(`/hotelInfo/${val.id}`)}>{val.whatGuestBook}</div>
+                                                            <div className="DetailList022" onClick={() => history.push(`/hotelInfo/${val.id}`)}>{val.listingTitle}</div>
+                                                        </div>
+                                                    </div>
+                                                    <div className="DetailList023">{val.noOfGuests} guests . Studio . {val.noOfBed} beds . {val.baths} bathroom</div>
+                                                    <div className="DetailList024">$ {val.basePrice}/night</div>
+                                                </div>
+                                            </div>
+                                        )})}    
+                                    </>
+                                ) : (
+                                    <div className={styles.loading0}><img className={styles.loading01} src={loading} alt="" /></div>
+                                )}
+                            </div>
+                        
+                        </>
+                    )}
+
+                    {tab3 && (
+                        <>
+                            <div className={styles.listHome0}>
+                                {/* <div className={styles.addCar0}>
+                                    <div className={styles.addCar0Btn} onClick={() => history.push("/hostCars")}>Host your car</div>
+                                </div> */}
+
+                                {reserList ? (
                                     <table className={ds.d20t}>
                                         <tbody>
                                             <tr className={ds.d20th}>
@@ -172,17 +264,17 @@ export default function profile() {
                                                 <th className={ds.d20th7}><img src={settingsIcon} alt='' /></th>
                                             </tr>
 
-                                            {hosting.map(host => {return (
-                                                <tr className={ds.d20tr} key={host.id}>
-                                                    <td className={ds.d20td1}>{host.id}</td>
+                                            {reserList.map((host, key) => {return (
+                                                <tr className={ds.d20tr} key={key}>
+                                                    <td className={ds.d20td1}>{key+1}</td>
                                                     <td className={ds.d20td2}>
-                                                        <div className={ds.d20td2Img}><img src={adminPro} alt="" /></div>
+                                                        {/* <div className={ds.d20td2Img}><img src={adminPro} alt="" /></div> */}
                                                         <span>{host.listingTitle}</span>
                                                     </td>
-                                                    <td className={ds.d20td3}>23-01-2021</td>
-                                                    <td className={ds.d20td4}>{host.bedrooms}</td>
-                                                    <td className={ds.d20td5}>{host.noOfBed}</td>
-                                                    <td className={ds.d20td6}>{host.baths}</td>
+                                                    <td className={ds.d20td3}>{host.amountPaid}</td>
+                                                    <td className={ds.d20td4}>{host.guests}</td>
+                                                    <td className={ds.d20td5}>{new Date(host.fromDate).getDate()}/{new Date(host.fromDate).getMonth()}/{new Date(host.fromDate).getFullYear()}</td>
+                                                    <td className={ds.d20td6}>{new Date(host.toDate).getDate()}/{new Date(host.toDate).getMonth()}/{new Date(host.toDate).getFullYear()}</td>
                                                     <td className={ds.d20td7}><img src={moreIcon} alt='' /></td>
                                                 </tr>
                                             )})}
@@ -193,7 +285,6 @@ export default function profile() {
                                     <div className={styles.loading0}><img className={styles.loading01} src={loading} alt="" /></div>
                                 )}
                             </div>
-                        
                         </>
                     )}
 
@@ -306,7 +397,7 @@ export default function profile() {
             {sideBar && (
                 <div className={headerStyle.headSideBar} onMouseEnter={() => setSideBar(true)} onMouseLeave={() => setSideBar(false)}>
                         <div className={headerStyle.headSideBar011S0}>
-                            <div className={headerStyle.headSideBar011S01}><img src={userIcon} alt="" /></div>
+                            <div className={headerStyle.headSideBar011S01}><img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" /></div>
                             <div className={headerStyle.headSideBar011S02}>{JSON.parse(localStorage.getItem("token")).userName} 
                                 <div className={headerStyle.headSideBar011S021}>{JSON.parse(localStorage.getItem("token")).userEmail}</div>
                             </div>

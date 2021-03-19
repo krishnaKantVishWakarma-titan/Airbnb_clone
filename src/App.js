@@ -33,6 +33,7 @@ import React, { useEffect, useState } from 'react';
 import {IntlProvider} from 'react-intl';
 import English from './translations/en.json';
 import Hindi from './translations/hi.json';
+import CarDetail from './screen/Cardetails';
 
 import MetaTags from 'react-meta-tags';
 function App() {
@@ -104,8 +105,8 @@ function App() {
             <Route exact path="/chats">
               <Chats data="krishna" />
             </Route>
-            <Route exact path="/carInfo">
-              <CarInfo data="krishna" />
+            <Route exact path="/carInfo/:id">
+              <CarDetail data="krishna" />
             </Route>
             <Route exact path="/carsList">
               <CarList data="krishna" />

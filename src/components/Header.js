@@ -22,7 +22,6 @@ import downArrow from '../img/icons/down-arrow.png';
 import sidebarIcon from '../img/icons/sidebar.png';
 import worldIcon from '../img/icons/worldIcon.png';
 import closeBtn from '../img/icons/close.png';
-import userIcon from '../img/icons/user.png';
 
 import LoginBanner from '../img/banners/undraw_enter_uhqk.png';
 import SignUpBanner from '../img/banners/undraw_mobile_payments_vftl.png';
@@ -331,27 +330,48 @@ export default function Header() {
     const responseGoogle = resp => {
         console.log("google: "+resp.profileObj)
 
-        // var myHeaders = new Headers();
-        // myHeaders.append("Content-Type", "application/json");
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
 
-        // var requestOptions = {
-        // method: 'POST',
-        // headers: myHeaders,
-        // body: JSON.stringify({
-        //     fname: resp.profileObj.givenName,
-        //     lname: resp.profileObj.familyName,
-        //     email: resp.profileObj.email,
-        //     password: "",
-        //     login_type: "google0auth",
-        //     login_id: resp.profileObj.googleId,
-        //     profile_pic: resp.profileObj.imageUrl 
-        // }),
-        // redirect: 'follow'
-        // };
+        var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: JSON.stringify({
+            name: resp.profileObj.givenName + " " + resp.profileObj.familyName,
+            email: resp.profileObj.email,
+            login_type: "google"
+        }),
+        redirect: 'follow'
+        };
 
-        // fetch("http://localhost:8080/setUser", requestOptions)
-        // .then(response => response.text())
-        // .catch(error => alert("not able to login"));
+        fetch(url.baseUrl+"socialAuth", requestOptions)
+        .then(response => response.json())
+        .then(res => {
+            if (res.code === 206) {
+                swal("", "Email not found !!!", "error");
+                setSignInPage(false);
+                setSignupPage(true);
+            }
+            if (res.code === 200) {
+                var userData = {
+                    "userId": res.user.id,
+                    "userToken": res.user.logintoken,
+                    "userName": res.user.name,
+                    "userEmail": res.user.email,
+                    "userProfile": res.user.profile_pic
+                }
+                if (localStorage.getItem("token") === null) {
+                    localStorage.setItem("token", JSON.stringify(userData));
+                    setUserName(res.user.name);
+                    setSignInPage(false);
+                    setIsSignedIn(true);
+
+                } else {
+                    alert("Storage error")
+                }
+            }
+        })
+        .catch(error => alert("not able to login"));
 
     }
     const responseGoogleFail = resp => {
@@ -464,11 +484,9 @@ export default function Header() {
     }
 
     return (
-
-        <>
-                            
+        <>                
             {/* desktop version  */}
-            <div className="header" onClick={() => alert("j")}>
+            <div className="header">
                 <div className="headUpTxt">
                     <FormattedMessage 
                         id="covidTitle"
@@ -953,7 +971,7 @@ export default function Header() {
                 isSignedIn ? 
                     <div className="headSideBar" onMouseEnter={() => setSideBar(true)} onMouseLeave={() => setSideBar(false)}>
                         <div className="headSideBar011S0">
-                            <div className="headSideBar011S01"><img src={userIcon} alt="" /></div>
+                            <div className="headSideBar011S01"><img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" /></div>
                             <div className="headSideBar011S02">{userName} 
                                 <div className="headSideBar011S021">{JSON.parse(localStorage.getItem("token")).userEmail}</div>
                             </div>

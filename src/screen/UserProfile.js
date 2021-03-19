@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
 import styles from '../css/profile.module.css';
@@ -11,36 +11,76 @@ import backBtnIcon from '../img/icons/backGrey.svg';
 import backIcon from '../img/icons/headerMinBack.png';
 import userIcon from '../img/icons/user.png';
 import headerStyle from '../css/headerMain.module.css';
+import url from '../data/urls.json';
+
+import {uploadFile} from 'react-s3'
+const config = {
+    bucketName: 'checkin-images-upload',
+    region: 'ap-south-1',
+    accessKeyId: 'AKIASYXDSNXSLCU3MSKO',
+    secretAccessKey: '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'
+  };
 
 export default function UserProfile() {
 
     const [userName, setUserName] = useState(null);
-
     const [sideBar, setSideBar] = useState(false);
-
     const history = useHistory();
+    const [profilePic, setProfilePic] = useState(null);
     useEffect(() => {
         if (localStorage.getItem("token") === null) {
             history.push('/');
         } else {
             setUserName(JSON.parse(localStorage.getItem("token")).userName);
+            setProfilePic(JSON.parse(localStorage.getItem("token")).userProfile);
         }
+        console.log(JSON.parse(localStorage.getItem("token")).userProfile)
         // console.log(JSON.parse(localStorage.getItem("token")).userId);
     }, []);
-
     // desktop
     const [edit, SetEdit] = useState(false);
     const [proPic, setProPic] = useState(false);
-
     // mobile
     const [editMob, SetEditMob] = useState(false);
     const [proPicMob, setProPicMob] = useState(false);
-
     const signOutSubmit = () => {
         localStorage.removeItem("token");
         history.push("/");
     }
+    const fileInput = useRef(null);
+    const uploadProfilePic = e => {
+        e.preventDefault();
+        // console.log(fileInput.current);
+        let file = fileInput.current.files[0];
+        uploadFile(file, config)
+            .then(res => {
+    
+                console.log(res)
+                var requestOptions = {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        "userId": parseInt(JSON.parse(localStorage.getItem("token")).userId),
+                        "profile_pic": res.location
+                    }),
+                    redirect: 'follow'
+                    };
+                fetch(`${url.baseUrl}updateProfilePic`, requestOptions)
+                .then(response => response.json())
+                .then(result => {
+                    if (result.code === 200) {
+                        console.log(res);
+                        console.log(result);
+                        setProfilePic(res.location);
+                    }
+                    console.log("not 200");
+                    console.log(result);
+                })
+                .catch(error => console.log('error', error));
 
+                setProPic(false);
+            })
+            .catch(e => console.log(e))
+    }
     return(
 
         <>
@@ -56,7 +96,6 @@ export default function UserProfile() {
                     <div className={styles.header02}>
                         <Link to="/HostYourApartment" className={styles.header021}><p>Create new listing</p></Link>
                         <div className={styles.header021}><img src={sidebarIcon} alt="" onMouseEnter={() => {setSideBar(true);}} onMouseLeave={() => setSideBar(false)} /></div>
-
                     </div>
 
                 </div>
@@ -64,7 +103,7 @@ export default function UserProfile() {
                 {/* body */}
                 <div className={user.ud0}>
                     <div className={user.ud01}>
-                        <img className={user.ud01img} src={userIcon} alt="" />
+                        <img className={user.ud01img} src={profilePic} alt="" />
                         <div className={user.ud011} onClick={() => {SetEdit(false);setProPic(true);}}>Update Photo</div>
                         <div className={user.ud012}>
                             <img className={user.ud0121} src={userIcon} alt="" />
@@ -87,10 +126,11 @@ export default function UserProfile() {
                         
                         {proPic && (
                             <div className={user.ud024}>
-                                <img className={user.ud0241} src={userIcon} alt=""/>
+                                <img className={user.ud0241} src={profilePic} alt=""/>
                                 <div className={user.ud0242}>
                                     <p className={user.ud02421}>Lorem Some text</p>
-                                    <div className={user.ud02422} onClick={() => setProPic(false)}>Upload your image</div>
+                                    <input type="file" ref={fileInput} style={{display: 'none'}} accept="image/jpg, image/jpeg, image/png" id="file" onChange={e => uploadProfilePic(e)} />
+                                    <label className={user.ud02422} htmlFor="file">Upload your image</label>
                                 </div>
                             </div>
                         )}
@@ -204,7 +244,7 @@ export default function UserProfile() {
             {sideBar && (
                 <div className={headerStyle.headSideBar} onMouseEnter={() => setSideBar(true)} onMouseLeave={() => setSideBar(false)}>
                         <div className={headerStyle.headSideBar011S0}>
-                            <div className={headerStyle.headSideBar011S01}><img src={userIcon} alt="" /></div>
+                            <div className={headerStyle.headSideBar011S01}><img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" /></div>
                             <div className={headerStyle.headSideBar011S02}>{userName} 
                                 <div className={headerStyle.headSideBar011S021}>{JSON.parse(localStorage.getItem("token")).userEmail}</div>
                             </div>

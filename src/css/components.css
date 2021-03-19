@@ -723,7 +723,7 @@ body {
     width: 335px;
     margin-left: 13px;
     border-radius: 5px;
-    margin-bottom: 10px;
+    padding-bottom: 30px;
     border: 1px solid rgb(223, 223, 223);
 }
 @media only screen and (max-width: 1505px) {
@@ -1507,6 +1507,15 @@ body {
     width: 100%;
     margin-top: 30px;
 }
+.uploadedImageContHostCar {
+    float: left;
+    width: 100%;
+    margin-top: 30px;
+    height:270px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.uploadedImageContHostCar::-webkit-scrollbar {display: none}
 .uploadedImageCont1 {
     float: left;
     width: 100%;
@@ -1758,7 +1767,7 @@ body {
     transform: translateX(-50%);
     max-width: 1000px;
     width: 90%;
-    height: 400px;
+    height: 300px;
 }
 .PlacesNearYou91 {
     float: left;
@@ -1766,16 +1775,16 @@ body {
     box-shadow: 3px 3px 12px rgb(209, 206, 206);
     background-color: white;
     border-radius: 7px;
-    height: 430px;
+    height: 300px;
 }
 .PlacesNearYou911 {
     float: left;
     width: 350px;
-    height: 350px;
+    height: 300px;
 }
 .PlacesNearYou912 {
     float: left;
-    width: 350px;
+    width: 300px;
     height: 70px;
 }
 .PlacesNearYou912 button {
