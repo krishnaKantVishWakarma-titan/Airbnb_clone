@@ -141,7 +141,7 @@ export default function Saved () {
                                             <>
                                                 <div className={trips.t1} key={ind}>
                                                     <div className={trips.t11}>
-                                                        <img className={trips.t111} src={v1} alt="" />
+                                                        <img className={trips.t111} src={val.imageList[0]} alt="" />
                                                         <img className={trips.t112} src={favRed} alt="" onClick={() => deleteHost(val.isFavId)} />
                                                     </div>
                                                     <div className={trips.t12}>

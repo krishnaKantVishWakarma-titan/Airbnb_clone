@@ -33,13 +33,9 @@
         float: left;
         margin-left: 50%;
         transform: translateX(-50%);
-        margin-top: 40px;
-        margin-bottom: 20px;
     }
     .hydai1{
-        width: 100%;
-        margin-top: 40px;
-        float: left;
+        margin: 20px 15%;
     }
     .hydai2{
         float: right;
@@ -48,10 +44,9 @@
         margin-right: 18%;
     }
     .hydai3{
-        margin-left: 0;
-        margin-top: 40px;
-        float: left;
-    }
+        margin-left: 15%;
+}
+
     .hydai4{
         float: right;
         margin-top: -22px;
@@ -60,47 +55,45 @@
     .hydai5{
         margin-left: 15%;
         margin-top: 40px;
-        float: left;
-    }
-    .hydai6{
-        float: right;
-        margin-top: -20px;
-        margin-right: 74%;
-    }
-    .hydai7{
-        margin-left: 72%;
-        margin-top: -70px;
-        float: right;
-    }
+}
+.hydai6{
+    float: right;
+   margin-top: -20px;
+   margin-right: 74%;
+}
+.hydai7{
+    margin-left: 72%;
+    margin-top: -70px;
+}
 
-    .hydai8{
-        float: right;
-        margin-right: 105%;
-        margin-top: -70px;
-    }
-    .hydaiimg {
-        width: 45px;
-        height: 45px;
-        background-position: center;
-        border-radius: 50px;
-    } 
-    .hydai9{
-        margin: 8% 15%;
-        margin-bottom: 40px;
-    }
-    .hydai9 input{
-        width: 48%;
-        height: 1.5rem;
-        padding: 2px;
-        margin-left: 5px;
-    }
-    .hydai10{margin: 8px;
-    }
-    .hydai10 label{
-        font-size: 20px;
-        font-weight:bold ;
-    }
-    .hydai11{
+.hydai8{
+    float: right;
+    margin-right: 105%;
+    margin-top: -70px;
+}
+.hydaiimg {
+    width: 45px;
+    height: 45px;
+    background-position: center;
+    border-radius: 50px;
+} 
+.hydai9{
+    margin: 8% 15%;
+    margin-bottom: 40px;
+}
+.hydai9 input{
+    width: 48%;
+    height: 1.5rem;
+    padding: 2px;
+    margin-left: 5px;
+}
+.hydai10{margin: 8px;
+}
+.hydai10 label{
+    font-size: 20px;
+    font-weight:bold ;
+}
+.hydai11{
     margin: 0% 15%;
    }
    .hydai11 input{

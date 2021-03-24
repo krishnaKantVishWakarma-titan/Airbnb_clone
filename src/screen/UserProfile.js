@@ -13,14 +13,6 @@ import userIcon from '../img/icons/user.png';
 import headerStyle from '../css/headerMain.module.css';
 import url from '../data/urls.json';
 
-import {uploadFile} from 'react-s3'
-const config = {
-    bucketName: 'checkin-images-upload',
-    region: 'ap-south-1',
-    accessKeyId: 'AKIASYXDSNXSLCU3MSKO',
-    secretAccessKey: '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'
-  };
-
 export default function UserProfile() {
 
     const [userName, setUserName] = useState(null);
@@ -34,7 +26,7 @@ export default function UserProfile() {
             setUserName(JSON.parse(localStorage.getItem("token")).userName);
             setProfilePic(JSON.parse(localStorage.getItem("token")).userProfile);
         }
-        console.log(JSON.parse(localStorage.getItem("token")).userProfile)
+        // console.log(JSON.parse(localStorage.getItem("token")).userProfile)
         // console.log(JSON.parse(localStorage.getItem("token")).userId);
     }, []);
     // desktop
@@ -49,37 +41,47 @@ export default function UserProfile() {
     }
     const fileInput = useRef(null);
     const uploadProfilePic = e => {
-        e.preventDefault();
-        // console.log(fileInput.current);
-        let file = fileInput.current.files[0];
-        uploadFile(file, config)
-            .then(res => {
-    
-                console.log(res)
-                var requestOptions = {
-                    method: 'POST',
-                    body: JSON.stringify({
-                        "userId": parseInt(JSON.parse(localStorage.getItem("token")).userId),
-                        "profile_pic": res.location
-                    }),
-                    redirect: 'follow'
-                    };
-                fetch(`${url.baseUrl}updateProfilePic`, requestOptions)
-                .then(response => response.json())
-                .then(result => {
-                    if (result.code === 200) {
-                        console.log(res);
-                        console.log(result);
-                        setProfilePic(res.location);
-                    }
-                    console.log("not 200");
-                    console.log(result);
-                })
-                .catch(error => console.log('error', error));
+        e.preventDefault()
+        
+        var formdata = new FormData();
+        formdata.append("file", fileInput.current.files[0], fileInput.current.files[0].name)
 
-                setProPic(false);
-            })
-            .catch(e => console.log(e))
+        var requestOptions = {
+            method: 'POST',
+            body: formdata,
+            redirect: 'follow'
+        };
+
+        fetch(`${url.baseUrl}/upload`, requestOptions)
+        .then(response => response.json())
+        .then(res => {
+            console.log("upload api res : ");
+            console.log(res.Data[0].Location);
+            // var imageLink = result.Data;
+        })
+        .catch(error => console.log('error', error));
+
+        // call after the 1st api resp came
+        // var requestOptions = {
+        //     method: 'POST',
+        //     body: JSON.stringify({
+        //         "userId": parseInt(JSON.parse(localStorage.getItem("token")).userId),
+        //         "profile_pic": "dmd"
+        //     }),
+        //     redirect: 'follow'
+        //     };
+        // fetch(`${url.baseUrl}updateProfilePic`, requestOptions)
+        // .then(response => response.json())
+        // .then(result => {
+        //     if (result.code === 200) {
+        //         console.log(result);
+        //         setProfilePic(res.location);
+        //     }
+        //     console.log("not 200");
+        //     console.log(result);
+        // })
+        // .catch(error => console.log('error', error));
+
     }
     return(
 

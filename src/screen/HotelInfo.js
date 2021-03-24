@@ -325,8 +325,22 @@ export default function HotelInfo() {
                 } 
                 if (res.code === 200) {
                     alert("You are successfully register !!!");
-                    setSignInPage(true);
-                    setSignupPage(false);
+                    var userData = {
+                        "userId": res.user.id,
+                        "userToken": res.user.logintoken,
+                        "userName": res.user.name,
+                        "userEmail": res.user.email,
+                        "userProfile": res.user.profile_pic
+                    }
+                    if (localStorage.getItem("token") === null) {
+                        localStorage.setItem("token", JSON.stringify(userData));
+                        setUserName(res.user.name);
+                        setSignInPage(false);
+                        setIsSignedIn(true);
+
+                    } else {
+                        alert("Storage error")
+                    }
                 } 
 
             })
@@ -574,7 +588,7 @@ export default function HotelInfo() {
                             <>
                                 <div className="carInfo15"><button onClick={bookingHandle}>Book Now</button></div>
                                 <div className="carInfo16">OR</div>
-                                <div className="carInfo17"><button>Add car to booking</button></div>
+                                <div className="carInfo17"><button onClick={() => history.push('/carsList')}>Add car to booking</button></div>
                             </>
                         )}
                     </div>

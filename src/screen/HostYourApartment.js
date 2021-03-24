@@ -144,10 +144,11 @@ export default function HostYourApartment() {
         body: formdata,
         redirect: 'follow'
         };
-
+        console.log("falg1")
         fetch(`${url.baseUrl}/upload`, requestOptions)
         .then(response => response.json())
         .then(result => {
+            console.log("falg2")
             var imageLink = result.Data;
             console.log(result.data)
             imageLink.map(val => setImageList(prevImg => prevImg.concat(val.Location)));

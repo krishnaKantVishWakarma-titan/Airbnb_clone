@@ -131,7 +131,6 @@ function App() {
               <UserProfile />
             </Route>
 
-
             <Route exact path="/HostYourApartment">
               <HostYourApartment />
             </Route>

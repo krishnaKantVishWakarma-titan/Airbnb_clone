@@ -8,7 +8,7 @@ import backIconGrey from '../img/icons/backGrey.svg';
 import starIcon from '../img/icons/star.png';
 import rightArrowIcon from '../img/icons/headerMinBack.png';
 import v1 from '../img/demo/16.png';
-import ImageSlider from '../components/ImageSlider';
+import ImageSlider from '../components/ImageSliderCarlist';
 
 export default function CarList () {
 
@@ -45,8 +45,8 @@ export default function CarList () {
                             <ImageSlider />
                         </div>
                         <div className="DetailList02">
-                            <div className="DetailList021" onClick={() => history.push("/carInfo")}>Car Name</div>
-                            <div className="DetailList022" onClick={() => history.push("/carInfo")}>Vintage car</div>
+                            <div className="DetailList021" onClick={() => history.push("/carInfo/1")}>Car Name</div>
+                            <div className="DetailList022" onClick={() => history.push("/carInfo/1")}>Vintage car</div>
                             <div className="DetailList023">2 guests . Studio . 2 beds . 1 bathroom</div>
                             <div className="DetailList024">$ 500</div>
                         </div>

@@ -23,6 +23,8 @@ export default function Map ({lat, lng}) {
   return (
 
     <>
+    <p>{lat}</p>
+    <p>{lng}</p>
       <GoogleMap 
         mapContainerStyle={mapContainerStyle} 
         zoom={8} 

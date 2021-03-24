@@ -535,8 +535,22 @@ export default function Homes() {
                 } 
                 if (res.code === 200) {
                     alert("You are successfully register !!!");
-                    setSignInPage(true);
-                    setSignupPage(false);
+                    var userData = {
+                        "userId": res.user.id,
+                        "userToken": res.user.logintoken,
+                        "userName": res.user.name,
+                        "userEmail": res.user.email,
+                        "userProfile": res.user.profile_pic
+                    }
+                    if (localStorage.getItem("token") === null) {
+                        localStorage.setItem("token", JSON.stringify(userData));
+                        setUserName(res.user.name);
+                        setSignInPage(false);
+                        setIsSignedIn(true);
+
+                    } else {
+                        alert("Storage error")
+                    }
                 } 
 
             })

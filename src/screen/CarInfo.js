@@ -14,7 +14,6 @@ export default function CarInfo () {
 
         <>
             <div className="headerMinCont">
-                
                 <div className={headerStyle.headUpNavMain1} onClick={() => history.goBack()}><img src={rightArrowIcon} alt="" /></div>
             </div>
 

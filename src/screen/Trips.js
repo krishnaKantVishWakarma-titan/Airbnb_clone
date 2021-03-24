@@ -3,6 +3,7 @@
 import '../css/components.css';
 import DetailsList from '../components/DetailsList';
 import {useState, useEffect} from 'react';
+import loading from '../img/icons/loadingHostingList.gif';
 
 import React from 'react';
 import v1 from '../img/demo/16.png';
@@ -10,6 +11,7 @@ import starIcon from '../img/icons/star.png';
 import userIcon from '../img/icons/user.png';
 import trips from '../css/trips.module.css';
 import favRed from '../img/icons/favRed.svg';
+import styles from '../css/profile.module.css';
 import backIconGrey from '../img/icons/backGrey.svg';
 
 import headerStyle from '../css/headerMain.module.css';
@@ -72,6 +74,7 @@ export default function Trips() {
             var data = localStorage.getItem("token");
             var name = JSON.parse(data);
             setUserName(name.userName);
+            activateReservationList();
         }
         
     }, []);
@@ -246,6 +249,26 @@ export default function Trips() {
         }
     }
 
+    const [reserList, setReserList] = useState(null);
+    const activateReservationList = () => {
+        fetch(url.baseUrl+"getListofBookings", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "userId": parseInt(JSON.parse(localStorage.getItem("token")).userId)
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res.data);
+            setReserList(res.data);
+        })
+        .catch(error => console.log(error));
+    }
+
     return (
 
         <>
@@ -270,85 +293,66 @@ export default function Trips() {
                     </div>
 
                 </div>
-
-
                 <div className="PlacesNearYou0">
                     <div className="PlacesNearYou02" style={{marginBottom: '20px'}}>Trips</div>
                 </div>
 
                 <Tabs>
                     <TabList>
-                        <Tab>Favorites</Tab>
+                        {/* <Tab>Favorites</Tab> */}
                         <Tab>Finished</Tab>
                         <Tab>Upcoming</Tab>
                     </TabList>
 
-                    <TabPanel>
+                    {/* <TabPanel>
+                        <DetailsList />
+                    </TabPanel> */}
 
-                        <div className={trips.const}> 
-                            
-                            <div className={trips.t1}>
-                                <div className={trips.t11}>
-                                    <img className={trips.t111} src={v1} alt="" />
-                                    <img className={trips.t112} src={favRed} alt="" />
-                                </div>
-                                <div className={trips.t12}>
-                                    <img src={starIcon} alt="" /><span> 4.29 (7)</span>
-                                </div>
-                                <div className={trips.t13}>Entire apartment . Bhopal</div>
-                                <div className={trips.t14}>$ 7 / night</div>
-                                <div className={trips.t15}>Check avalability</div>
-                            </div>
+{/* //     <tr className={ds.d20tr} key={key}>
+                                    //         <td className={ds.d20td1}><div style={{float: 'left', paddingTop: 8}}>{key+1}</div></td>
+                                    //         <td className={ds.d20td2}>
+                                    //             {/* <div className={ds.d20td2Img}><img src={host.imageList[0]} alt="" /></div> */}
+                                    {/* //             <span>{host.listingTitle}</span>
+                                    //         </td>
+                                    //         <td className={ds.d20td3}>{host.amountPaid}</td>
+                                    //         <td className={ds.d20td4}>{host.guests}</td>
+                                    //         <td className={ds.d20td5}>{new Date(host.fromDate).getDate()}/{new Date(host.fromDate).getMonth()}/{new Date(host.fromDate).getFullYear()}</td>
+                                    //         <td className={ds.d20td6}>{new Date(host.toDate).getDate()}/{new Date(host.toDate).getMonth()}/{new Date(host.toDate).getFullYear()}</td>
+                                    //         <td className={ds.d20td7}><img src={moreIcon} alt='' /></td>
+                                    //     </tr> */}
 
-                            <div className={trips.t1}>
-                                <div className={trips.t11}>
-                                    <img className={trips.t111} src={v1} alt="" />
-                                    <img className={trips.t112} src={favRed} alt="" />
-                                </div>
-                                <div className={trips.t12}>
-                                    <img src={starIcon} alt="" /><span> 4.29 (7)</span>
-                                </div>
-                                <div className={trips.t13}>Entire apartment . Bhopal</div>
-                                <div className={trips.t14}>$ 7 / night</div>
-                                <div className={trips.t15}>Check avalability</div>
-                            </div>
 
-                        </div>
-
-                    </TabPanel>
-                    <TabPanel>
-                        <div className={trips.const}> 
-                            
-                            <div className={trips.t1}>
-                                <div className={trips.t11}>
-                                    <img className={trips.t111} src={v1} alt="" />
-                                    <img className={trips.t112} src={favRed} alt="" />
-                                </div>
-                                <div className={trips.t12}>
-                                    <img src={starIcon} alt="" /><span> 4.29 (7)</span>
-                                </div>
-                                <div className={trips.t13}>Entire apartment . Bhopal</div>
-                                <div className={trips.t14}>$ 7 / night</div>
-                                <div className={trips.t15}>Check avalability</div>
-                            </div>
-
-                            <div className={trips.t1}>
-                                <div className={trips.t11}>
-                                    <img className={trips.t111} src={v1} alt="" />
-                                    <img className={trips.t112} src={favRed} alt="" />
-                                </div>
-                                <div className={trips.t12}>
-                                    <img src={starIcon} alt="" /><span> 4.29 (7)</span>
-                                </div>
-                                <div className={trips.t13}>Entire apartment . Bhopal</div>
-                                <div className={trips.t14}>$ 7 / night</div>
-                                <div className={trips.t15}>Check avalability</div>
-                            </div>
-
-                        </div>
-                    </TabPanel>
                     <TabPanel>
                         <DetailsList />
+                    </TabPanel>
+                    <TabPanel>
+                        {reserList ? (
+                            <>
+                            
+                            <div className="DetailListCont">
+                                    {reserList.map((host, key) => {return (
+                                   
+                                    <>
+                                        {/* single container */}
+                                        <div className="DetailList0" key={key}>
+                                            <div className="DetailList01"><img src={v1} alt="" /></div>
+                                            <div className="DetailList02">
+                                                <div className="DetailList021" >{host.guests}</div>
+                                                <div className="DetailList022">{host.listingTitle}</div>
+                                                <div className="DetailList023">2 guests . Studio . 2 beds . 1 bathroom</div>
+                                                <div className="DetailList024">$ {host.amountPaid} / night</div>
+                                            </div>
+                                        </div>
+                                    </>
+                                    )})}
+                                    
+                                    </div>
+                            </>
+                                    
+                        ) : (
+                            <div className={styles.loading0}><img className={styles.loading01} src={loading} alt="" /></div>
+                        )}
+                        
                     </TabPanel>
                 </Tabs>
 

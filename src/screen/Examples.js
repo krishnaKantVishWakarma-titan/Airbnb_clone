@@ -3,6 +3,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 
 import { Button } from "@material-ui/core";
+import { set } from "date-fns";
 import { useEffect, useRef, useState } from "react";
 
 // import { useCallback, useEffect, useRef, useState } from "react";
@@ -851,10 +852,10 @@ import { useEffect, useRef, useState } from "react";
 //   return (
 //     <>
     
-      // <form onSubmit={handleClickUploadImage}>
-      //   <input ref={fileInput} type="file" /><br />
-      //   <button type="submit">Upload</button>
-      // </form>
+//       <form onSubmit={handleClickUploadImage}>
+//         <input ref={fileInput} type="file" /><br />
+//         <button type="submit">Upload</button>
+//       </form>
     
 //     </>
 //   );
@@ -923,22 +924,99 @@ import { useEffect, useRef, useState } from "react";
 // }
 
 
+// export default function Examples () {
+
+//   // const arr = [2, 5, 8, 7, 6, 4, 3, 9, 10, 19, 18, 17, 15, 16, 14, 13, 12];
+//   const [arr, setArr] = useState([]);
+//   const handle = e => {
+//     setArr([...arr, e.target.files]);
+//   }
+
+//   useEffect(() => {
+//     console.log(arr);
+//     for (let ind in arr) {
+//       console.log(URL.createObjectURL(arr[ind][0]))
+//     }
+//   }, [arr]);
+
+//   return (
+
+//     <>
+//       <br />
+//       <br />
+//       <input type="file" multiple onChange={e => handle(e)} />
+
+//       {/* {arr.map((arrs, ind) => {
+//         return(
+//           <>
+//             <img src={URL.createObjectURL(arrs[ind][0])} width="200" height="200" />
+//           </>
+//         )
+//       })} */}
+
+
+//     </>
+
+//   );
+// }
+
+// import country from '../data/country.json';
+// import state from '../data/state.json';
+// import city from '../data/city.json';
+
+// export default function Examples () {
+
+//   const [countryList, setCountryList] = useState(null);
+//   const handleCountry = e => {
+//     console.log(e.target.value);
+//     setCountryList(e.target.value)
+//   }
+//   const [stateList, setStateList] = useState(null);
+//   const handleState = e => {
+//     console.log(e.target.value);
+//     setStateList(e.target.value)
+//   }
+
+//   return(
+
+//     <>
+    
+//       <select onChange={e => handleCountry(e)}>
+//         <option value="0">select country</option>
+//         {country.map(item => {
+//           return <option value={item.id}>{item.name}</option>
+//         })}
+//       </select>
+
+//       {countryList && (
+//         <select onChange={e => handleState(e)}>
+//         <option value="0">select state</option>
+//           {state
+//           .filter(item => item.country_id === countryList)
+//           .map(item => {
+//             return <option value={item.id}>{item.name}</option>
+//           })}
+//         </select>
+//       )}
+
+//       {stateList && (
+//         <select onChange={e => handleState(e)}>
+//         <option value="0">select city</option>
+//           {city
+//           .filter(item => item.state_id === stateList)
+//           .map(item => {
+//             return <option value={item.id}>{item.name}</option>
+//           })}
+//         </select>
+//       )}
+    
+//     </>
+//   );
+// }
+
 export default function Examples () {
 
-  const arr = [2, 5, 8, 7];
-
   return (
-
-    <>
-      <div>krishna</div>
-
-      {arr
-      .filter(item => item > 5)
-      .map(item => {
-        return<p>{item}</p>
-      })}
-    
-    </>
-
+    <div>j</div>
   );
 }
