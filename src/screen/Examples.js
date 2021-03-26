@@ -8,52 +8,51 @@ import { useEffect, useRef, useState } from "react";
 
 // import { useCallback, useEffect, useRef, useState } from "react";
 // import Examples from "../components/ImageSlider";
-
 // import { useRef, useState } from "react";
-
 // import {useState} from 'react';
 
-// import PlacesAutocomplete, {geocodeByAddress} from 'react-places-autocomplete';
+import PlacesAutocomplete, {geocodeByAddress} from 'react-places-autocomplete';
 
-// export default function Examples ({ isScriptLoded, isScritLoadSucceed }) {
+export default function Examples ({ isScriptLoded, isScritLoadSucceed }) {
 
-//     const [address, setAddress] = useState("");
-//     // const [coordinates, setCoordinates] = useState({lat: null, lng: null})
+    const [address, setAddress] = useState("");
+    // const [coordinates, setCoordinates] = useState({lat: null, lng: null})
 
-//     const handleAddressChange = async value => {
-//         const result = await geocodeByAddress(value);
-//         console.log(result[0].address_components);
-//         console.log(result[0].address_components[0].long_name);
-//     }
+    const handleAddressChange = async value => {
+      const result = await geocodeByAddress(value);
+      console.log(result[0].formatted_address);
+      const placeArr = result[0].formatted_address.split(/\s/).join('').split(",");
+      console.log(placeArr);
+      placeArr.reverse().map((item, ind) => {
+        console.log(item);
+      })
+    }
 
-//     return (
-//         <div>
+    return (
+        <div>
 
-//             <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleAddressChange} >
-//                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-//                     <div>
-//                         {/* <p>Lat: {coordinates.lat}</p>
-//                         <p>Lng: {coordinates.lng}</p> */}
-//                         <input {...getInputProps({placeholder: "Search ..."})} />
+            <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleAddressChange} >
+                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                    <div>
+                        <input {...getInputProps({placeholder: "Search ..."})} />
+                        <div>
+                            {loading ? <div>Loading ... </div> : null}
 
-//                         <div>
-//                             {loading ? <div>Loading ... </div> : null}
+                            {suggestions.map((suggestion, key) => {
+                                const style = {
+                                    backgroundColor: suggestion.active ? "#565656" : "#fff"
+                                };
 
-//                             {suggestions.map(suggestion => {
-//                                 const style = {
-//                                     backgroundColor: suggestion.active ? "#565656" : "#fff"
-//                                 };
+                                return <div {...getSuggestionItemProps(suggestion, {style})} key={key}>{suggestion.description}</div>
+                            })}    
+                        </div>
+                    </div>
+                )}
+            </PlacesAutocomplete>
 
-//                                 return <div {...getSuggestionItemProps(suggestion, {style})}>{suggestion.description}</div>
-//                             })}    
-//                         </div>
-//                     </div>
-//                 )}
-//             </PlacesAutocomplete>
-
-//         </div>
-//     )
-// }
+        </div>
+    )
+}
 
 
 // export default function Examples () {
@@ -1014,9 +1013,110 @@ import { useEffect, useRef, useState } from "react";
 //   );
 // }
 
-export default function Examples () {
+// export default function Examples () {
 
-  return (
-    <div>j</div>
-  );
-}
+//   const [arr, setArr] = useState([]);
+//   const [c, setC] = useState(false);
+//   const createDArray = e => {
+//     if (c === false) {
+//       for (let i = 1; i <= e.target.value; i++) {
+//         console.log(i);
+//         let arrJson = {
+//           'data1': i,
+//           'data2': 'krishan'+i,
+//         };
+//         setArr(prev => [...prev, arrJson])
+//         arr.push(arrJson);
+//       }
+//       console.log(arr);
+//       setC(true);
+//     }
+//   }
+
+//   return (
+//     <>
+//       <input type="number" onChange={e => createDArray(e)} />
+//         {arr.map((item, index) => {
+//           return(<div key={index}>{item.data1}</div>)
+//         })}
+//       </>
+//   );
+// }
+
+// export default function Examples () {
+//   const [tab1, setTab1] = useState(true);
+//   const [tab2, setTab2] = useState(false);
+//   const tab1ref = useRef(null);
+//   const tab2ref = useRef(null);
+
+//   useEffect(() => {
+//     tab1ref.current.style.border="1px solid blue";
+//     tab2ref.current.style.border="1px solid black";
+//   });
+//   const tabHandle = (ind, e) => {
+//     console.log(ind)
+//     e.preventDefault();
+//     tab2ref.current.style.border="1px solid black";
+//     tab1ref.current.style.border="1px solid black";
+//     if (ind === 1) {
+//       tab1ref.current.style.border="1px solid blue";
+//       setTab1(true);
+//       setTab2(false);
+//     }
+//     if (ind === 2) {
+//       tab2ref.current.style.border="1px solid blue";
+//       setTab2(true);
+//       setTab1(false);
+//     }
+//   }
+//   return(
+    
+//     <>
+//       <button ref={tab1ref} onClick={e => tabHandle(1, e)}>tab1</button>
+//       <button ref={tab2ref} onClick={e => tabHandle(2, e)}>tab2</button>
+
+//       {tab1 && (
+//         <>
+//           <div>tab1 show</div>
+//         </>
+//       )}
+//       {tab2 && (
+//         <>
+//           <div>tab2 show</div>
+//         </>
+//       )}
+
+//     </>
+//   )
+// }
+
+// import { TabStrip, TabStripTab } from '@progress/kendo-react-layout';
+// import { Component } from 'react';
+
+// export default class Examples extends Component {
+//     constructor(props) {
+//         super(props);
+
+//         this.state = {
+//             selected: 1
+//         }
+//     }
+//     handleSelect = (e) => {
+//         this.setState({ selected: e.selected });
+//     }
+//     render() {
+//         return (
+//             <TabStrip selected={this.state.selected} onSelect={this.handleSelect}>
+//                 <TabStripTab title="Tab 1 Title">
+//                     <p>Tab 1 Content</p>
+//                 </TabStripTab>
+//                 <TabStripTab title="Tab 2 Title">
+//                     <p>Tab 2 Content</p>
+//                 </TabStripTab>
+//                 <TabStripTab title="Tab 3 Title">
+//                     <p>Tab 3 Content</p>
+//                 </TabStripTab>
+//             </TabStrip>
+//         )
+//     }
+// }

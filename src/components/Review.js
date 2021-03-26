@@ -1,14 +1,39 @@
-import { useState } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useRef, useState } from 'react';
 import '../css/components.css';
 import varimg1 from '../img/demo/22.png';
-import varimg2 from '../img/demo/23.png';
-import varimg3 from '../img/demo/24.png';
 
 import starIcon from '../img/icons/star.svg';
 import usFilledStarIcon from '../img/icons/unFilledStar.svg';
 import thumbLike from '../img/icons/thumbLike.svg';
+import url from '../data/urls.json';
+import loading from '../img/icons/loadingHostingList.gif';
+import swal from 'sweetalert';
 
-export default function Review() {
+export default function Review({hostingId}) {
+    const [reviewsList, setReviewsList] = useState(null);
+    useEffect(() => {
+        reviewList();
+    }, []);
+
+    const reviewList = () => {
+        fetch(url.baseUrl+"reviewsByHostingId", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "hosting_id": hostingId
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            setReviewsList(res.data);
+        })
+        .catch(error => console.log(error));
+    }
 
     const [rating, setRating] = useState(null);
     const [val1, setVal1] = useState(false);
@@ -60,6 +85,55 @@ export default function Review() {
             }
         }
     }
+    const mesBox = useRef(null);
+    const [message, setMessage] = useState(null);
+    const handleReviewPost = () => {
+        mesBox.current.style.border = "1px solid grey";
+        if (message === null) {
+            mesBox.current.style.border = "1px solid red";
+            mesBox.current.focus();
+        } else if (message === "") {
+            mesBox.current.style.border = "1px solid red";
+            mesBox.current.focus();
+        } else if (rating === null) {
+            swal("Rate us", "Must select the stars", "info");
+        } else if (rating === 0) {
+            swal("Rate us", "Please rate us", "info");
+        } else {
+
+            fetch(url.baseUrl+"review", {
+                method: "POST",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    "userId": JSON.parse(localStorage.getItem("token")).userId,
+                    "hosting_id": hostingId,
+                    "message": message,
+                    "ratings": rating
+                })
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res);
+                setRating(null);
+                setMessage(null);
+                mesBox.current.value = "";
+                reviewList();
+                setVal1(false);
+                setVal2(false);
+                setVal3(false);
+                setVal4(false);
+                setVal5(false);
+            })
+            .catch(error => console.log(error));
+
+        }
+    }
+    useEffect(() => {
+        console.log(message)
+    }, [message]);
 
     return (
 
@@ -68,7 +142,7 @@ export default function Review() {
             <div className="container">
                 <div className="ReviewW0">
                     <div className="ReviewW01">Write your review</div>
-                    <textarea placeholder="Krishna" />
+                    <textarea placeholder="Krishna" ref={mesBox} onChange={e => setMessage(e.target.value)} />
                     <div className="ReviewW02">
                         <div className="ReviewW021" onClick={e => ratingOnClickHandle(e, 1)} onMouseOver={e => handleReview(e, 1)} onMouseLeave={e => handleReview(e, 1)}>
                             {val1 ? <img src={starIcon} alt="" /> : <img src={usFilledStarIcon} alt="" />}
@@ -89,23 +163,34 @@ export default function Review() {
                             <div>{rating}</div>
                         )}
                     </div>
-                    <div className="ReviewW03">Post</div>
+                    <div className="ReviewW03" onClick={handleReviewPost}>Post</div>
                 </div>
                 <div className="ReviewCont0">
-                    <div className="ReviewCont01">
-                        <div className="ReviewCont011"><img src={varimg1} alt="" /></div>
-                        <div className="ReviewCont012">
-                            <div className="ReviewCont0121">Alexia Jane</div>
-                            <div className="ReviewCont0122">Booked 21 May, 2019</div>
-                            <div className="ReviewCont013">
-                            This is location in a great spot to close to shops and  bars, very quiet location.
-                            </div>
-                            <div className="ReviewCont014">
-                                <div className="ReviewCont0141">Posted : 01/11/2020</div>
-                                <div className="ReviewCont0142"><img src={thumbLike} alt="" /></div>
-                            </div>
-                        </div>
-                    </div>
+
+                    {reviewsList ? (
+                        <>
+                            {reviewsList.map(item => {
+                                return (
+                                    <div className="ReviewCont01" key={item.id}>
+                                        <div className="ReviewCont011"><img src={varimg1} alt="" /></div>
+                                        <div className="ReviewCont012">
+                                            <div className="ReviewCont0121">{item.name}</div>
+                                            <div className="ReviewCont0122">Booked 21 May, 2019</div>
+                                            <div className="ReviewCont013">{item.message}</div>
+                                            <div className="ReviewCont014">
+                                                <div className="ReviewCont0141">Posted : 01/11/2020</div>
+                                                <div className="ReviewCont0142"><img src={thumbLike} alt="" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                        </>
+                    ) : (
+                        <div style={{float: 'left', width: '100%'}}><img style={{width: "50px", marginLeft: "50%", transform: "translateX(-50%)"}} src={loading} alt="Loading" /></div>
+                    )}
+                    
+                    
 
                     <div className="ReviewCont014V">View All</div>
 

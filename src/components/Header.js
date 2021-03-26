@@ -462,8 +462,6 @@ export default function Header() {
     }
 
     const goToHomesScreen = () => {
-        // alert(searchKeyword);
-        // swal("", "Email not found !!!", "warning");
         history.push("/homes", {
             searchKey: searchKeyword,
             noAdult: guestAdult,
@@ -508,9 +506,7 @@ export default function Header() {
                     />
                 </div>
                 <div className="headBody">
-
                     <div className="headUpNavMain">
-
                         <div className="headUpNav1">
                             <a className="headUpNavLink1" onClick={switchToHosting}><span>
                             <FormattedMessage 
@@ -565,7 +561,6 @@ export default function Header() {
                                         {/* searchTextDesk */}
                                         <input type="text" placeholder={searchTextDesk} onClick={() => setSearchTab(true)} />
                                     </div>
-
                                 </div>
 
                                 <div className="headBodyExpl111">
@@ -986,12 +981,11 @@ export default function Header() {
                     <div className="headSideBar" onMouseEnter={() => setSideBar(true)} onMouseLeave={() => setSideBar(false)}>
                         <div className="headSideBar011S0">
                             <div className="headSideBar011S01"><img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" /></div>
-                            <div className="headSideBar011S02">{userName} 
+                            <div className="headSideBar011S02">{userName}
                                 <div className="headSideBar011S021">{JSON.parse(localStorage.getItem("token")).userEmail}</div>
                             </div>
                         </div>
                         <div className="headSideBar011S1"><button onClick={() => history.push('/Account')}>View Profile</button></div>
-                        {/* <p onClick={() => history.push('/')}>Home</p> */}
                         <p onClick={() => history.push('/hosting')}>Listing</p>
                         <p onClick={() => history.push('/notify')}>Notification</p>
                         <p onClick={() => history.push('/chats')}>Messages</p>

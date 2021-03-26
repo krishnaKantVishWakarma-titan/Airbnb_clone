@@ -123,6 +123,7 @@ export default function HotelInfo() {
         })
         .then(res => res.json())
         .then(res => {
+            console.log(res.data)
             if (localStorage.getItem("token") === null) {
                 setp(res.data);
                 setPerson(data);
@@ -157,7 +158,6 @@ export default function HotelInfo() {
                     }
                 }
             }
-            
             console.log("host");
             console.log(data);
             setp(res);
@@ -361,10 +361,6 @@ export default function HotelInfo() {
             history.push("/HostYourApartment");
         }
     }
-
-    useEffect(() => {
-        console.log(person)
-    }, [person]);
     
     // date
     const outRefDate = useRef(null);
@@ -552,7 +548,7 @@ export default function HotelInfo() {
                                     </div>
                                 </div>
                             </div>
-                            <Reviews />
+                            <Reviews hostingId={id} />
                             <div className="hotelInfo0S1">
                                 <div className="hotelInfo1">
                                     <div className="hotelInfo01">Map</div>
@@ -574,15 +570,17 @@ export default function HotelInfo() {
                             )}
                         </div>
                         <div className="carInfo11">
-                            <img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" />
+                            <img src={p.profile_pic} alt="" />
                         </div>
                         <div className="carInfo12">{p.name}</div>
-                        <div className="carInfo13">(Host)</div>
+                        {isAdmin && (
+                            <div className="carInfo13">(Host)</div>
+                        )}
                         <div className="carInfo14">
-                            <spna className="carInfo141">
+                            <span className="carInfo141">
                                 4.7 <span className="carInfo1411"><img src={starIcon} alt="" /></span>
                                 . 68 Reviews
-                            </spna>
+                            </span>
                         </div>
                         {isAdmin && (
                             <>
@@ -647,7 +645,7 @@ export default function HotelInfo() {
                                 <div className="hotelInfoMob042">Wifi</div>
                                 <div className="hotelInfoMob042">Parking</div>
                             </div>
-                            <Reviews />
+                            <Reviews hostingId={id} />
                         </div>
                     </div>
                 </div>
@@ -728,7 +726,7 @@ export default function HotelInfo() {
                     isSignedIn ? 
                     <div className={headerStyle.headSideBar} onMouseEnter={() => setSideBar(true)} onMouseLeave={() => setSideBar(false)}>
                             <div className={headerStyle.headSideBar011S0}>
-                                <div className={headerStyle.headSideBar011S01}><img src={userIcon} alt="" /></div>
+                                <div className={headerStyle.headSideBar011S01}><img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" /></div>
                                 <div className={headerStyle.headSideBar011S02}>{userName} 
                                     <div className={headerStyle.headSideBar011S021}>{JSON.parse(localStorage.getItem("token")).userEmail}</div>
                                 </div>

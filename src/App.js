@@ -27,13 +27,14 @@ import UserProfile from './screen/UserProfile';
 import VerifyYourself from './screen/VerifyYourself.js';
 import HostCars from './screen/HostCars';
 import Booking from './screen/Booking';
+import CarBooking from './screen/CarBooking';
 
 // import LanguageProvider from './translations/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import {IntlProvider} from 'react-intl';
 import English from './translations/en.json';
 import Hindi from './translations/hi.json';
-import CarDetail from './screen/Cardetails';
+// import CarDetail from './screen/C';
 
 import MetaTags from 'react-meta-tags';
 function App() {
@@ -106,7 +107,10 @@ function App() {
               <Chats data="krishna" />
             </Route>
             <Route exact path="/carInfo/:id">
-              <CarDetail data="krishna" />
+              <CarInfo data="krishna" />
+            </Route>
+            <Route exact path="/CarBooking">
+              <CarBooking />
             </Route>
             <Route exact path="/carsList">
               <CarList data="krishna" />

@@ -1,0 +1,106 @@
+@font-face {
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Roboto'), url('../fonts/Roboto-Regular.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'RobotoM';
+    font-style: normal;
+    font-weight: normal;
+    src: local('RobotoM'), url('../fonts/Roboto-Medium.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'RobotoB';
+    font-style: normal;
+    font-weight: normal;
+    src: local('RobotoB'), url('../fonts/Roboto-Bold.ttf') format('truetype');
+}
+
+.c0 {
+    margin-top: 20px;
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.c01 {
+    font-family: 'RobotoB';
+    font-size: 23px;
+    float: left;
+}
+.c02 {
+    font-family: 'RobotoM';
+    font-size: 18px;
+    float: right;
+}
+.c1 {
+    float: left;
+    width: 100%;
+}
+.c11 {
+    float: left;
+    width: 80%;
+    /* background-color: blue; */
+    margin-bottom: 20px;
+}
+.c111 {
+    width: 100%;
+    float: left;
+}
+.c1111 {
+    float: left;
+    width: 50%;
+    font-size: 15px;
+    font-family: 'Roboto';
+}
+
+.c2 {
+    float: left;
+    width: 100%;
+    margin-bottom: 20px;
+}
+.c21 {
+    float: left;
+    width: 50%;
+}
+.c211 {
+    float: left;
+    width: 100%;
+    font-family: 'RobotoM';
+    font-size: 15px;
+    padding-bottom: 4px;
+}
+.c21 input {
+    float: left;
+    width: calc(95% - 10px);
+    border-radius: 3px;
+    border: 1px solid grey;
+    padding: 3px 5px;
+}
+
+.c3 {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+}
+.c31 {
+    float: left;
+    margin-bottom: 10px;
+    width: 100%;
+    font-family: 'RobotoB';
+    font-size: 20px;
+}
+.c32 {
+    float: left;
+    width: 100%;
+    font-family: 'Roboto';
+    font-size: 13px;
+    color: rgb(66, 65, 65);
+}
+.c33 {
+    float: left;
+    width: 100%;
+    font-family: 'Roboto';
+    font-size: 14px;
+    color: rgb(45, 45, 45);
+}

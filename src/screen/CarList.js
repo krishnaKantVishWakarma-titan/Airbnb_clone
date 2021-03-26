@@ -1,3 +1,4 @@
+import React, { useState , useEffect } from "react";
 // import HeaderMin from '../components/HeaderMin';
 import '../css/header.css';
 import '../css/components.css';
@@ -8,9 +9,31 @@ import backIconGrey from '../img/icons/backGrey.svg';
 import starIcon from '../img/icons/star.png';
 import rightArrowIcon from '../img/icons/headerMinBack.png';
 import v1 from '../img/demo/16.png';
-import ImageSlider from '../components/ImageSliderCarlist';
-
+import ImageSlider from '../components/ImageSlider';
+import url from '../data/urls.json';
 export default function CarList () {
+   
+    const [CarLists, setCarLists] = useState(null);
+    useEffect( () => {
+     mainUrl()
+    }, []);
+
+    const mainUrl = () => {
+        
+            fetch(url.baseUrl+"carHost", {
+                method: "get",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+            })
+            .then(res => res.json())
+            .then(res=> {setCarLists(res.data);
+                console.log(res.data)}) 
+              
+            .catch(error => console.log(error));
+            }
+
 
     const history = useHistory();
 
@@ -37,23 +60,33 @@ export default function CarList () {
 
                 </div>
 
+               
                 <div className="DetailListCont">
-
                     {/* single container */}
-                    <div className="DetailList0">
-                        <div className="DetailList01">
-                            <ImageSlider />
-                        </div>
-                        <div className="DetailList02">
-                            <div className="DetailList021" onClick={() => history.push("/carInfo/1")}>Car Name</div>
-                            <div className="DetailList022" onClick={() => history.push("/carInfo/1")}>Vintage car</div>
-                            <div className="DetailList023">2 guests . Studio . 2 beds . 1 bathroom</div>
-                            <div className="DetailList024">$ 500</div>
-                        </div>
-                    </div>
-                    
-                </div>
 
+                    {CarLists ? (
+                        <>
+                            {CarLists.map((carElm, indx)=>{ return(
+                                <>
+                                    <div className="DetailList0" key={indx}>
+                                        <div className="DetailList01">
+                                            <ImageSlider images={carElm.carsImageArray}/>
+                                        </div>
+                                        <div className="DetailList02">
+                                            <div className="DetailList021" onClick={() => history.push(`/carInfo/${carElm.id}`)}>{carElm.modelName}</div>
+                                            <div className="DetailList022" onClick={() => history.push(`/carInfo/${carElm.id}`)}>car</div>
+                                            <div className="DetailList023">2 guests . Studio . 2 beds . 1 bathroom</div>
+                                            <div className="DetailList024">{`$ ${carElm.carListingPrice}`}</div>
+                                        </div>
+                                    </div>        
+                                </>
+                            )})}
+                        </>
+                        ):(
+                            <div>loaded</div>
+                        )
+                    }
+                </div> 
             </div>
 
             <div className="mobile">

@@ -4,6 +4,13 @@
     font-weight: normal;
     src: local('Segoe UI Regular'), url('../fonts/Segoe\ UI.woff') format('woff');
 }
+/* 
+@font-face {
+    font-family: 'Circular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Circular'), url('../fonts/CircularAir-Bold.ttf') format('ttf');
+} */
 
 .b0 {
     font-family: 'Segoe UI Regular';

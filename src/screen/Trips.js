@@ -300,59 +300,37 @@ export default function Trips() {
                 <Tabs>
                     <TabList>
                         {/* <Tab>Favorites</Tab> */}
-                        <Tab>Finished</Tab>
                         <Tab>Upcoming</Tab>
+                        <Tab>Finished</Tab>
                     </TabList>
 
-                    {/* <TabPanel>
-                        <DetailsList />
-                    </TabPanel> */}
-
-{/* //     <tr className={ds.d20tr} key={key}>
-                                    //         <td className={ds.d20td1}><div style={{float: 'left', paddingTop: 8}}>{key+1}</div></td>
-                                    //         <td className={ds.d20td2}>
-                                    //             {/* <div className={ds.d20td2Img}><img src={host.imageList[0]} alt="" /></div> */}
-                                    {/* //             <span>{host.listingTitle}</span>
-                                    //         </td>
-                                    //         <td className={ds.d20td3}>{host.amountPaid}</td>
-                                    //         <td className={ds.d20td4}>{host.guests}</td>
-                                    //         <td className={ds.d20td5}>{new Date(host.fromDate).getDate()}/{new Date(host.fromDate).getMonth()}/{new Date(host.fromDate).getFullYear()}</td>
-                                    //         <td className={ds.d20td6}>{new Date(host.toDate).getDate()}/{new Date(host.toDate).getMonth()}/{new Date(host.toDate).getFullYear()}</td>
-                                    //         <td className={ds.d20td7}><img src={moreIcon} alt='' /></td>
-                                    //     </tr> */}
-
-
-                    <TabPanel>
-                        <DetailsList />
-                    </TabPanel>
                     <TabPanel>
                         {reserList ? (
                             <>
-                            
-                            <div className="DetailListCont">
+                                <div className="DetailListCont">
                                     {reserList.map((host, key) => {return (
-                                   
-                                    <>
-                                        {/* single container */}
-                                        <div className="DetailList0" key={key}>
-                                            <div className="DetailList01"><img src={v1} alt="" /></div>
-                                            <div className="DetailList02">
-                                                <div className="DetailList021" >{host.guests}</div>
-                                                <div className="DetailList022">{host.listingTitle}</div>
-                                                <div className="DetailList023">2 guests . Studio . 2 beds . 1 bathroom</div>
-                                                <div className="DetailList024">$ {host.amountPaid} / night</div>
+                                        <>
+                                            {/* single container */}
+                                            <div className="DetailList0" key={key}>
+                                                <div className="DetailList01"><img src={v1} alt="" /></div>
+                                                <div className="DetailList02">
+                                                    <div className="DetailList021" >{host.guests}</div>
+                                                    <div className="DetailList022">{host.listingTitle}</div>
+                                                    <div className="DetailList023">2 guests . Studio . 2 beds . 1 bathroom</div>
+                                                    <div className="DetailList024">$ {host.amountPaid} / night</div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </>
+                                        </>
                                     )})}
-                                    
-                                    </div>
+                                </div>
                             </>
                                     
                         ) : (
                             <div className={styles.loading0}><img className={styles.loading01} src={loading} alt="" /></div>
                         )}
-                        
+                    </TabPanel>
+                    <TabPanel>
+                        <DetailsList />
                     </TabPanel>
                 </Tabs>
 

@@ -35,7 +35,8 @@ import Switch from "react-switch";
 
 // import S3 from 'react-aws-s3';
 import {uploadFile} from 'react-s3'
-import swal from 'sweetalert';
+import isValid from 'date-fns/isValid/index';
+// import swal from 'sweetalert';
 
 const mapContainerStyle = {
     width: "100%",
@@ -55,6 +56,30 @@ const config = {
 //   const ReactS3Client = new S3(config);
 
 export default function HostYourApartment() {
+
+    let history = useHistory();
+    useEffect(() => {
+        if (localStorage.getItem("token") === null) {
+            history.push('/');
+        } else {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var requestOptions = {
+              method: 'GET',
+              headers: myHeaders,
+              redirect: 'follow'
+            };
+            fetch(`${url.baseUrl}isDocVerified/`+JSON.parse(localStorage.getItem("token")).userId, requestOptions)
+            .then(response => response.json())
+            .then(res => {
+                console.log(res.data[0].isDocVerified);
+                // if (res.danyata[0].isDocVerified === 2) {
+                //     alert("2")
+                // }
+            })
+            .catch(error => console.log('error', error));
+        }
+    }, []);
 
     // tab states
     const [tab0, setTab0] = useState(true);
@@ -80,6 +105,7 @@ export default function HostYourApartment() {
     const [errTab3, setErrTab3] = useState(false);
     const [errTab4, setErrTab4] = useState(false);
     const [errTab5, setErrTab5] = useState(false);
+    const [errTab6, setErrTab6] = useState(false);
     const errorDisplayTime = 4000;
 
     // res
@@ -149,8 +175,9 @@ export default function HostYourApartment() {
         .then(response => response.json())
         .then(result => {
             console.log("falg2")
+            console.log(result.Data)
             var imageLink = result.Data;
-            console.log(result.data)
+            console.log(result.Data)
             imageLink.map(val => setImageList(prevImg => prevImg.concat(val.Location)));
         })
         .catch(error => console.log('error', error));
@@ -161,22 +188,21 @@ export default function HostYourApartment() {
             setSelectedImage(prevImg => prevImg.concat(fileArray))
             Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
         }
+        console.log("image list")
     }
     const renderPhoto = source => {
-        return source.map(photo => {
-            return <div className="uploadedImage"><img src={photo} key={photo} alt="" /></div>
+        return source.map((photo, key) => {
+            return <div className="uploadedImage"><img src={photo} key={key} alt="" /></div>
         })
     }
 
     // image government id
-    const [imageGovList, setImageGovList] = useState([]);
-    const [selectedGovImage, setSelectedGovImage] = useState([]);
+    const [imageGovList, setImageGovList] = useState(null);
+    const [selectedGovImage, setSelectedGovImage] = useState(null);
     const uploadGovImageHandler = e => {
 
         var formdata = new FormData();
-        for (var  j = 0; j < e.target.files.length; j++) {
-            formdata.append("file", e.target.files[j], e.target.files[j].name);
-        }
+        formdata.append("file", e.target.files[0], e.target.files[0].name)
 
         var requestOptions = {
             method: 'POST',
@@ -187,21 +213,14 @@ export default function HostYourApartment() {
         fetch(`${url.baseUrl}/upload`, requestOptions)
         .then(response => response.json())
         .then(result => {
-            var imageLink = result.Data;
-            imageLink.map(val => setImageGovList(prevImg => prevImg.concat(val.Location)));
+            setImageGovList(result.Data[0].Location)
         })
         .catch(error => console.log('error', error));
     
-        if (e.target.files) {
-            const fileArray = Array.from(e.target.files).map(file => URL.createObjectURL(file))
-            setSelectedGovImage(prevImg => prevImg.concat(fileArray))
+        if (e.target.files[0]) {
+            setSelectedGovImage(URL.createObjectURL(e.target.files[0]))
             Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
         }
-    }
-    const renderGovPhoto = source => {
-        return source.map(photo => {
-            return <div className="uploadedImage"><img src={photo} key={photo} alt="" /></div>
-        })
     }
 
     // face photo image
@@ -210,10 +229,7 @@ export default function HostYourApartment() {
     const uploadFaceImageHandler = e => {
 
         var formdata = new FormData();
-        
-        for(var  j = 0; j < e.target.files.length; j++) {
-            formdata.append("file", e.target.files[j], e.target.files[j].name);
-        }
+        formdata.append("file", e.target.files[0], e.target.files[0].name)
 
         var requestOptions = {
         method: 'POST',
@@ -224,23 +240,21 @@ export default function HostYourApartment() {
         fetch(`${url.baseUrl}/upload`, requestOptions)
         .then(response => response.json())
         .then(result => {
-            var imageLink = result.Data;
-            imageLink.map(val => setImageFaceList(prevImg => prevImg.concat(val.Location)));
+            setImageFaceList(result.Data[0].Location)
         })
         .catch(error => console.log('error', error));
         
     
-        if (e.target.files) {
-            const fileArray = Array.from(e.target.files).map(file => URL.createObjectURL(file))
-            setSelectedFaceImage(prevImg => prevImg.concat(fileArray))
+        if (e.target.files[0]) {
+            setSelectedFaceImage(URL.createObjectURL(e.target.files[0]))
             Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
         }
     }
-    const renderFacePhoto = source => {
-        return source.map(photo => {
-            return <div className="uploadedImage"><img src={photo} key={photo} alt="" /></div>
-        })
-    }
+    useEffect(() => {
+        console.log('image list')
+        console.log(imageList)
+        console.log(imageGovList)
+    }, [imageList, imageGovList, imageFaceList])
 
     // map
     const [center, setCenter] = useState({
@@ -273,9 +287,6 @@ export default function HostYourApartment() {
         })
         .catch(error => console.error('Error', error));
     };
-    useEffect(() => {
-        console.log(markers);
-    }, [markers]);
 
     // states variables
     const [allVar, setAllVar] = useState({
@@ -343,13 +354,6 @@ export default function HostYourApartment() {
         governmentID: imageGovList,
         facePhoto: imageFaceList
     });
-
-    let history = useHistory();
-    useEffect(() => {
-        if (localStorage.getItem("token") === null) {
-            history.push('/');
-        }
-    }, []);
 
     const [stateRule1, setStateRule1] = useState({ checked: false });
     const [stateRule2, setStateRule2] = useState({ checked: false });
@@ -548,9 +552,6 @@ export default function HostYourApartment() {
             }
         }
     }
-
-    
-
     return(
 
         <>
@@ -603,11 +604,32 @@ export default function HostYourApartment() {
                                 <div className="HostYourApartment211">What kind of place are you listing?</div>
 
                                 <div className="HostYourApartment212">
-                                    <div className="HostYourApartment2121">Country</div>
-                                    <select ref={p11} value={allVar.countryName} onChange={e => setAllVar({...allVar, countryName: e.target.value})}>
+                                    <div className="HostYourApartment2121">Where’s your place located?</div>
+                                    {/* <select ref={p11} value={allVar.countryName} onChange={e => setAllVar({...allVar, countryName: e.target.value})}>
                                         <option value="0">Select your country</option>
-                                        {countryName.map(val => <option value={val.name}>{val.name}</option>)}
-                                    </select>
+                                        {countryName.map((val, key) => <option value={val.name} key={key}>{val.name}</option>)}
+                                    </select> */}
+
+                                    <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect} >
+                                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                        <div className="HostYourApartment21Map11">
+                                            <input {...getInputProps({placeholder: "Search ..."})} />
+
+                                            <div className="HostYourApartment21Map111">
+                                                {loading ? <div>Loading ... </div> : null}
+
+                                                {suggestions.map((suggestion, key) => {
+                                                    const style = {
+                                                        backgroundColor: suggestion.active ? "#e5e5e5" : "#fff"
+                                                    };
+
+                                                    return <div  className="HostYourApartment21Map1111" {...getSuggestionItemProps(suggestion, {style})} key={key}>{suggestion.description}</div>
+                                                })}    
+                                            </div>
+                                        </div>
+                                        )}
+                                    </PlacesAutocomplete>
+
                                 </div>
 
                                 <div className="HostYourApartment212">
@@ -1616,12 +1638,16 @@ export default function HostYourApartment() {
                                 </div>
                                 
                                 {/* result */}
-                                <div className="uploadedImageCont">
-                                    {renderGovPhoto(selectedGovImage)}
-                                </div>
-                                <div className="uploadedImageCont">
-                                    {renderFacePhoto(selectedFaceImage)}
-                                </div>
+                                {selectedGovImage && (
+                                    <div className="uploadedImageCont">
+                                        <div className="uploadedImage"><img src={selectedGovImage} alt="" /></div>
+                                    </div>
+                                )}
+                                {selectedFaceImage && (
+                                    <div className="uploadedImageCont">
+                                        <div className="uploadedImage"><img src={selectedFaceImage} alt="" /></div>
+                                    </div>
+                                )}
 
                             </div>
                             <div className="HostYourApartment22">
@@ -1630,9 +1656,37 @@ export default function HostYourApartment() {
                                     setTab11(true);
                                 }}>Back</button>
                                 <button className="HostYourApartment222" onClick={() => {
-                                    setTab12(false);
-                                    setTab13(true);
-                                    // setLocationDetails();
+                                    if (selectedGovImage === null) {
+                                        setErrTab6(true);
+                                        setInterval(() => setErrTab6(false), errorDisplayTime);
+                                    } else if (selectedFaceImage === null) {
+                                        setErrTab6(true);
+                                        setInterval(() => setErrTab6(false), errorDisplayTime);
+                                    } else {
+                                        var myHeaders = new Headers();
+                                        myHeaders.append("Content-Type", "application/json");
+                                        var raw = JSON.stringify({
+                                            "photo_id_url": "k",
+                                            "doc_url": "sk",
+                                            "userId": "4"
+                                        });
+                                        var requestOptions = {
+                                          method: 'POST',
+                                          headers: myHeaders,
+                                          body: raw,
+                                          redirect: 'follow'
+                                        };
+                                        fetch(`${url.baseUrl}updateDocs`, requestOptions)
+                                            .then(response => response.json())
+                                            .then(res => {
+                                                console.log(res);
+                                                if (res.code === 200) {
+                                                    setTab12(false);
+                                                    setTab13(true);
+                                                }
+                                            })
+                                            .catch(error => console.log('error', error));
+                                    }
                                 }}>Next</button>
                             </div>
                         </div>
@@ -1926,6 +1980,9 @@ export default function HostYourApartment() {
             )}
             {errTab5 && (
                 <div className="HostYourApartmentError0">You must input below 999!!!</div>
+            )}
+            {errTab6 && (
+                <div className="HostYourApartmentError0">You must upload documents !!!</div>
             )}
 
         </>

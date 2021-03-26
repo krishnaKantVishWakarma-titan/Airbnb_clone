@@ -41,7 +41,7 @@ export default function UserProfile() {
     }
     const fileInput = useRef(null);
     const uploadProfilePic = e => {
-        e.preventDefault()
+        e.preventDefault();
         
         var formdata = new FormData();
         formdata.append("file", fileInput.current.files[0], fileInput.current.files[0].name)
@@ -57,36 +57,43 @@ export default function UserProfile() {
         .then(res => {
             console.log("upload api res : ");
             console.log(res.Data[0].Location);
-            // var imageLink = result.Data;
+            updateProfile(res.Data[0].Location)
         })
         .catch(error => console.log('error', error));
+    }
 
-        // call after the 1st api resp came
-        // var requestOptions = {
-        //     method: 'POST',
-        //     body: JSON.stringify({
-        //         "userId": parseInt(JSON.parse(localStorage.getItem("token")).userId),
-        //         "profile_pic": "dmd"
-        //     }),
-        //     redirect: 'follow'
-        //     };
-        // fetch(`${url.baseUrl}updateProfilePic`, requestOptions)
-        // .then(response => response.json())
-        // .then(result => {
-        //     if (result.code === 200) {
-        //         console.log(result);
-        //         setProfilePic(res.location);
-        //     }
-        //     console.log("not 200");
-        //     console.log(result);
-        // })
-        // .catch(error => console.log('error', error));
+    const updateProfile = image => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        
+        var raw = JSON.stringify({"userId":JSON.parse(localStorage.getItem("token")).userId.toString(),"profile_pic":image});
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+        fetch("https://taz2ic52bc.execute-api.ap-south-1.amazonaws.com/production/api/updateProfilePic", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                if (result.code === 200) {
+                    console.log(result);
+                    setProfilePic(image);
 
+                    var data = {
+                        "userId": JSON.parse(localStorage.getItem("token")).userId,
+                        "userToken": JSON.parse(localStorage.getItem("token")).userToken,
+                        "userName": JSON.parse(localStorage.getItem("token")).userName,
+                        "userEmail": JSON.parse(localStorage.getItem("token")).userEmail,
+                        "userProfile": image
+                    }
+                    localStorage.setItem("token", JSON.stringify(data));
+                }
+        })
+        .catch(error => console.log('error', error));
     }
     return(
-
         <>
-        
             <div className={styles.desk}>
                 {/* header */}
                 <div className={styles.header0}>

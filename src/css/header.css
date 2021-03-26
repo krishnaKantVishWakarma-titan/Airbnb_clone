@@ -12,6 +12,13 @@ font-weight: normal;
 src: url('../fonts/Segoe UI Bold.woff') format('woff');
 }
 
+@font-face {
+    font-family: 'circular';
+    font-style: normal;
+    font-weight: normal;
+    src: local('circular'), url('../fonts/CircularAir-Bold.ttf') format('truetype');
+}
+
 /* desktop version's */
 .headingMobile0 {
     display: none;
@@ -22,7 +29,7 @@ src: url('../fonts/Segoe UI Bold.woff') format('woff');
     text-align: center;
     color: white;
     padding: 15px 0;
-    font-family: calibri;
+    font-family: 'circular';
 }
 .headBodyTxt1 {
     float: left;
@@ -53,8 +60,8 @@ src: url('../fonts/Segoe UI Bold.woff') format('woff');
 .headUpNavLink1 {
     text-decoration: none;
     color: rgb(255, 255, 255);
-    font-family: calibri;
-    font-weight: 500;
+    font-family: 'calibri';
+    font-size: 17px;
     cursor: pointer;
 }
 .headUpNavLink1 span {
@@ -136,12 +143,12 @@ src: url('../fonts/Segoe UI Bold.woff') format('woff');
 }
 .headNav011 {
     font-size: 17px;
-    font-family: 'calibri';
+    font-family: 'circular';
     font-weight: 600;
 }
 .headNav012 {
     font-size: 13px;
-    font-family: 'calibri';
+    font-family: 'circular';
     font-weight: 500;
 }
 .headSideBar {
@@ -271,29 +278,34 @@ hr {
 .headBodyExpl1141 {
     float: left;
     font-size: 15px;
-    padding: 8px 12px;
+    padding: 8px 15px;
+    padding-top: 8px;
     outline: none;
     cursor: pointer;
     background-color: #0277bd;
+    font-family: 'circular';
     color: white;
     z-index: -1;
     border: none;
     border-radius: 6px;
 }
 .headBodyExpl1141 img {
-    width: 14px;
+    width: 13px;
     float: left;
     margin-right: 5px;
-    margin-top: 1px;
+    margin-top: 2px;
+    padding-top: 1px;
+    padding-right: 1px;
 }
 
 .headBodyTxt {
     float: left;
     width: 100%;
     color: white;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 50px;
-    font-weight: 600;
+    font-family: 'circular';
+    font-size: 47px;
+    font-weight: 500;
+    /* background-color: blue; */
 }
 
 @media only screen and (max-width: 1111px) and (min-width: 888px) {
@@ -322,13 +334,13 @@ hr {
     height: 500px;
     background-color: white;
     margin-top: 120px;
-    font-family: calibri;
+    font-family: 'circular';
 }
 .sign01 {
     float: left;
     width: 50%;
     height: 100%;
-    font-family: calibri;
+    font-family: 'circular';
 }
 .sign011 {
     float: left;
@@ -501,7 +513,7 @@ hr {
     margin-right: 15px;
     margin-top: 10px;
     cursor: pointer;
-    font-family: calibri;
+    font-family: 'circular';
 }
 .Closebtn div:hover {
     font-weight: 600;
