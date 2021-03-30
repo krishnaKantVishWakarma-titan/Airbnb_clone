@@ -102,12 +102,16 @@ export default function HotelInfo() {
         .then(res => res.json())
         .then(res => {
             console.log("hostdetail");
-            console.log(res.data);
-            if (res.data.userId === parseInt(JSON.parse(localStorage.getItem("token")).userId)) {
-                setIsAdmin(false);
+            console.log(res.data.userId);
+            
+            if (localStorage.getItem("token") === null) {
+                getUserDetails(res.data);
+            } else {
+                if (res.data.userId === JSON.parse(localStorage.getItem("token")).userId) {
+                    setIsAdmin(false);
+                }
+                getUserDetails(res.data);
             }
-            getUserDetails(res.data);
-
         })
         .catch(error => console.log(error));
         
@@ -190,16 +194,21 @@ export default function HotelInfo() {
             .then(res => { 
                 console.log(res);
                 if (res.code === 206) {
-                    alert("Email does not exist. Please signup first !!!");
+                    swal("", "Email not found !!!", "error");
                     setSignInPage(false);
                     setSignupPage(true);
+                } 
+                if (res.code === 204) {
+                    swal("Try again", "Email and password does not match !!!", "error");
                 } 
                 
                 if (res.code === 200) {
                     var userData = {
                         "userId": res.user.id,
                         "userToken": res.user.logintoken,
-                        "userName": res.user.name
+                        "userName": res.user.name,
+                        "userEmail": res.user.email,
+                        "userProfile": res.user.profile_pic
                     }
                     if (localStorage.getItem("token") === null) {
                         localStorage.setItem("token", JSON.stringify(userData));
@@ -318,13 +327,12 @@ export default function HotelInfo() {
             .then(res => res.json())
             .then(res => { 
                 console.log(res);
-                if (res.code === 205) {
-                    alert("You are already register successfully !!!");
-                    setSignInPage(true);
-                    setSignupPage(false);
-                } 
+                if (res.code === 206) {
+                    swal("", "Email not found !!!", "error");
+                    setSignInPage(false);
+                    setSignupPage(true);
+                }
                 if (res.code === 200) {
-                    alert("You are successfully register !!!");
                     var userData = {
                         "userId": res.user.id,
                         "userToken": res.user.logintoken,
@@ -337,12 +345,11 @@ export default function HotelInfo() {
                         setUserName(res.user.name);
                         setSignInPage(false);
                         setIsSignedIn(true);
-
+    
                     } else {
                         alert("Storage error")
                     }
-                } 
-
+                }
             })
             .catch(error => console.log(error));
         }
@@ -728,7 +735,7 @@ export default function HotelInfo() {
                             <div className={headerStyle.headSideBar011S0}>
                                 <div className={headerStyle.headSideBar011S01}><img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" /></div>
                                 <div className={headerStyle.headSideBar011S02}>{userName} 
-                                    <div className={headerStyle.headSideBar011S021}>{JSON.parse(localStorage.getItem("token")).userEmail}</div>
+                                    <div className={headerStyle.headSideBar011S021} style={{width: '100%'}}>{JSON.parse(localStorage.getItem("token")).userEmail}</div>
                                 </div>
                             </div>
                             <div className={headerStyle.headSideBar011S1}><button onClick={() => history.push('/Account')}>View Profile</button></div>

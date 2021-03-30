@@ -40,7 +40,7 @@ export default function BestDeals() {
         <>
 
             {/* desktop version  */}
-            <div className="container">
+            <div className="containerM">
                 <div className="heading">
                 <FormattedMessage 
                     id="BestDeals"

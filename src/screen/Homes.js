@@ -389,16 +389,22 @@ export default function Homes() {
             .then(res => { 
                 console.log(res);
                 if (res.code === 206) {
-                    alert("Email does not exist. Please signup first !!!");
+                    swal("", "Email not found !!!", "error");
                     setSignInPage(false);
                     setSignupPage(true);
+                } 
+                
+                if (res.code === 204) {
+                    swal("Try again", "Email and password does not match !!!", "error");
                 } 
                 
                 if (res.code === 200) {
                     var userData = {
                         "userId": res.user.id,
                         "userToken": res.user.logintoken,
-                        "userName": res.user.name
+                        "userName": res.user.name,
+                        "userEmail": res.user.email,
+                        "userProfile": res.user.profile_pic
                     }
                     if (localStorage.getItem("token") === null) {
                         localStorage.setItem("token", JSON.stringify(userData));
@@ -529,12 +535,12 @@ export default function Homes() {
             .then(res => { 
                 console.log(res);
                 if (res.code === 205) {
-                    alert("You are already register successfully !!!");
+                    swal("Already register", "You are already register !!!", "info");
                     setSignInPage(true);
                     setSignupPage(false);
                 } 
                 if (res.code === 200) {
-                    alert("You are successfully register !!!");
+                    swal("Good job!", "You are successfully register !!!", "success");
                     var userData = {
                         "userId": res.user.id,
                         "userToken": res.user.logintoken,
@@ -937,7 +943,7 @@ export default function Homes() {
                             <div className={headerStyle.headSideBar011S0}>
                                 <div className={headerStyle.headSideBar011S01}><img src={userIcon} alt="" /></div>
                                 <div className={headerStyle.headSideBar011S02}>{userName} 
-                                    <div className={headerStyle.headSideBar011S021}>{JSON.parse(localStorage.getItem("token")).userEmail}</div>
+                                    <div className={headerStyle.headSideBar011S021} style={{width: '100%'}}>{JSON.parse(localStorage.getItem("token")).userEmail}</div>
                                 </div>
                             </div>
                             <div className={headerStyle.headSideBar011S1}><button onClick={() => history.push('/Account')}>View Profile</button></div>
@@ -1025,7 +1031,7 @@ export default function Homes() {
                                                 <div className="headSideBar011S0">
                                                 <div className="headSideBar011S01"><img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" /></div>
                                                 <div className="headSideBar011S02">{userName} 
-                                                    <div className="headSideBar011S021">{JSON.parse(localStorage.getItem("token")).userEmail}</div>
+                                                    <div className="headSideBar011S021" style={{width: '100%'}}>{JSON.parse(localStorage.getItem("token")).userEmail}</div>
                                                 </div>
                                             </div>
                                             <div className="headSideBar011S1"><button onClick={() => history.push('/Account')}>View Profile</button></div>

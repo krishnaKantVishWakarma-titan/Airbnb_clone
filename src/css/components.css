@@ -14,7 +14,7 @@ body {
     src: local('circular'), url('../fonts/CircularAir-Bold.ttf') format('truetype');
 }
 
-.container {
+.containerM {
     float: left;
     width: 100%;
     font-family: 'calibri';
@@ -2029,14 +2029,14 @@ body {
 .HostYourApartment21Map2 {
     float: left;
     width: 100%;
-    height: calc(100% - 70px);
-    margin-top: 70px;
+    height: 100%;
 }
 .HostYourApartment21Map111 {
     position: absolute;
-    width: 100%;
+    width: 90%;
     left: 50%;
     transform: translateX(-50%);
+    margin-left: -20px;
     top: 55px;
     border-radius: 14px;
     background-color: white;

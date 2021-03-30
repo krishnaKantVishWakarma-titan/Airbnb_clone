@@ -44,7 +44,7 @@ export default function profile() {
     const [tab2, setTab2] = useState(false);
     const [tab3, setTab3] = useState(false);
     const [tab4, setTab4] = useState(false);
-    const [tabSub41, seTabSub41] = useState(true);
+    const [tabSub41, setTabSub41] = useState(true);
     const [tabSub42, setTabSub42] = useState(false);
     const activateListing = () => {
         fetch(url.baseUrl+"host/userid/"+JSON.parse(localStorage.getItem("token")).userId, {
@@ -105,7 +105,7 @@ export default function profile() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "hostId": JSON.parse(localStorage.getItem("token")).userId
+                "hostId": (JSON.parse(localStorage.getItem("token")).userId).toString()
             })
         })
         .then(res => res.json())
@@ -117,7 +117,7 @@ export default function profile() {
     }
     const [carBookingList, setCarBookingList] = useState(null);
     const activateCarBookingList = () => {
-        fetch(url.baseUrl+"getListofBookingsCar", {
+        fetch(url.baseUrl+"getListofBookingsCars", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -134,6 +134,10 @@ export default function profile() {
         })
         .catch(error => console.log(error));
     }
+
+    useEffect(() => {
+        console.log(carBookingList)
+    }, [carBookingList])
 
     // parseInt(JSON.parse(localStorage.getItem("token")).userId)
 
@@ -330,8 +334,8 @@ export default function profile() {
                                 {/* <div className={styles.addCar0}>
                                     <div className={styles.addCar0Btn} onClick={() => history.push("/hostCars")}>Host your car</div>
                                 </div> */}
-                                <div onClick={() => {seTabSub41(false);setTabSub42(true);activateBookingList();}}>tab1</div>
-                                <div onClick={() => {setTabSub42(false);seTabSub41(true);activateCarBookingList();}}>tab2</div>
+                                <span className={styles.subTab} onClick={() => {setTabSub41(true);setTabSub42(false);activateBookingList();}}>Aparment Bookings</span>
+                                <span className={styles.subTab} onClick={() => {setTabSub42(true);setTabSub41(false);activateCarBookingList();}}>Car Bookings</span>
 
                                 {tabSub41 && (
                                     <>
@@ -389,7 +393,6 @@ export default function profile() {
                                                         <tr className={ds.d20tr} key={key}>
                                                             <td className={ds.d20td1}><div style={{float: 'left', paddingTop: 8}}>{key+1}</div></td>
                                                             <td className={ds.d20td2}>
-                                                                {/* <div className={ds.d20td2Img}><img src={host.imageList[0]} alt="" /></div> */}
                                                                 <span>{host.transactionEmail}</span>
                                                             </td>
                                                             <td className={ds.d20td3}>{host.amountPaid}</td>
@@ -406,8 +409,6 @@ export default function profile() {
                                         )}
                                     </>
                                 )}
-
-
                                 
                             </div>
                         </>

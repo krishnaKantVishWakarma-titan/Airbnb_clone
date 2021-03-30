@@ -13,7 +13,7 @@ export default function LiveAnyWhere() {
         <>
 
             {/* desktop version  */}
-            <div className="container">
+            <div className="containerM">
                 <div className="heading">
                 <FormattedMessage 
                     id="LiveAnyWhere"

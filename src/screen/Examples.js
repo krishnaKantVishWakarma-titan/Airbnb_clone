@@ -11,48 +11,48 @@ import { useEffect, useRef, useState } from "react";
 // import { useRef, useState } from "react";
 // import {useState} from 'react';
 
-import PlacesAutocomplete, {geocodeByAddress} from 'react-places-autocomplete';
+// import PlacesAutocomplete, {geocodeByAddress} from 'react-places-autocomplete';
 
-export default function Examples ({ isScriptLoded, isScritLoadSucceed }) {
+// export default function Examples ({ isScriptLoded, isScritLoadSucceed }) {
 
-    const [address, setAddress] = useState("");
-    // const [coordinates, setCoordinates] = useState({lat: null, lng: null})
+//     const [address, setAddress] = useState("");
+//     // const [coordinates, setCoordinates] = useState({lat: null, lng: null})
 
-    const handleAddressChange = async value => {
-      const result = await geocodeByAddress(value);
-      console.log(result[0].formatted_address);
-      const placeArr = result[0].formatted_address.split(/\s/).join('').split(",");
-      console.log(placeArr);
-      placeArr.reverse().map((item, ind) => {
-        console.log(item);
-      })
-    }
+//     const handleAddressChange = async value => {
+//       const result = await geocodeByAddress(value);
+//       console.log(result[0].formatted_address);
+//       const placeArr = result[0].formatted_address.split(/\s/).join('').split(",");
+//       console.log(placeArr);
+//       placeArr.reverse().map((item, ind) => {
+//         console.log(item);
+//       })
+//     }
 
-    return (
-        <div>
+//     return (
+//         <div>
 
-            <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleAddressChange} >
-                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                    <div>
-                        <input {...getInputProps({placeholder: "Search ..."})} />
-                        <div>
-                            {loading ? <div>Loading ... </div> : null}
+//             <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleAddressChange} >
+//                 {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+//                     <div>
+//                         <input {...getInputProps({placeholder: "Search ..."})} />
+//                         <div>
+//                             {loading ? <div>Loading ... </div> : null}
 
-                            {suggestions.map((suggestion, key) => {
-                                const style = {
-                                    backgroundColor: suggestion.active ? "#565656" : "#fff"
-                                };
+//                             {suggestions.map((suggestion, key) => {
+//                                 const style = {
+//                                     backgroundColor: suggestion.active ? "#565656" : "#fff"
+//                                 };
 
-                                return <div {...getSuggestionItemProps(suggestion, {style})} key={key}>{suggestion.description}</div>
-                            })}    
-                        </div>
-                    </div>
-                )}
-            </PlacesAutocomplete>
+//                                 return <div {...getSuggestionItemProps(suggestion, {style})} key={key}>{suggestion.description}</div>
+//                             })}    
+//                         </div>
+//                     </div>
+//                 )}
+//             </PlacesAutocomplete>
 
-        </div>
-    )
-}
+//         </div>
+//     )
+// }
 
 
 // export default function Examples () {
@@ -1120,3 +1120,19 @@ export default function Examples ({ isScriptLoded, isScritLoadSucceed }) {
 //         )
 //     }
 // }
+
+export default function Examples () {
+  const items = [{name: 'hotel1',type: 'hotel'},{name: 'bar1',type: 'bar'}, {name: 'entertainment1',type: 'entertainment'}, {name: 'equipment1',type: 'equipment'},{name: 'shop1',type: 'shop'}];
+  const initialFilters = [{id: 1,active: false,type: 'bar'},{id: 2,active: true,type: 'shop'},{id: 3,active: false,type: 'hotel'},{id: 4,active: true,type: 'entertainment'},{id: 5,active: false,type: 'equipment'}];
+
+  let fltered = items.filter(({type}) => initialFilters.some(({type: t, active}) => t === type && active));
+  console.log(fltered);
+  
+  return (
+    <>
+    
+    
+    
+    </>
+  );
+}

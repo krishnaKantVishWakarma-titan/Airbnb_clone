@@ -213,6 +213,9 @@ export default function Header() {
                     setSignInPage(false);
                     setSignupPage(true);
                 } 
+                if (res.code === 204) {
+                    swal("Try again", "Email and password does not match !!!", "error");
+                } 
                 
                 if (res.code === 200) {
                     var userData = {
@@ -434,7 +437,6 @@ export default function Header() {
                         setUserName(res.user.name);
                         setSignInPage(false);
                         setIsSignedIn(true);
-
                     } else {
                         alert("Storage error")
                     }
@@ -982,7 +984,7 @@ export default function Header() {
                         <div className="headSideBar011S0">
                             <div className="headSideBar011S01"><img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" /></div>
                             <div className="headSideBar011S02">{userName}
-                                <div className="headSideBar011S021">{JSON.parse(localStorage.getItem("token")).userEmail}</div>
+                                <div className="headSideBar011S021" style={{width: '100%'}}>{JSON.parse(localStorage.getItem("token")).userEmail}</div>
                             </div>
                         </div>
                         <div className="headSideBar011S1"><button onClick={() => history.push('/Account')}>View Profile</button></div>

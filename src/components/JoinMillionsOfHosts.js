@@ -12,7 +12,7 @@ export default function JoinMillionsOfHosts() {
         <>
 
             {/* desktop version  */}
-            <div className="container">
+            <div className="containerM">
                 <div className="heading">
                 <FormattedMessage 
                     id="joinMillionsOfHosts"

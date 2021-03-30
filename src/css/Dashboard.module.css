@@ -15,6 +15,18 @@
     font-weight: 600;
     color: rgb(74, 74, 74);
 }
+.mainLoad {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+    height: 100%;
+}
+.mainLoad0 {
+    width: 100px;
+}
 .d01 {
     float: right;
     margin-top: 15px;
@@ -259,4 +271,57 @@
     width: calc(100% - 370px);
     height: calc(100vh - 75px);
     background-color: rgba(0, 0, 255, 0);
+}
+
+.dd1 {
+    width: 100%;
+    float: left;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.dd11 {
+    width: calc(20% - 30px);
+    border-radius: 10px;
+    margin: 0 15px;
+    float: left;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: rgb(115, 4, 220);
+}
+.dd12 {
+    width: calc(20% - 30px);
+    border-radius: 10px;
+    margin: 0 15px;
+    float: left;
+    margin-top: 20px;
+    box-shadow: 3px 3px 6px rgb(198, 198, 198);
+    margin-bottom: 20px;
+    background-color: rgb(255, 255, 255);
+}
+
+.dd121, .dd122 {
+    color: white;
+}
+.dd121, .dd111 {
+    float: left;
+    width: 85%;
+    padding-top: 20px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    font-size: 16px;
+}
+.dd122, .dd112 {
+    float: left;
+    width: 85%;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+    margin-left: 50%;
+    font-size: 25px;
+    transform: translateX(-50%);
+}
+.dd122 {
+    border-bottom: 2px solid white;
+}
+.dd112 {
+    color: rgb(115, 4, 220);
+    border-bottom: 2px solid rgb(115, 4, 220);
 }

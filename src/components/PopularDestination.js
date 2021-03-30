@@ -16,7 +16,7 @@ export default function PopularDestination() {
         <>
 
             {/* desktop version  */}
-            <div className="container">
+            <div className="containerM">
                 <div className="heading">
                     <FormattedMessage 
                         id="popularDestination"
@@ -28,7 +28,7 @@ export default function PopularDestination() {
 
                     {/* map iterator here */}
                     <div className="PopularDestSin" onClick={() => history.push("/homes", {
-                        searchKey: "Bhopal",
+                        searchKey: "London",
                         noAdult: 0,
                         noChild: 0,
                         noInfant: 0
@@ -42,7 +42,7 @@ export default function PopularDestination() {
                         </p>
                     </div>
                     <div  className="PopularDestSin" onClick={() => history.push("/homes", {
-                        searchKey: "Indore",
+                        searchKey: "Italy",
                         noAdult: 0,
                         noChild: 0,
                         noInfant: 0
@@ -54,7 +54,7 @@ export default function PopularDestination() {
                         /></p>
                     </div>
                     <div  className="PopularDestSin" onClick={() => history.push("/homes", {
-                        searchKey: "Jaipur",
+                        searchKey: "Maldives",
                         noAdult: 0,
                         noChild: 0,
                         noInfant: 0

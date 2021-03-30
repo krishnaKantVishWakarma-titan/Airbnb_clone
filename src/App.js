@@ -1,3 +1,4 @@
+import {Chat, Join} from './chat/components/index';
 import NewTraveller from './screen/NewTraveller';
 import Messages from './screen/Messages';
 import HotelInfo from './screen/HotelInfo';
@@ -11,16 +12,12 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Index from './screen/Index';
 import AdminLogin from './screen/AdminLogin';
 import DashBoard from './admin/DashBoard';
-
 import HostProperty from './screen/HostProperty';
-import InvalidHostProperty from './screen/InvalidHostProperty';
-
+import InvalidHostProperty from './screen/InvalidHostProperty'
 import EmailValidation from './screen/EmailValidation';
-
 import Trips from './screen/Trips';
 import Examples from './screen/Examples';
 import Saved from './screen/Saved';
-
 import Homes from './screen/Homes';
 import Profile from './screen/profile';
 import UserProfile from './screen/UserProfile';
@@ -28,15 +25,12 @@ import VerifyYourself from './screen/VerifyYourself.js';
 import HostCars from './screen/HostCars';
 import Booking from './screen/Booking';
 import CarBooking from './screen/CarBooking';
-
-// import LanguageProvider from './translations/LanguageProvider';
 import React, { useEffect, useState } from 'react';
 import {IntlProvider} from 'react-intl';
 import English from './translations/en.json';
 import Hindi from './translations/hi.json';
-// import CarDetail from './screen/C';
-
 import MetaTags from 'react-meta-tags';
+
 function App() {
 
   const [locale, setLocale] = useState('en');
@@ -169,6 +163,12 @@ function App() {
 
             <Route exact path="/EmailValidation">
               <EmailValidation data="krishna" />
+            </Route>
+            <Route path="/chat">
+              <Chat />
+            </Route>
+            <Route path="/join">
+              <Join />
             </Route>
             
 

@@ -13,7 +13,7 @@ import rightArrowIcon from '../img/icons/headerMinBack.png';
 import loading from '../img/icons/loading.gif';
 import d from '../css/carInfo.module.css';
 import Footer from '../components/Footer';
-// import url from '../data/urls.json';
+import url from '../data/urls.json';
 
 export default function CarInfo () {
     const { id } = useParams();
@@ -25,7 +25,7 @@ export default function CarInfo () {
      mainUrl()
     }, []);
     const mainUrl = () => {
-        fetch("https://taz2ic52bc.execute-api.ap-south-1.amazonaws.com/production/api/carHost/" + id  , {
+        fetch(url.baseUrl + "carHost/" + id  , {
             method: "get",
             headers: {
                 'Accept': 'application/json',
@@ -43,7 +43,7 @@ export default function CarInfo () {
     }
 
     const getUserDetails = (data) => {
-        fetch("https://taz2ic52bc.execute-api.ap-south-1.amazonaws.com/production/api/user?userId="+data.userId, {
+        fetch(url.baseUrl+"user?userId="+data.userId, {
             method: "get",
             headers: {
                 'Accept': 'application/json',
@@ -209,7 +209,7 @@ export default function CarInfo () {
 
                     </div>
 
-                    <Footer />
+                    {/* <Footer /> */}
                 </div>
 
                 {errTab && (

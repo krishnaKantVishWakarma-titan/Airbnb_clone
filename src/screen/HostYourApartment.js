@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import '../css/components.css';
 import '../css/utils.css';
+import ds from '../css/Dashboard.module.css';
 
 import sidePic from '../img/demo/19.png';
 // import sidePicTwo from '../img/demo/20.png';
@@ -9,6 +10,7 @@ import rightArrowIcon from '../img/icons/headerMinBack.png';
 import lightBulbIcon from '../img/icons/lightbulb.svg';
 import addRectIcon from '../img/icons/addRectIcon.png';
 import CheckGreenIcon from '../img/icons/greenCheckIcon.svg';
+import loading from '../img/icons/loadingHostingList.gif';
 
 import v1 from '../img/undraw/1.png';
 import v2 from '../img/undraw/2.png';
@@ -26,7 +28,7 @@ import {GoogleMap, Marker} from '@react-google-maps/api';
 // import Switch from '@material-ui/core/Switch';
 import {useCallback, useEffect, useRef, useState} from 'react';
 
-import countryName from '../data/countryName.json';
+// import countryName from '../data/countryName.json';
 import currencyName from '../data/currencyName.json';
 // import locationDetails from '../data/locationDetails.json';
 
@@ -34,9 +36,11 @@ import { useHistory } from 'react-router-dom';
 import Switch from "react-switch";
 
 // import S3 from 'react-aws-s3';
-import {uploadFile} from 'react-s3'
-import isValid from 'date-fns/isValid/index';
+// import {uploadFile} from 'react-s3'
+// import isValid from 'date-fns/isValid/index';
 // import swal from 'sweetalert';
+
+import swal from 'sweetalert';
 
 const mapContainerStyle = {
     width: "100%",
@@ -47,21 +51,24 @@ const option = {
     zoomControl: true
 };
 
-const config = {
-    bucketName: 'checkin-images-upload',
-    region: 'ap-south-1',
-    accessKeyId: 'AKIASYXDSNXSLCU3MSKO',
-    secretAccessKey: '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'
-  };
-//   const ReactS3Client = new S3(config);
+// const config = {
+//     bucketName: 'checkin-images-upload',
+//     region: 'ap-south-1',
+//     accessKeyId: 'AKIASYXDSNXSLCU3MSKO',
+//     secretAccessKey: '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'
+//   };
+// //   const ReactS3Client = new S3(config);
 
 export default function HostYourApartment() {
 
+    const [mainLoad, setmainLoad] = useState(false);
     let history = useHistory();
+    const [docStatus, setDocStatus] = useState(null);
     useEffect(() => {
         if (localStorage.getItem("token") === null) {
             history.push('/');
         } else {
+            setmainLoad(true)
             var myHeaders = new Headers();
             myHeaders.append("Content-Type", "application/json");
             var requestOptions = {
@@ -72,10 +79,21 @@ export default function HostYourApartment() {
             fetch(`${url.baseUrl}isDocVerified/`+JSON.parse(localStorage.getItem("token")).userId, requestOptions)
             .then(response => response.json())
             .then(res => {
+                console.log(res);
                 console.log(res.data[0].isDocVerified);
-                // if (res.danyata[0].isDocVerified === 2) {
-                //     alert("2")
-                // }
+                if (res.data[0].isDocVerified === 0) {
+                    setDocStatus(res.data[0].isDocVerified);
+                } else if (res.data[0].isDocVerified === 1) {
+                    setDocStatus(res.data[0].isDocVerified);
+                } else if (res.data[0].isDocVerified === 2) {
+                    swal("Your profile is pending for verification", "Please wait while your profile verify !!!", "error");
+                    history.push('/');
+                } else if (res.data[0].isDocVerified === 4) {
+                    swal("Your profile is rejected", "Please contact with our support !!!", "error");
+                    alert("Rejected !!!")
+                    history.push('/');
+                }
+                setmainLoad(false);
             })
             .catch(error => console.log('error', error));
         }
@@ -136,23 +154,23 @@ export default function HostYourApartment() {
     const p13_4 = useRef(null);
 
     // upload video to s3
-    const [videoUploading, setvideoUploading] = useState(false);
-    const [videoList, updateVideoList] = useState([]);
-    const fileInput = useRef();
-    const handleClickUploadImage = e => {
-        e.preventDefault();
-        console.log(fileInput.current);
-        let file = fileInput.current.files[0];
-        setvideoUploading(true);
+    // const [videoUploading, setvideoUploading] = useState(false);
+    // const [videoList, updateVideoList] = useState([]);
+    // const fileInput = useRef();
+    // const handleClickUploadImage = e => {
+    //     e.preventDefault();
+    //     console.log(fileInput.current);
+    //     let file = fileInput.current.files[0];
+    //     setvideoUploading(true);
         
-        uploadFile(file, config)
-            .then(res => {
-                updateVideoList([...videoList, res.location]);
-                console.log(res)
-                setvideoUploading(false);
-            })
-            .catch(e => console.log(e))
-    }
+    //     uploadFile(file, config)
+    //         .then(res => {
+    //             updateVideoList([...videoList, res.location]);
+    //             console.log(res)
+    //             setvideoUploading(false);
+    //         })
+    //         .catch(e => console.log(e))
+    // }
 
     // images
     const [imageList, setImageList] = useState([]);
@@ -274,19 +292,6 @@ export default function HostYourApartment() {
     const onMapLoad = useCallback(map => {
         mapRef.current = map;
     }, []);
-    const handleSelect = async address => {
-        setAddress(address);
-        geocodeByAddress(address)
-        .then(results => getLatLng(results[0]))
-        .then(latLng => {
-        setCenter({
-            lat: latLng.lat,
-            lng: latLng.lng
-        });
-        console.log('Success', latLng);
-        })
-        .catch(error => console.error('Error', error));
-    };
 
     // states variables
     const [allVar, setAllVar] = useState({
@@ -354,6 +359,46 @@ export default function HostYourApartment() {
         governmentID: imageGovList,
         facePhoto: imageFaceList
     });
+
+    useEffect(() => {
+        console.log(allVar);
+    }, [allVar]);
+
+    const handleSelect = async address => {
+        
+        const result = await geocodeByAddress(address);
+        console.log(result[0].formatted_address);
+        const placeArr = result[0].formatted_address.split(/\s/).join('').replace(/[0-9]/g, '').split(",");
+        console.log(placeArr);
+        if (placeArr.length >=  3 ) {
+            setAllVar({
+                ...allVar, 
+                countryName: placeArr[placeArr.length-1],
+                addrState: placeArr[placeArr.length-2],
+                addrCity: placeArr[placeArr.length-3]
+            });
+        } else if (placeArr.length === 2) {
+            setAllVar({
+                ...allVar, 
+                countryName: placeArr[placeArr.length-1],
+                addrState: placeArr[placeArr.length-2]
+            });
+        } else if (placeArr.length === 1) {
+            setAllVar({...allVar, countryName: placeArr[placeArr.length-1]});
+        }
+        
+        setAddress(address);
+        geocodeByAddress(address)
+        .then(results => getLatLng(results[0]))
+        .then(latLng => {
+            setCenter({
+                lat: latLng.lat,
+                lng: latLng.lng
+            });
+            console.log('Success', latLng);
+        })
+        .catch(error => console.error('Error', error));
+    };
 
     const [stateRule1, setStateRule1] = useState({ checked: false });
     const [stateRule2, setStateRule2] = useState({ checked: false });
@@ -533,7 +578,7 @@ export default function HostYourApartment() {
             "lat": markers[0].lat,
             "lng": markers[0].lng,
             "forGuestOnly": "",
-            "video": videoList[0]
+            "video": null
         }),
         redirect: 'follow'
         };
@@ -605,15 +650,11 @@ export default function HostYourApartment() {
 
                                 <div className="HostYourApartment212">
                                     <div className="HostYourApartment2121">Where’s your place located?</div>
-                                    {/* <select ref={p11} value={allVar.countryName} onChange={e => setAllVar({...allVar, countryName: e.target.value})}>
-                                        <option value="0">Select your country</option>
-                                        {countryName.map((val, key) => <option value={val.name} key={key}>{val.name}</option>)}
-                                    </select> */}
 
                                     <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect} >
                                         {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
                                         <div className="HostYourApartment21Map11">
-                                            <input {...getInputProps({placeholder: "Search ..."})} />
+                                            <input {...getInputProps({placeholder: "Search ..."})} ref={p11} />
 
                                             <div className="HostYourApartment21Map111">
                                                 {loading ? <div>Loading ... </div> : null}
@@ -697,16 +738,17 @@ export default function HostYourApartment() {
                                 <button className="HostYourApartment221" disabled>Back</button>
                                 <button className="HostYourApartment222" onClick={() => {
                                     p11.current.style.border="none";
-                                    p11.current.style.borderBottom="1px solid #e1e1e1";
+                                    p11.current.style.borderRadius="40px";
                                     p12.current.style.border="none";
                                     p12.current.style.borderBottom="1px solid #e1e1e1";
                                     p13.current.style.border="none";
                                     p13.current.style.borderBottom="1px solid #e1e1e1";
                                     p14.current.style.border="none";
                                     p14.current.style.borderBottom="1px solid #e1e1e1";
-                                    if (allVar.countryName === "0") {
+                                    if (p11.current.value === "") {
                                         p11.current.style.border="1px solid red";
-                                        p11.current.style.borderRadius="4px";
+                                        p11.current.style.borderRadius="40px";
+                                        p11.current.focus();
                                         setErrTab(true);
                                         setInterval(() => setErrTab(false), errorDisplayTime);
                                     } else if (allVar.typeOfProperty === "0") {
@@ -1125,7 +1167,7 @@ export default function HostYourApartment() {
                                         setInterval(() => setErrTab2(false), errorDisplayTime);
                                     } else {
                                         setTab5(false);
-                                        setTab6(true);
+                                        setTab7(true);
                                     }
                                 }}>Next</button>
                             </div>
@@ -1138,7 +1180,7 @@ export default function HostYourApartment() {
             )}
 
             {/* tab 6 */}
-            {tab6 && (
+            {/* {tab6 && (
                 <div className="HostYourApartment0M">
                     <div className="HostYourApartment0">Step 6: Add photos</div>
                     <div className="HostYourApartment1">
@@ -1146,20 +1188,20 @@ export default function HostYourApartment() {
                     </div>
                     <div className="HostYourApartment2">
                         <div className="HostYourApartment2E1">
-                            <div className="HostYourApartment21">
+                            <div className="HostYourApartment21"> */}
 
-                                <div className="HostYourApartment212">
+                                {/* <div className="HostYourApartment212">
                                     <form onSubmit={handleClickUploadImage}>
                                         <input ref={fileInput} type="file" accept="video/*" /><br />
                                         {videoUploading && <div>Uploading ...</div>}
-                                        {/* <label htmlFor="file">Select video</label> */}
+                                        <label htmlFor="file">Select video</label>
                                         <button type="submit">Upload Video</button>
                                     </form>
-                                </div>
+                                </div> */}
 
                                 {/* {videoList.length > 0 ? (<div>t<div>) : (<div>f</div>)} */}
 
-                            </div>
+                            {/* </div>
                             <div className="HostYourApartment22">
                                 <button className="HostYourApartment221" onClick={() => {
                                     setTab6(false);
@@ -1176,7 +1218,7 @@ export default function HostYourApartment() {
                         </div>
                     </div>
                 </div>
-            )}
+            )} */}
 
             {/* tab 7 */}
             {tab7 && (
@@ -1266,7 +1308,7 @@ export default function HostYourApartment() {
                             <div className="HostYourApartment22">
                                 <button className="HostYourApartment221" onClick={() => {
                                     setTab7(false);
-                                    setTab6(true);
+                                    setTab5(true);
                                 }}>Back</button>
                                 <button className="HostYourApartment222" onClick={() => {
                                     setTab7(false);
@@ -1596,8 +1638,14 @@ export default function HostYourApartment() {
                                     setTab10(true);
                                 }}>Back</button>
                                 <button className="HostYourApartment222" onClick={() => {
-                                    setTab11(false);
-                                    setTab12(true);
+                                    console.log(docStatus)
+                                    if (docStatus === 0) {
+                                        setTab11(false);
+                                        setTab12(true);
+                                    } else {
+                                        setTab11(false);
+                                        setTab13(true);
+                                    }
                                 }}>Next</button>
                             </div>
                         </div>
@@ -1666,9 +1714,9 @@ export default function HostYourApartment() {
                                         var myHeaders = new Headers();
                                         myHeaders.append("Content-Type", "application/json");
                                         var raw = JSON.stringify({
-                                            "photo_id_url": "k",
-                                            "doc_url": "sk",
-                                            "userId": "4"
+                                            "photo_id_url": selectedFaceImage,
+                                            "doc_url": selectedGovImage,
+                                            "userId": JSON.parse(localStorage.getItem("token")).userId
                                         });
                                         var requestOptions = {
                                           method: 'POST',
@@ -1737,8 +1785,13 @@ export default function HostYourApartment() {
                             </div>
                             <div className="HostYourApartment22">
                                 <button className="HostYourApartment221" onClick={() => {
-                                    setTab13(false);
-                                    setTab12(true);
+                                    if (docStatus === 0) {
+                                        setTab13(false);
+                                        setTab12(true);
+                                    } else {
+                                        setTab13(false);
+                                        setTab11(true);
+                                    }
                                 }}>Back</button>
                                 <button className="HostYourApartment222" onClick={() => {
                                     p13_1.current.style.border="1px solid #e1e1e1";
@@ -1810,31 +1863,6 @@ export default function HostYourApartment() {
                                 </GoogleMap>
 
                             </div>
-
-                        </div>
-
-                        <div className="HostYourApartment21Map1">
-
-                            <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect} >
-                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                <div className="HostYourApartment21Map11">
-                                    <input {...getInputProps({placeholder: "Search ..."})} />
-
-                                    <div className="HostYourApartment21Map111">
-                                        {loading ? <div>Loading ... </div> : null}
-
-                                        {suggestions.map((suggestion, key) => {
-                                            const style = {
-                                                backgroundColor: suggestion.active ? "#e5e5e5" : "#fff"
-                                            };
-
-                                            return <div  className="HostYourApartment21Map1111" {...getSuggestionItemProps(suggestion, {style})} key={key}>{suggestion.description}</div>
-                                        })}    
-                                    </div>
-                                </div>
-                                )}
-                            </PlacesAutocomplete>
-
                         </div>
 
                         <div className="HostYourApartment22">
@@ -1983,6 +2011,10 @@ export default function HostYourApartment() {
             )}
             {errTab6 && (
                 <div className="HostYourApartmentError0">You must upload documents !!!</div>
+            )}
+
+            {mainLoad && (
+                <div className={ds.mainLoad}><img className={ds.mainLoad0} src={loading} alt="" /></div>
             )}
 
         </>

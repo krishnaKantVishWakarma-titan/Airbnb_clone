@@ -269,6 +269,26 @@ export default function Trips() {
         .catch(error => console.log(error));
     }
 
+    const [finishList, setFinishList] = useState(null);
+    const activateFinishedList = () => {
+        fetch(url.baseUrl+"getListofBookings", {
+            method: "POST",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "userId": parseInt(JSON.parse(localStorage.getItem("token")).userId)
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res.data);
+            setFinishList(res.data);
+        })
+        .catch(error => console.log(error));
+    }
+
     return (
 
         <>
@@ -301,7 +321,7 @@ export default function Trips() {
                     <TabList>
                         {/* <Tab>Favorites</Tab> */}
                         <Tab>Upcoming</Tab>
-                        <Tab>Finished</Tab>
+                        <Tab onClick={activateFinishedList()}>Finished</Tab>
                     </TabList>
 
                     <TabPanel>
@@ -330,7 +350,29 @@ export default function Trips() {
                         )}
                     </TabPanel>
                     <TabPanel>
-                        <DetailsList />
+                        {finishList ? (
+                            <>
+                                <div className="DetailListCont">
+                                    {finishList.map((host, key) => {return (
+                                        <>
+                                            {/* single container */}
+                                            <div className="DetailList0" key={key}>
+                                                <div className="DetailList01"><img src={v1} alt="" /></div>
+                                                <div className="DetailList02">
+                                                    <div className="DetailList021" >{host.guests}</div>
+                                                    <div className="DetailList022">{host.listingTitle}</div>
+                                                    <div className="DetailList023">2 guests . Studio . 2 beds . 1 bathroom</div>
+                                                    <div className="DetailList024">$ {host.amountPaid} / night</div>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )})}
+                                </div>
+                            </>
+                                    
+                        ) : (
+                            <div className={styles.loading0}><img className={styles.loading01} src={loading} alt="" /></div>
+                        )}
                     </TabPanel>
                 </Tabs>
 
