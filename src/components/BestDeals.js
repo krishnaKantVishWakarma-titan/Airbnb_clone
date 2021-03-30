@@ -54,17 +54,19 @@ export default function BestDeals() {
                         places.map((val, index) => {return (
 
                             <div  onClick={() => history.push(`/hotelInfo/${val.id}`)} key={index} className="BestDealsSin">
-                                <img src={v2} alt="" />
+                                <img src={val.imageList[0]} alt="" />
                                 <p className="BestSinP1">{val.listingTitle}</p>
                                 <p className="BestSinP2">
-                                <FormattedMessage 
+                                {/* <FormattedMessage 
                                     id="Wembly"
                                     defaultMessage={defaultMgs.Mgs.Wembly}
                                 />, 
                                 <FormattedMessage 
                                     id="London"
                                     defaultMessage={defaultMgs.Mgs.London}
-                                /></p>
+                                /> */}
+                                {val.addrCity}, {val.countryName}
+                                </p>
                                 <div className="BestDealsTxt0">
                                     <div className="BestDealsTxt01">
                                         <p className="BestSinP3">
