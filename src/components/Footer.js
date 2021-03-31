@@ -38,7 +38,7 @@ export default function Footer() {
                     <div className={f.f012}><a>Cancellation options</a></div>
                     <div className={f.f012}><a>Neighbourhood Support</a></div>
                     <div className={f.f012}><a>Trust & Safety</a></div>
-                    <div className={f.f012}><a onClick={() => history.push("/AdminLogin")}>Admin Login</a></div>
+		            <div className={f.f012} onClick={() => history.push('/AdminLogin')}><a>Admin Login </a></div>
                 </div>
             </div>
             <div className={f.f1}>

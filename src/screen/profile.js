@@ -63,6 +63,7 @@ export default function profile() {
     }
     const [carhosting, setCarHosting] = useState(null);
     const activateCarListing = () => {
+        console.log("Car list viewing : ")
         fetch(url.baseUrl+"getCarListingByUserId/"+JSON.parse(localStorage.getItem("token")).userId, {
             method: "get",
             headers: {

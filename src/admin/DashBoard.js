@@ -163,7 +163,7 @@ export default function DashBoard() {
             {/* body */}
             <div className={ds.d1}>
 
-                <div className={ds.dd1}>
+                {/* <div className={ds.dd1}>
 
                     <div className={ds.dd11}>
                         <div className={ds.dd121}>Total User</div>
@@ -186,7 +186,7 @@ export default function DashBoard() {
                         <div className={ds.dd112}>$ 250,00.00</div>
                     </div>
 
-                </div>
+                </div> */}
 
                 <Tabs>
                     <TabList>
