@@ -549,7 +549,7 @@ export default function Homes() {
                         "userProfile": res.user.profile_pic
                     }
                     if (localStorage.getItem("token") === null) {
-                        localStorage.setItem("token", JSON.stringify(userData));
+                        localStorage.setItem("token", JSON.stringify(userData)); 
                         setUserName(res.user.name);
                         setSignInPage(false);
                         setIsSignedIn(true);

@@ -1244,6 +1244,14 @@ body {
     margin-top: 10px;
     color:#4c4c4c;
 }
+.hotelInfochat{
+    width: 5%;
+    height: 20px
+}
+.chatImage{
+    width: 100%;
+    height: 100%;
+}
 
 
 /* place near you */
@@ -1447,6 +1455,16 @@ body {
     /* background-color: red; */
     float: left;
 }
+.HostYourApartment212121 {
+    color: #808080;
+    font-size: 13px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-weight: 600; 
+    margin-top: 15px;
+    max-width: 80%;
+    /* background-color: red; */
+  
+}
 .HostYourApartment2121Para {
     color: #444444;
     font-size: 13px;
@@ -1620,9 +1638,30 @@ body {
     cursor: pointer;
     background-color: white;
 }
+.HostYourApartment321 {
+    float: left;
+    margin-left: 10%;
+    margin-top: 16px;
+    border: none;
+    text-decoration: underline;
+    cursor: pointer;
+    background-color: white;
+}
 .HostYourApartment222 {
     float: right;
     margin-right: 55px;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 4px;
+    outline: none;
+    margin-top: 8px;
+    border: none;
+    cursor: pointer;
+    background-color: #0277bd;
+}
+.HostYourApartment123 {
+    float: right;
+    margin-right: 38%;
     color: white;
     padding: 8px 20px;
     border-radius: 4px;
@@ -2013,6 +2052,17 @@ body {
     height: 50px;
     position: relative;
 }
+.HostYourApartment21Map111111{
+    float: left;
+    transform: translateX(-50%);
+    width: 100%;
+    border-radius: 30px;
+    height: 27px;
+    margin-left: 50%;
+  
+
+}
+
 .HostYourApartment21Map11 input {
     float: left;
     margin-left: 50%;
@@ -2051,6 +2101,18 @@ body {
     border-radius: 4px;
     cursor: pointer;
     white-space: nowrap;
+   
+}
+.HostYourApartment21Map1234 {
+    float: left;
+    width: 90%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 2px 2px 6px rgb(208, 208, 208);
 }
 
 @media only screen and (max-width: 700px) {
@@ -2663,6 +2725,21 @@ body {
     }
     .HostYourApartment212 {
         width: 93%;
+    }
+    select.HostYourApartment12345select {
+    
+        outline: none;
+        width: 50%;
+        border: none;
+        border-bottom: 1px solid #e1e1e1;
+        color: #818181;
+        padding: 6px 8px;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        margin-top: 8px;
+    }
+    .HostYourApartment12345  {
+        float: left;
+        width: 90%;
     }
     
 }

@@ -44,8 +44,19 @@ src: url('../fonts/Segoe UI Bold.woff') format('woff');
     background-position: top;
     height: 600px;
 }
-.headUpNavMain {
+.checkin{
+    width: 90px;
+    height: 90px;
     float: left;
+    /* margin-top: -10px; */
+    border-radius: 55px;
+    margin-left: 8px;
+    margin-top: px;
+    margin: 40px 0px 0px 50px;
+
+}
+.headUpNavMain {
+   
     width: 100%;
     margin-left: 50%;
     transform: translateX(-50%);

@@ -30,6 +30,7 @@ import {IntlProvider} from 'react-intl';
 import English from './translations/en.json';
 import Hindi from './translations/hi.json';
 import MetaTags from 'react-meta-tags';
+import Profiles from "./screen/Profiles";
 
 function App() {
 
@@ -85,7 +86,7 @@ function App() {
             <Route exact path="/Dashboard">
               <DashBoard />
             </Route>
-            <Route exact path="/hotelInfo/:id">
+            <Route exact path="/hotelInfo/:id/">
               <HotelInfo />
             </Route>
             <Route exact path="/NewTraveller">
@@ -152,6 +153,10 @@ function App() {
             <Route exact path="/Examples">
               <Examples data="krishna" />
             </Route>
+            
+            <Route exact path="/Profiles">
+              <Profiles data="krishna" />
+            </Route>
 
             {/* images */}
             <Route exact path="/HostProperty">
@@ -164,7 +169,7 @@ function App() {
             <Route exact path="/EmailValidation">
               <EmailValidation data="krishna" />
             </Route>
-            <Route path="/chat">
+            <Route path="/chat/">
               <Chat />
             </Route>
             <Route path="/join">

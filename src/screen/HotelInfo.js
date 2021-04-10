@@ -29,10 +29,11 @@ import SignUpBanner from '../img/banners/undraw_mobile_payments_vftl.png';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import TwitterLogin from "react-twitter-login";
-import { useHistory, useParams } from "react-router-dom";
+import { useHistory, useParams ,Link} from "react-router-dom";
 import Reviews from '../components/Review';
 import addSign from '../img/icons/addSign.png';
 import minusSign from '../img/icons/minusSign.png';
+import ChatImage from "../img/icons/images1.png";
 // import v21 from '../img/demo/21.png';
 // import Map from '../components/Map';
 // import ImageSlider from '../components/ImageSlider';
@@ -54,6 +55,53 @@ export default function HotelInfo() {
     const [sideBar, setSideBar] = useState(false);
     const [signupPage, setSignupPage] = useState(false);
     const [signInPage, setSignInPage] = useState(false);
+   const [chat, setChat]=useState(null)
+   const [hostIds , setHostIds]=useState("")
+   
+// .......................chat Connection.....................................
+    
+const HostId = hostIds;
+
+//var chatData = {};
+console.log(HostId);
+
+    const chatHandler = () => {           
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl9pZCI6MSwidHlwZSI6ImRldmljZSIsImlhdCI6MTYxNjU2MjM2NX0.n8dGBHbi9_I6JObUpSEa2k-fC-mcwVK-JFh920344_o");
+        
+        var name = JSON.parse(localStorage.getItem("token")).userId;
+        console.log(name);
+
+     
+        
+        var requestOptions = {
+          method: 'post',
+          headers: myHeaders,
+          redirect: 'follow',
+          body: JSON.stringify({
+            "userId" : name,
+            "hostId" :HostId
+            
+        })
+        };
+        console.log("sanjeev", requestOptions);
+        fetch("http://13.233.154.141:5000/api/addConnection" ,  requestOptions)
+          .then(response => response.json())
+          .then(res=> {
+            console.log("name",res.data.name);
+            console.log("room",res.data.room);
+
+            history.push(`/chat?name=${res.data.name}&room=${res.data.room}`) 
+          setChat(chat);
+         }) 
+        .catch(error => console.log('error', error));
+         }
+
+
+
+
+
 
     // const [isSignedIn, setIsSignedIn] = useState(false);
 
@@ -101,8 +149,11 @@ export default function HotelInfo() {
         })
         .then(res => res.json())
         .then(res => {
+            setHostIds(res.data.userId);
             console.log("hostdetail");
             console.log(res.data.userId);
+            
+           
             
             if (localStorage.getItem("token") === null) {
                 getUserDetails(res.data);
@@ -482,6 +533,10 @@ export default function HotelInfo() {
             hostingId: person.id
         });
     }
+
+    const names = JSON.parse(localStorage.getItem("token")).userId;
+    console.log(names)
+
     if(!person) {
         return (<div style={{display: "flex", alignContent: "center", justifyContent: "center"}}><img style={{marginTop: "20%", width: "100px"}} src={loading} alt="" /></div>)
     } else {
@@ -529,7 +584,7 @@ export default function HotelInfo() {
                                         </div>
                                     </div>
 
-                                    {/* <div className="hotelInfo0S1">
+                                     <div className="hotelInfo0S1">
                                         <div className="hotelInfo1">
                                             <div className="hotelInfo01">About Apartment</div>
                                             <div className="hotelInfo01I1">
@@ -538,8 +593,16 @@ export default function HotelInfo() {
                                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque repellat nisi voluptatum repellendus! Repudiandae, maiores laudantium esse doloribus blanditiis nihil aliquam enim ea doloremque saepe quis provident eaque cum ratione?
                                             </div>
                                         </div>
-                                    </div> */}
-
+                                    </div>
+                   
+                                    
+                                    <div className="hotelInfo0S1">
+                                <Link style={{width: '15%',cursor: 'pointer'}} onClick={chatHandler} >
+                                 <img src={ChatImage} alt="" style={{width:'3%',marginLeft:'5%'}} />
+                                <div style={{fontSize:'17px',fontWeight:'600' , marginLeft:"5px",color:"black"}}>Message Host</div>
+                                </Link>
+                                    </div> 
+                        
                                     <div className="hotelInfo0S1">
                                         <div className="hotelInfo1">
                                             <div className="hotelInfo01">Amenities</div>

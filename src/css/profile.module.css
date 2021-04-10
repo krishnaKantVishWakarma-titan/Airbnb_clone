@@ -13,10 +13,11 @@
 }
 
 .header0 {
-    float: left;
-    border-bottom: 1px solid lightgray;
+    /* float: left; */
+    border-bottom: 1px solid lightgray; 
     width: calc(100% - 50px);
     padding: 20px 25px;
+    height: 40px;
 }
 
 .subTab {
@@ -161,6 +162,7 @@
 .addCar0Btn:hover {
     box-shadow: 1px 1px 5px rgb(255, 182, 210);
 }
+
 
 @media only screen and (max-width: 700px) {
     .desk {

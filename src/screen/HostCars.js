@@ -12,9 +12,26 @@ import 'react-date-range/dist/theme/default.css';
 import '../css/react_dates_overrides.css';
 import '../css/components.css';
 import url from '../data/urls.json';
+import pinIcon from '../img/icons/pin.png';
 
 
-export default function HostCars() {
+import PlacesAutocomplete,{ geocodeByAddress, getLatLng}from 'react-places-autocomplete';
+import headerStyle from '../css/headerMain.module.css';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+export default function HostCars(props) {
 
      const history = useHistory();
     useEffect(() => {
@@ -39,7 +56,95 @@ export default function HostCars() {
     const [errTab2, setErrTab2] = useState(false);
     const errorDisplayTime = 4000;
 
-    // image uploading...................................................
+    const [center, setCenter] = useState({
+        lat: 43,
+        lng: 43
+    });
+
+
+   const [address, setAddress] = useState("");
+   const handleSelect = async address => {
+        
+    const result = await geocodeByAddress(address);
+    console.log(result[0].formatted_address);
+    const placeArr = result[0].formatted_address.split(/\s/).join('').replace(/[0-9]/g, '').split(",");
+    console.log(placeArr);
+    if (placeArr.length >=  3 ) {
+        setAllVar({
+            ...allVar, 
+            countryName: placeArr[placeArr.length-1],
+            addrState: placeArr[placeArr.length-2],
+            addrCity: placeArr[placeArr.length-3]
+        });
+    } else if (placeArr.length === 2) {
+        setAllVar({
+            ...allVar, 
+            countryName: placeArr[placeArr.length-1],
+            addrState: placeArr[placeArr.length-2]
+        });
+    } else if (placeArr.length === 1) {
+        setAllVar({...allVar, countryName: placeArr[placeArr.length-1]});
+    }
+    
+    setAddress(address);
+    geocodeByAddress(address)
+    .then(results => getLatLng(results[0]))
+    .then(latLng => {
+        setCenter({
+            lat: latLng.lat,
+            lng: latLng.lng
+        });
+        console.log('Success', latLng);
+    })
+    .catch(error => console.error('Error', error));
+};
+
+const [center1, setCenter1] = useState({
+    lat: 43,
+    lng: 43
+});
+// ........................................................................................
+
+const [address1, setAddress1] = useState("");
+const handleSelect1 = async address => {
+    
+const result = await geocodeByAddress(address);
+console.log(result[0].formatted_address);
+const placeArr = result[0].formatted_address.split(/\s/).join('').replace(/[0-9]/g, '').split(",");
+console.log(placeArr);
+if (placeArr.length >=  3 ) {
+    setAllVar({
+        ...allVar, 
+        countryName: placeArr[placeArr.length-1],
+        addrState: placeArr[placeArr.length-2],
+        addrCity: placeArr[placeArr.length-3]
+    });
+} else if (placeArr.length === 2) {
+    setAllVar({
+        ...allVar, 
+        countryName: placeArr[placeArr.length-1],
+        addrState: placeArr[placeArr.length-2]
+    });
+} else if (placeArr.length === 1) {
+    setAllVar({...allVar, countryName: placeArr[placeArr.length-1]});
+}
+
+setAddress1(address);
+geocodeByAddress(address)
+.then(results => getLatLng(results[0]))
+.then(latLng => {
+    setCenter({
+        lat: latLng.lat,
+        lng: latLng.lng
+    });
+    console.log('Success', latLng);
+})
+.catch(error => console.error('Error', error));
+};
+
+
+
+       // image uploading...................................................
 
     const [selectedImage, setSelectedImage] = useState([]);
     const [imageList, setImageList] = useState([]);
@@ -93,6 +198,9 @@ export default function HostCars() {
     const f9 = useRef(null);
     const f10 = useRef(null);
     const f11 = useRef(null);
+    const p11 = useRef(null);
+    const p12 = useRef(null);
+
  
     const [allVar, setAllVar] = useState({
         country: '0',
@@ -229,20 +337,61 @@ export default function HostCars() {
                                 {countryName.map((val, key) => <option value={val.name} key={key}>{val.name}</option>)}
                             </select>
                         </div>
+
                         <div className={h.d04}>
                             <input ref={f2} type="text" placeholder="Enter address ..." value={allVar.address} onChange={e=> setAllVar({...allVar,address: e.target.value})} />
                         </div>
-                        <div className={h.d06}>
-                            <div className={h.d061}>
+                             <div>
+
+                        <div className={h.d0613}>
                                 <div className={h.d0611}>
-                                    <input ref={f3} type="text" placeholder="Enter city ..." value={allVar.city} onChange={e=> setAllVar({...allVar,city: e.target.value})} />
-                                </div>
-                            </div>
-                            <div className={h.d061}>
+
+                                <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect}  >
+                                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                        <div className="HostYourApartment21Map111111" >
+                                        <input {...getInputProps({placeholder: "Select State"})} ref={p11} />
+
+                                            <div >
+                                                {loading ? <div>Loading ... </div> : null}
+
+                                                {suggestions.map((suggestion, key) => {
+                                                    const style = {
+                                                        backgroundColor: suggestion.active ? "#e5e5e5" : "#fff"
+                                                    };
+
+                                                    return <div  className="HostYourApartment21Map1234" {...getSuggestionItemProps(suggestion, {style})} key={key}>{suggestion.description}</div>
+                                                })}    
+                                            </div>
+                                        </div>
+                                        )}
+                                    </PlacesAutocomplete>
+                                        </div>
+                                               </div>
+
+                                               <div className={h.d0613}>
                                 <div className={h.d0611}>
-                                    <input ref={f6} type="text" placeholder="Enter state ..." value={allVar.selectState} onChange={e=> setAllVar({...allVar,selectState: e.target.value})} />
-                                </div>
-                            </div>
+
+                                <PlacesAutocomplete value={address1} onChange={setAddress1} onSelect={handleSelect1} >
+                                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                        <div className="HostYourApartment21Map111111" >
+                                        <input {...getInputProps({placeholder: "Select City"})} ref={p12} />
+
+                                            <div >
+                                                {loading ? <div>Loading ... </div> : null}
+
+                                                {suggestions.map((suggestion, key) => {
+                                                    const style = {
+                                                        backgroundColor: suggestion.active ? "#e5e5e5" : "#fff"
+                                                    };
+
+                                                    return <div  className="HostYourApartment21Map1111" {...getSuggestionItemProps(suggestion, {style})} key={key}>{suggestion.description}</div>
+                                                })}    
+                                            </div>
+                                        </div>
+                                        )}
+                                    </PlacesAutocomplete>
+                                        </div>
+                                               </div>
                             
                         </div>
                         <div className={h.d06}>
@@ -270,8 +419,8 @@ export default function HostCars() {
                             <button className={h.d07} onClick={() => {
                                 f1.current.style.border="1px solid #e1e1e1";
                                 f2.current.style.border="1px solid #e1e1e1";           
-                                f3.current.style.border="1px solid #e1e1e1";
-                                f6.current.style.border="1px solid #e1e1e1";
+                                p11.current.style.border="1px solid #e1e1e1";
+                                p12.current.style.border="1px solid #e1e1e1";  
                                 f4.current.style.border="1px solid #e1e1e1";
                                 f5.current.style.border="1px solid #e1e1e1";
                                 if (allVar.country === "0") {
@@ -282,14 +431,17 @@ export default function HostCars() {
                                     f2.current.style.border="1px solid red";
                                     setErrTab(true);
                                     setInterval(() => setErrTab(false), errorDisplayTime);
-                                }else if (allVar.city===""){
-                                    f3.current.style.border="1px solid red";
+                                } else if (p11.current.value === "") {
+                                    p11.current.style.border="1px solid red";
+                                    p11.current.focus();
                                     setErrTab(true);
                                     setInterval(() => setErrTab(false), errorDisplayTime);
-                                  }  else if (allVar.selectState==="0"){
-                                        f6.current.style.border="1px solid red";
-                                        setErrTab(true);
-                                        setInterval(() => setErrTab(false), errorDisplayTime);
+                                } else if (p12.current.value === "") {
+                                    p12.current.style.border="1px solid red";
+                                    p12.current.focus();
+                                    setErrTab(true);
+                                    setInterval(() => setErrTab(false), errorDisplayTime);
+                                    
                                 } else if (allVar.zip === "") {
                                     f4.current.style.border="1px solid red";
                                     setErrTab(true);

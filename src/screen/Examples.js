@@ -2,9 +2,9 @@
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react-hooks/exhaustive-deps */
 
-import { Button } from "@material-ui/core";
-import { set } from "date-fns";
-import { useEffect, useRef, useState } from "react";
+// import { Button } from "@material-ui/core";
+// import { set } from "date-fns";
+// import { useEffect, useRef, useState } from "react";
 
 // import { useCallback, useEffect, useRef, useState } from "react";
 // import Examples from "../components/ImageSlider";
@@ -1121,18 +1121,252 @@ import { useEffect, useRef, useState } from "react";
 //     }
 // }
 
-export default function Examples () {
-  const items = [{name: 'hotel1',type: 'hotel'},{name: 'bar1',type: 'bar'}, {name: 'entertainment1',type: 'entertainment'}, {name: 'equipment1',type: 'equipment'},{name: 'shop1',type: 'shop'}];
-  const initialFilters = [{id: 1,active: false,type: 'bar'},{id: 2,active: true,type: 'shop'},{id: 3,active: false,type: 'hotel'},{id: 4,active: true,type: 'entertainment'},{id: 5,active: false,type: 'equipment'}];
+// export default function Examples () {
+//   const items = [{name: 'hotel1',type: 'hotel'},{name: 'bar1',type: 'bar'}, {name: 'entertainment1',type: 'entertainment'}, {name: 'equipment1',type: 'equipment'},{name: 'shop1',type: 'shop'}];
+//   const initialFilters = [{id: 1,active: false,type: 'bar'},{id: 2,active: true,type: 'shop'},{id: 3,active: false,type: 'hotel'},{id: 4,active: true,type: 'entertainment'},{id: 5,active: false,type: 'equipment'}];
 
-  let fltered = items.filter(({type}) => initialFilters.some(({type: t, active}) => t === type && active));
-  console.log(fltered);
+//   let fltered = items.filter(({type}) => initialFilters.some(({type: t, active}) => t === type && active));
+//   console.log(fltered);
   
-  return (
-    <>
+//   return (
+//     <>
     
     
     
-    </>
-  );
-}
+//     </>
+//   );
+// }
+// .....................................................................................................
+
+
+
+
+
+
+
+
+
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable jsx-a11y/anchor-is-valid */
+// import '../css/components.css';
+// import varimg from '../img/demo/3.png';
+// import {useState, useEffect, useCallback, useRef} from 'react';
+// import starIcon from '../img/icons/star.svg';
+// mobile
+// import backIconGrey from '../img/icons/backGrey.svg';
+// import fav from '../img/icons/fav.svg';
+// import userIcon from '../img/icons/user.png';
+// import bg from '../img/banners/ad1.jpg';
+// import favRed from '../img/icons/favRed.svg';
+// import SetFav from '../components/SetFavHostelInfo';
+// import headerStyle from '../css/headerMain.module.css';
+// import loading from '../img/icons/loading.gif';
+// import closeBtn from '../img/icons/close.png';
+// import FbImg from '../img/icons/facebook.png';
+// import googleImg from '../img/icons/google-plus.png';
+// import twitter from '../img/icons/twitter.png';
+// import UserImg from '../img/icons/user.png';
+// import LockImg from '../img/icons/lock.png';
+// import EmailImg from '../img/icons/email.png';
+// import downArrow from '../img/icons/down-arrow.png';
+// import rightArrowIcon from '../img/icons/headerMinBack.png';
+// import sidebarIcon from '../img/icons/sidebar.png';
+// import worldIcon from '../img/icons/blackWorldIcon.png';
+// import LoginBanner from '../img/banners/undraw_enter_uhqk.png';
+// import SignUpBanner from '../img/banners/undraw_mobile_payments_vftl.png';
+// import GoogleLogin from 'react-google-login';
+// import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
+// import TwitterLogin from "react-twitter-login";
+// import { useHistory, useParams ,Link} from "react-router-dom";
+// import Reviews from '../components/Review';
+// import addSign from '../img/icons/addSign.png';
+// import minusSign from '../img/icons/minusSign.png';
+// import ChatImage from "../img/icons/images1.png";
+// import v21 from '../img/demo/21.png';
+// import Map from '../components/Map';
+// import ImageSlider from '../components/ImageSlider';
+// base url
+// import url from '../data/urls.json';
+// import Map from "../components/Map";
+// import swal from 'sweetalert';
+// date
+// import { DateRange } from 'react-date-range';
+
+// export default function HotelInfo() {
+
+   
+  // return (
+
+  //           <>
+    
+  //               <div className="desktop">
+                   
+  //                   <div className="carInfo0Cont">
+
+  //                       <div className="carInfo0">
+
+  //                           <div className="carInfo01">
+                                
+                                
+  //                               {person.imageList[0] ? <div className="carInfo01img1"><img src={person.imageList[0]} alt="" /></div> : <div className="carInfo01img1"><img src={bg} alt="" /></div>}
+  //                               <div className="carInfo01img2">
+  //                                   {person.imageList[1] ? <img src={person.imageList[1]} alt="" /> : <img src={bg} alt="" />}
+  //                                   {person.imageList[2] ? <img src={person.imageList[2]} alt="" /> : <img src={bg} alt="" />}
+                                  
+  //                               </div>
+  //                               <div className="carInfo01img3">5+ Photos</div>
+
+  //                           </div>
+
+  //                           <div style={{float: "left"}}>
+  //                               <div style={{width: "100%", float: "left"}}>
+  //                                   <div className="hotelInfo0S">
+  //                                       <div className="hotelInfo1">
+  //                                           <div className="hotelInfo01">{person.listingTitle}</div>
+  //                                           <div className="hotelInfo01I0">{person.addrStreet}, {person.addrCity}, {person.addrState}</div>
+  //                                           <div style={{marginBottom: "15px", marginTop: "5px", float: "left"}}>{person.noOfGuests} guests . {person.bedrooms} bedroom . {person.noOfBed} bed . {person.baths} bathroom</div>
+  //                                       </div>
+  //                                   </div>
+
+  //                                    <div className="hotelInfo0S1">
+  //                                       <div className="hotelInfo1">
+  //                                           <div className="hotelInfo01">About Apartment</div>
+  //                                           <div className="hotelInfo01I1">
+  //                                               Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque repellat nisi voluptatum repellendus! Repudiandae, maiores laudantium esse doloribus blanditiis nihil aliquam enim ea doloremque saepe quis provident eaque cum ratione?
+  //                                               Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque repellat nisi voluptatum repellendus! Repudiandae, maiores laudantium esse doloribus blanditiis nihil aliquam enim ea doloremque saepe quis provident eaque cum ratione?
+  //                                               Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque repellat nisi voluptatum repellendus! Repudiandae, maiores laudantium esse doloribus blanditiis nihil aliquam enim ea doloremque saepe quis provident eaque cum ratione?
+  //                                           </div>
+  //                                       </div>
+  //                                   </div>
+                   
+                                    
+  //                                   <div className="hotelInfo0S1">
+  //                               <Link style={{width: '15%',cursor: 'pointer'}}
+  //                                to={`/chat?userRoom=${chat.name}&userRoom=${chat.room}`}
+  //                                >
+  //                                <img src={ChatImage} alt="" style={{width:'3%',marginLeft:'5%'}} />
+  //                               <div style={{fontSize:'17px',fontWeight:'600' , marginLeft:"5px",color:"black"}}>Message Host</div>
+  //                               </Link>
+  //                                   </div> 
+                        
+  //                                   <div className="hotelInfo0S1">
+  //                                       <div className="hotelInfo1">
+  //                                           <div className="hotelInfo01">Amenities</div>
+  //                                           {person.amenList.map((val, ind) => <div className="hotelInfo0198" key={ind}>{val}</div>)}
+  //                                       </div>
+  //                                   </div>
+
+  //                                   <div className="hotelInfo0S1">
+  //                                       <div className="hotelInfo1">
+  //                                           <div className="hotelInfo01">Some House Rules</div>
+  //                                           {person.houseRuelsList.map((val, ind) => <div className="hotelInfo0198" key={ind}>{val}</div>)}
+  //                                       </div>
+  //                                   </div>
+  //                               </div>
+  //                           </div>
+                          
+  //                           <div className="hotelInfo0S1">
+  //                               <div className="hotelInfo1">
+  //                                   <div className="hotelInfo01">Map</div>
+  //                               </div>
+  //                           </div>
+  //                           <div className="Map00">
+  //                               {/* <Map lat={person.lat} lng={person.lng} /> */}
+  //                           </div>
+  //                       </div>
+  //                   </div>
+
+  //                   <div className="carInfo1">
+  //                       <div className="carInfo10">
+  //                           <div className="carInfo101">$ {person.basePrice}/night</div>
+  //                           {isAdmin && (
+  //                               <div className="hotelInfo03">
+                                 
+  //                               </div>
+  //                           )}
+  //                       </div>
+  //                       <div className="carInfo11">
+  //                           <img src={p.profile_pic} alt="" />
+  //                       </div>
+  //                       <div className="carInfo12">{p.name}</div>
+  //                       {isAdmin && (
+  //                           <div className="carInfo13">(Host)</div>
+  //                       )}
+  //                       <div className="carInfo14">
+  //                           <span className="carInfo141">
+  //                               4.7 <span className="carInfo1411"><img src={starIcon} alt="" /></span>
+  //                               . 68 Reviews
+  //                           </span>
+  //                       </div>
+  //                       {isAdmin && (
+  //                           <>
+  //                               <div className="carInfo15"><button onClick={bookingHandle}>Book Now</button></div>
+  //                               <div className="carInfo16">OR</div>
+  //                               <div className="carInfo17"><button onClick={() => history.push('/carsList')}>Add car to booking</button></div>
+  //                           </>
+  //                       )}
+  //                   </div>
+                    
+  //               </div>
+
+  //               <div className="mobile">
+  //                   {/* header */}
+  //                   <div className="placesNearMob0">
+  //                       <div className="placesNearMob01"><img src={backIconGrey} alt="" onClick={() => history.goBack()} /></div>
+  //                       <div className="placesNearMob02">Nearby</div>
+  //                       <div className="placesNearMob04" style={{float: "right", marginRight: "20px"}}><img src={fav} alt="" /></div>
+  //                   </div>
+
+  //                   {/* body */}
+  //                   <div className="hotelInfoMob0">
+
+  //                       <div className="hotelInfoMob01">
+  //                           <img src={varimg} alt="" /> 
+  //                       </div>
+
+  //                       <div className="hotelInfoMob02">
+  //                           <div className="hotelInfoMob021">Name</div>
+                            
+  //                           <div className="hotelInfoMob022">
+  //                               <div className="hotelInfoMob0221">$ 17/night</div>
+  //                               <div className="hotelInfoMob0222">* 5.0(34)</div>
+  //                           </div>
+  //                           <div className="hotelInfoMob023">
+  //                               <button>Check Availability</button>
+  //                           </div>
+
+  //                           <div className="hotelInfoMob024">Bhopal, Madhya Pradesh, India</div>
+
+  //                           <div className="hotelInfoMob03">
+  //                               <div className="hotelInfoMob031">
+  //                                   <div className="hotelInfoMob0311">Entire bungalow</div>
+  //                                   <div className="hotelInfoMob0312"><span>hosted by</span> Krishna kant vishwakarma</div>
+  //                               </div>
+  //                               <div className="hotelInfoMob032">
+  //                                   <img src={varimg} alt="" />
+  //                               </div>
+  //                               <button className="hotelInfoMob033">Rents host car</button>
+  //                           </div>
+
+  //                           <div className="hotelInfoMob04">
+  //                               <div className="hotelInfoMob041">Amenities</div>
+
+  //                               <div className="hotelInfoMob042">Wifi</div>
+  //                               <div className="hotelInfoMob042">Parking</div>
+  //                           </div>
+
+  //                           <div className="hotelInfoMob04">
+  //                               <div className="hotelInfoMob041">Some rules</div>
+
+  //                               <div className="hotelInfoMob042">Wifi</div>
+  //                               <div className="hotelInfoMob042">Parking</div>
+  //                           </div>
+                           
+  //                       </div>
+  //                   </div>
+  //               </div>
+    
+  //           </>
+    
+  //       );
+  //   }
