@@ -44,8 +44,16 @@ src: url('../fonts/Segoe UI Bold.woff') format('woff');
     background-position: top;
     height: 600px;
 }
-.headUpNavMain {
+.checkin{
+    width: 67px;
+    height: 67px;
     float: left;
+    border-radius: 55px;
+    margin: 20px 0px 0px 40px;
+
+}
+.headUpNavMain {
+   
     width: 100%;
     margin-left: 50%;
     transform: translateX(-50%);
@@ -54,7 +62,7 @@ src: url('../fonts/Segoe UI Bold.woff') format('woff');
 .headUpNav1 {
     float: right;
     width: auto;
-    margin-top: 5px;
+    margin-top: 10px;
     margin-right: 50px;
 }
 .headUpNavLink1 {
@@ -155,7 +163,7 @@ src: url('../fonts/Segoe UI Bold.woff') format('woff');
     background-color: white;
     position: absolute;
     width: 230px;
-    top: 70px;
+    top: 50px;
     right: 55px;
     border-radius: 6px;
     padding: 10px 0;

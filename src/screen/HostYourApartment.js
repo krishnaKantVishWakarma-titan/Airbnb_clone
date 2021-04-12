@@ -39,8 +39,12 @@ import Switch from "react-switch";
 // import {uploadFile} from 'react-s3'
 // import isValid from 'date-fns/isValid/index';
 // import swal from 'sweetalert';
-
+import Delete from "../img/icons/delete.png"
 import swal from 'sweetalert';
+
+import bg from '../img/banners/ad1.jpg';
+import Map from "../components/Map";
+import varimg from '../img/demo/3.png';
 
 const mapContainerStyle = {
     width: "100%",
@@ -86,7 +90,7 @@ export default function HostYourApartment() {
                 } else if (res.data[0].isDocVerified === 1) {
                     setDocStatus(res.data[0].isDocVerified);
                 } else if (res.data[0].isDocVerified === 2) {
-                    swal("Your profile is pending for verification", "Please wait while your profile verify !!!", "error");
+                    swal("Your profile is pending verification", "Please wait while Your profile is verify !!!", "error");
                     history.push('/');
                 } else if (res.data[0].isDocVerified === 4) {
                     swal("Your profile is rejected", "Please contact with our support !!!", "error");
@@ -210,7 +214,10 @@ export default function HostYourApartment() {
     }
     const renderPhoto = source => {
         return source.map((photo, key) => {
-            return <div className="uploadedImage"><img src={photo} key={key} alt="" /></div>
+            return ( <>
+            <div className="uploadedImage"><img src={photo} key={key} alt="" />
+            <img src={Delete} alt=""  style={{width: '10%', margin: '-50% 0px 0px 65px'}}/>
+            </div> </>)
         })
     }
 
@@ -1401,20 +1408,84 @@ export default function HostYourApartment() {
                                     </select>
                                 </div>
 
-                                <div className="HostYourApartment212">
-                                    <div className="HostYourApartment2121">Arrive before</div>
-                                    <input ref={p93} value={allVar.arriveBefore} type="time" onChange={e => setAllVar({...allVar, arriveBefore: e.target.value})} />
+                                <div className="HostYourApartment12345">
+                                    <div className="HostYourApartment212121">Arrive before</div>
+                                    {/* <input ref={p93} value={allVar.arriveBefore} type="time" step="3600" onChange={e => setAllVar({...allVar, arriveBefore: e.target.value})} /> */}
+                                    <select style={{outline: 'none', width: '60%', border: 'none', borderBottom:' 1px solid #e1e1e1', color: '#818181',
+                                  padding: '6px 8px', fontFamily: ' sansSerif', marginTop: '8px'}}
+                                  ref={p93} value={allVar.arriveBefore} onChange={e => setAllVar({...allVar, arriveBefore: e.target.value})}>
+                                        <option value="0">Select the hours</option>
+                                        <option value="All">1</option>
+                                        <option value="12m">2</option>
+                                        <option value="9m">3</option>
+                                        <option value="6m">4</option>
+                                        <option value="3m">5</option>
+                                        <option value="1m">6</option>
+                                        <option value="All1">7</option>
+                                        <option value="12m1">8</option>
+                                        <option value="9m1">9</option>
+                                        <option value="6m1">10</option>
+                                        <option value="3m1">11</option>
+                                        <option value="1m1">12</option>
+                                    </select>
+                                    <select style={{outline: 'none', width: '30%', border: 'none', borderBottom:' 1px solid #e1e1e1', color: '#818181',
+                                  padding: '6px 8px', fontFamily: ' sansSerif', marginTop: '8px'}}  ref={p93} value={allVar.arriveBeforeAmpm} onChange={e => setAllVar({...allVar, arriveBeforeAmpm: e.target.value})}>
+                                        <option value="0">Select the hours</option>
+                                        <option value="All">AM</option>
+                                        <option value="12m">PM</option></select>
                                 </div>
 
-                                <div className="HostYourApartment212">
-                                    <div className="HostYourApartment2121">Arrive after</div>
-                                    <input ref={p94} value={allVar.arriveAfter} type="time" onChange={e => setAllVar({...allVar, arriveAfter: e.target.value})} />
+                                <div className="HostYourApartment12345">
+                                    <div className="HostYourApartment212121">Arrive after</div>
+                                    {/* <input ref={p94} value={allVar.arriveAfter} type="time" onChange={e => setAllVar({...allVar, arriveAfter: e.target.value})} /> */}
+                                    <select style={{outline: 'none', width: '60%', border: 'none', borderBottom:' 1px solid #e1e1e1', color: '#818181',
+                                  padding: '6px 8px', fontFamily: ' sansSerif', marginTop: '8px'}} ref={p94} value={allVar.arriveAfter} onChange={e => setAllVar({...allVar, arriveAfter: e.target.value})}>
+                                        <option value="0">Select the hours</option>
+                                        <option value="All">1</option>
+                                        <option value="12m">2</option>
+                                        <option value="9m">3</option>
+                                        <option value="6m">4</option>
+                                        <option value="3m">5</option>
+                                        <option value="1m">6</option>
+                                        <option value="All1">7</option>
+                                        <option value="12m1">8</option>
+                                        <option value="9m1">9</option>
+                                        <option value="6m1">10</option>
+                                        <option value="3m1">11</option>
+                                        <option value="1m1">12</option>
+                                    </select>
+                                    <select style={{outline: 'none', width: '30%', border: 'none', borderBottom:' 1px solid #e1e1e1', color: '#818181',
+                                  padding: '6px 8px', fontFamily: ' sansSerif', marginTop: '8px'}} ref={p94} value={allVar.leaveBeforeAmpm} onChange={e => setAllVar({...allVar, leaveBeforeAmpm: e.target.value})}>
+                                        <option value="0">Select the hours</option>
+                                        <option value="All">AM</option>
+                                        <option value="12m">PM</option></select>
                                 </div>
 
-                                <div className="HostYourApartment212">
-                                    <div className="HostYourApartment2121">Leave before</div>
-                                    <input ref={p95} value={allVar.leaveBefore} type="time" onChange={e => setAllVar({...allVar, leaveBefore: e.target.value})} />
-                                </div>
+                                <div className="HostYourApartment12345">
+                                    <div className="HostYourApartment212121">Leave before</div>
+                                    {/* <input ref={p95} value={allVar.leaveBefore} type="time" onChange={e => setAllVar({...allVar, leaveBefore: e.target.value})} /> */}
+                                    <select style={{outline: 'none', width: '60%', border: 'none', borderBottom:' 1px solid #e1e1e1', color: '#818181',
+                                  padding: '6px 8px', fontFamily: ' sansSerif', marginTop: '8px'}} ref={p95} value={allVar.leaveBefore} onChange={e => setAllVar({...allVar, leaveBefore: e.target.value})}>.
+                                        <option value="0">Select the hours</option>
+                                        <option value="All">1</option>
+                                        <option value="12m">2</option>
+                                        <option value="9m">3</option>
+                                        <option value="6m">4</option>
+                                        <option value="3m">5</option>
+                                        <option value="1m">6</option>
+                                        <option value="All1">7</option>
+                                        <option value="12m1">8</option>
+                                        <option value="9m1">9</option>
+                                        <option value="6m1">10</option>
+                                        <option value="3m1">11</option>
+                                        <option value="1m1">12</option>
+                                    </select>
+                                    <select style={{outline: 'none', width: '30%', border: 'none', borderBottom:' 1px solid #e1e1e1', color: '#818181',
+                                  padding: '6px 8px', fontFamily: ' sansSerif', marginTop: '8px'}} ref={p94} value={allVar.arriveAfter} onChange={e => setAllVar({...allVar, arriveAfter: e.target.value})}>
+                                        <option value="0">Select the hours</option>
+                                        <option value="All">AM</option>
+                                        <option value="12m">PM</option></select>
+                            </div>
 
                                 <div className="HostYourApartment212">
                                     <div className="HostYourApartment2121">Minimum stay in nights</div>
@@ -1884,7 +1955,7 @@ export default function HostYourApartment() {
                 </div>
             )}
 
-            {/* tab 15 */}
+            {/* tab 15
             {tab15 && (
                 <div className="HostYourApartment0M">
                     <div className="HostYourApartment0">Step 15: Preview your inputs</div>
@@ -1906,7 +1977,7 @@ export default function HostYourApartment() {
                                     <span>{allVar.discountOfferedToGuest}</span>
                                 </div> */}
 
-                                <div className="HostYourApartment212">
+                                {/* <div className="HostYourApartment212">
                                     <div className="HostYourApartment2121">Title - <span>{allVar.listingTitle}</span></div>
                                     <div className="HostYourApartment2123"><img src={CheckGreenIcon} alt="" /></div>
                                 </div>
@@ -1988,7 +2059,256 @@ export default function HostYourApartment() {
                         </div>
                     </div>
                 </div>
-            )}
+            )} */} 
+
+
+{tab15 && (
+                <div className="HostYourApartment0M">
+                    <div className="HostYourApartment0">Step 15: Preview your inputs</div>
+                    <div className="HostYourApartment1">
+                        <div className="HostYourApartment11" style={{width: '100%'}}></div>
+                  
+
+                        <div className="carInfo0Cont">
+                       <div className="carInfo0">
+
+                          <div className="carInfo01">
+                              
+                              
+                              {imageList[0] ? <div className="carInfo01img1"><img src={imageList[0]} alt="" /></div> : <div className="carInfo01img1"><img src={bg} alt="" /></div>}
+                               <div className="carInfo01img2">
+                                  {imageList[1] ? <img src={imageList[1]} alt="" /> : <img src={bg} alt="" />}
+                                  {imageList[2] ? <img src={imageList[2]} alt="" /> : <img src={bg} alt="" />} 
+                                
+                                </div>
+                               <div className="carInfo01img3">5+ Photos</div>
+
+                           </div> 
+
+                           <div style={{float: "left"}}>
+                               <div style={{width: "100%", float: "left"}}>
+                                   <div className="hotelInfo0S">
+                                       <div className="hotelInfo1">
+                                           <div className="hotelInfo01">{allVar.listingTitle}</div>
+                                           <div className="hotelInfo01I0">{allVar.addrStreet}, {allVar.addrCity}, {allVar.addrState}</div>
+                                           <div style={{marginBottom: "15px", marginTop: "5px", float: "left"}}>{allVar.noOfGuests} guests . {allVar.bedRooms} bedroom . {allVar.noOfBeds} bed . {allVar.baths} bathroom</div>
+                                       </div>
+                                   </div>
+
+                                    <div className="hotelInfo0S1">
+                                       <div className="hotelInfo1">
+                                           <div className="hotelInfo01">About Apartment</div>
+                                           <div className="hotelInfo01I1">
+                                             {allVar.listingDescription}
+                                          </div>
+                                      </div> </div>
+                                      
+                                      <div className="hotelInfo0S1">
+                                       <div className="hotelInfo1">
+                                           <div className="hotelInfo01">Type Of property</div>
+                                           <div className="hotelInfo01I1">
+                                             {allVar.typeOfProperty}
+                                          </div>
+                                      </div> </div>
+                                      <div className="hotelInfo0S1">
+                                       <div className="hotelInfo1">
+                                           <div className="hotelInfo01">What guest book</div>
+                                           <div className="hotelInfo01I1">
+                                             {allVar.whatGuestBook}
+                                          </div>
+                                      </div> </div>
+                                      <div className="hotelInfo0S1">
+                                       <div className="hotelInfo1">
+                                           <div className="hotelInfo01">Notice before guest arrival</div>
+                                           <div className="hotelInfo01I1">
+                                             {allVar.noticeBeforeGuestArrial}
+                                          </div>
+                                      </div> </div>
+                 
+{/*                                   
+                                   <div className="hotelInfo0S1">
+                              <Link style={{width: '15%',cursor: 'pointer'}}
+                               to={`/chat?userRoom=${chat.name}&userRoom=${chat.room}`}
+                               >
+                               <img src={ChatImage} alt="" style={{width:'3%',marginLeft:'5%'}} />
+                              <div style={{fontSize:'17px',fontWeight:'600' , marginLeft:"5px",color:"black"}}>Message Host</div>
+                              </Link>
+                                  </div>  */}
+                      
+                                  <div className="hotelInfo0S1">
+                                      <div className="hotelInfo1">
+                                          <div className="hotelInfo01">Amenities</div>
+                                          {getAmenList().map((item, key) => <div className="hotelInfo0198" >{key+1}. {item}</div>)}
+                                      </div>
+                                  </div>
+
+                                  {/* <div className="hotelInfo0S1">
+                                      <div className="hotelInfo1">
+                                          <div className="hotelInfo01">Some House Rules</div>
+                                          {person.houseRuelsList.map((val, ind) => <div className="hotelInfo0198" key={ind}>{val}</div>)}
+                                      </div>
+                                  </div> */}
+                              </div>
+                          </div>
+                        
+                          <div className="hotelInfo0S1">
+                              <div className="hotelInfo1">
+                                  <div className="hotelInfo01">Map</div>
+                              </div>
+                          </div>
+                          <div className="Map00">
+                              <Map lat={markers[0].lat} lng={markers[0].lng} />
+                          </div>
+                      </div>
+                  </div>
+
+
+
+
+
+                  <div className="HostYourApartment22"> 
+                                <button className="HostYourApartment321" onClick={() => {
+                                    setTab15(false);
+                                    setTab14(true);
+                                }}>Back</button>
+                                <button className="HostYourApartment123" onClick={finalHostingSubmition}>Publish</button>
+                            </div>
+
+                  <div className="carInfo1">
+                      <div className="carInfo10">
+                          <div className="carInfo101">$ {allVar.basePrice}/night</div>
+                          {/* {isAdmin && (
+                              <div className="hotelInfo03">
+                               
+                              </div>
+                          )} */}
+                      </div>
+                      <div className="carInfo11">
+                          <img src={allVar.profile_pic} alt="" />
+                      </div>
+                      {/* <div className="carInfo12">{p.name}</div>
+                      {isAdmin && (
+                       <div className="carInfo13">(Host)</div>
+                      )} */}
+                      <div className="carInfo14">
+                          <span className="carInfo141">
+                              4.7 <span className="carInfo1411">
+                                  {/* <img src={starIcon} alt="" /> */}
+                                  </span>
+                              . 68 Reviews
+                          </span>
+                      </div>
+                      {/* {isAdmin && (
+                          <>
+                              <div className="carInfo15"><button onClick={bookingHandle}>Book Now</button></div>
+                              <div className="carInfo16">OR</div>
+                              <div className="carInfo17"><button onClick={() => history.push('/carsList')}>Add car to booking</button></div>
+                          </>
+                      )} */}
+                  </div>
+                  
+              </div>
+
+                <div className="mobile">
+                  {/* header */}
+                  {/* <div className="placesNearMob0">
+                      <div className="placesNearMob01"><img src={backIconGrey} alt="" onClick={() => history.goBack()} /></div>
+                      <div className="placesNearMob02">Nearby</div>
+                      <div className="placesNearMob04" style={{float: "right", marginRight: "20px"}}><img src={fav} alt="" /></div>
+                  </div>  */}
+
+                  {/* body */}
+                  {/* <div className="hotelInfoMob0">
+
+                      <div className="hotelInfoMob01">
+                          <img src={varimg} alt="" /> 
+                      </div>
+
+                      <div className="hotelInfoMob02">
+                          <div className="hotelInfoMob021">Name</div>
+                          
+                          <div className="hotelInfoMob022">
+                              <div className="hotelInfoMob0221">$ 17/night</div>
+                              <div className="hotelInfoMob0222">* 5.0(34)</div>
+                          </div>
+                          <div className="hotelInfoMob023">
+                              <button>Check Availability</button>
+                          </div>
+
+                          <div className="hotelInfoMob024">Bhopal, Madhya Pradesh, India</div>
+
+                          <div className="hotelInfoMob03">
+                              <div className="hotelInfoMob031">
+                                  <div className="hotelInfoMob0311">Entire bungalow</div>
+                                  <div className="hotelInfoMob0312"><span>hosted by</span> Krishna kant vishwakarma</div>
+                              </div>
+                              <div className="hotelInfoMob032">
+                                  <img src={varimg} alt="" />
+                              </div>
+                              <button className="hotelInfoMob033">Rents host car</button>
+                          </div>
+
+                          <div className="hotelInfoMob04">
+                              <div className="hotelInfoMob041">Amenities</div>
+
+                              <div className="hotelInfoMob042">Wifi</div>
+                              <div className="hotelInfoMob042">Parking</div>
+                          </div>
+
+                          <div className="hotelInfoMob04">
+                              <div className="hotelInfoMob041">Some rules</div>
+
+                              <div className="hotelInfoMob042">Wifi</div>
+                              <div className="hotelInfoMob042">Parking</div>
+                          </div> */}
+                        
+                         
+                     
+                      </div>
+                       </div>
+                      
+
+)}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             {/* Errors */}
             {errTab && (

@@ -6,7 +6,7 @@ import s from '../../../img/icons/headerMinBack.png';
 
 import './InfoBar.css';
 
-export const InfoBar = ({ room, history }) => (
+export const InfoBar = ({ name, history }) => (
   <div className="infoBar">
     {/* <div className="leftInnerContainer">
       <img className="onlineIcon" src={onlineIcon} alt="online icon" />
@@ -19,7 +19,7 @@ export const InfoBar = ({ room, history }) => (
       <img src={s} alt="" onClick={() => history.goBack()} />
     </div>
     <div className='ib1'>
-      {room}
+     {name}
     </div>
   </div>
 );

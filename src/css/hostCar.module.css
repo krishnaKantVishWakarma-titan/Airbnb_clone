@@ -16,6 +16,14 @@
     display: none;
 } */
 
+.hostcity {
+    float: left;
+    padding: 4.5px 5px;
+    border-radius: 4px;
+    width: calc(96% - 10px);
+    border: 1px solid rgb(164, 164, 164);
+}
+
 .d0 {
     max-width: 700px;
     font-family: 'Segoe UI Regular';
@@ -86,6 +94,12 @@
     border-radius: 4px;
     padding: 4px 5px;
     border: 1px solid rgb(164, 164, 164);
+}.d0311{
+   
+    width: calc(100% - 10px);
+    border-radius: 4px;
+    padding: 4px 5px;
+    border: 1px solid rgb(164, 164, 164);
 }
 .d04 input {
     float: left;
@@ -102,6 +116,11 @@
 .d0611 {
     float: left;
     width: 100%;
+}
+.d0613{
+    float: left;
+    width: 50%;
+    margin-top: 10px;
 }
 .d0611 input {
     float: left;

@@ -25,6 +25,7 @@ import v2 from '../img/icons/bath.png';
 import v3 from '../img/icons/year.png';
 // import ImageSlider from '../components/ImageSlider';
 // import { parse } from 'date-fns';
+import ChatImage from "../img/icons/images1.png";
 
 export default function profile() {
 
@@ -46,6 +47,56 @@ export default function profile() {
     const [tab4, setTab4] = useState(false);
     const [tabSub41, setTabSub41] = useState(true);
     const [tabSub42, setTabSub42] = useState(false);
+
+    const [chat, setChat]=useState(null)
+    const [hostIds , setHostIds]=useState("")
+    
+ // .......................chat Connection.....................................
+     
+          
+
+     const chatHandler = () => {           
+         var myHeaders = new Headers();
+         myHeaders.append("Content-Type", "application/json");
+         myHeaders.append("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl9pZCI6MSwidHlwZSI6ImRldmljZSIsImlhdCI6MTYxNjU2MjM2NX0.n8dGBHbi9_I6JObUpSEa2k-fC-mcwVK-JFh920344_o");
+         
+         var name = JSON.parse(localStorage.getItem("token")).userId;
+         console.log(name);
+
+//          const HostId = hostIds;
+//           console.log(HostId);
+ 
+//   for (let i=0 ; i < HostId.length ; i++){
+//            let res = HostId[i]
+//             let id = res.id
+//                  console.log(id)   
+//   }
+ 
+           var requestOptions = {
+           method: 'post',
+           headers: myHeaders,
+           redirect: 'follow',
+           body: JSON.stringify({
+             "userId" : name,
+            //  "hostId" :
+             
+         })
+         };
+         console.log("sanjeev", requestOptions);
+         fetch("http://13.233.154.141:5000/api/addConnection" ,  requestOptions)
+           .then(response => response.json())
+           .then(res=> {
+             console.log("name",res.data.name);
+             console.log("room",res.data.room);
+ 
+             history.push(`/chat?name=${res.data.name}&room=${res.data.room}`) 
+           setChat(chat);
+          }) 
+         .catch(error => console.log('error', error));
+          }
+
+
+
     const activateListing = () => {
         fetch(url.baseUrl+"host/userid/"+JSON.parse(localStorage.getItem("token")).userId, {
             method: "get",
@@ -94,6 +145,8 @@ export default function profile() {
         .then(res => {
             console.log(res.data);
             setReserList(res.data);
+            setHostIds(res.data)
+           
         })
         .catch(error => console.log(error));
     }
@@ -212,7 +265,7 @@ export default function profile() {
                                                 <th className={ds.d20th4}>Bedrooms</th>
                                                 <th className={ds.d20th5}>Beds</th>
                                                 <th className={ds.d20th6}>Bathrooms</th>
-                                                <th className={ds.d20th7}><img src={settingsIcon} alt='' /></th>
+                                                <th className={ds.d20th7}>Chat</th>
                                             </tr>
 
                                             {hosting.map((host, key) => {return (
@@ -226,7 +279,7 @@ export default function profile() {
                                                     <td className={ds.d20td4}>{host.bedrooms}</td>
                                                     <td className={ds.d20td5}>{host.noOfBed}</td>
                                                     <td className={ds.d20td6}>{host.baths}</td>
-                                                    <td className={ds.d20td7}><img src={moreIcon} alt='' /></td>
+                                                    <td className={ds.d20td7}><img src={ChatImage} alt='' /></td>
                                                 </tr>
                                             )})}
 
@@ -257,7 +310,7 @@ export default function profile() {
                                                 <th className={ds.d20th4}>Minimum trip duration</th>
                                                 <th className={ds.d20th5}>Maximum trip duration</th>
                                                 <th className={ds.d20th6}>State License</th>
-                                                <th className={ds.d20th7}><img src={settingsIcon} alt='' /></th>
+                                                <th className={ds.d20th7}>Chat</th>
                                             </tr>
 
                                             {carhosting.map((host, key) => {return (
@@ -271,7 +324,9 @@ export default function profile() {
                                                     <td className={ds.d20td4}>{host.minimumTripDuration}</td>
                                                     <td className={ds.d20td5}>{host.maximumTripDuration}</td>
                                                     <td className={ds.d20td6}>{host.stateLicense}</td>
-                                                    <td className={ds.d20td7}><img src={moreIcon} alt='' /></td>
+                                                    <td className={ds.d20td7}><img src={ChatImage} alt='' /></td>
+    
+
                                                 </tr>
                                             )})}
 
@@ -302,7 +357,7 @@ export default function profile() {
                                                 <th className={ds.d20th4}>Bedrooms</th>
                                                 <th className={ds.d20th5}>Beds</th>
                                                 <th className={ds.d20th6}>Bathrooms</th>
-                                                <th className={ds.d20th7}><img src={settingsIcon} alt='' /></th>
+                                                <th className={ds.d20th7}>Chat</th>
                                             </tr>
 
                                             {reserList.map((host, key) => {return (
@@ -316,7 +371,7 @@ export default function profile() {
                                                     <td className={ds.d20td4}>{host.guests}</td>
                                                     <td className={ds.d20td5}>{new Date(host.fromDate).getDate()}/{new Date(host.fromDate).getMonth()}/{new Date(host.fromDate).getFullYear()}</td>
                                                     <td className={ds.d20td6}>{new Date(host.toDate).getDate()}/{new Date(host.toDate).getMonth()}/{new Date(host.toDate).getFullYear()}</td>
-                                                    <td className={ds.d20td7}><img src={moreIcon} alt='' /></td>
+                                                    < td className={ds.d20td7} onClick={chatHandler} ><img src={ChatImage} alt="" /></td>
                                                 </tr>
                                             )})}
 
@@ -345,12 +400,12 @@ export default function profile() {
                                                 <tbody>
                                                     <tr className={ds.d20th}>
                                                         <th className={ds.d20th1}>No</th>
-                                                        <th className={ds.d20th2}>Listing</th>
-                                                        <th className={ds.d20th3}>Last Modified</th>
+                                                        <th className={ds.d20th2}>Name</th>
+                                                        <th className={ds.d20th3}>Phone No.</th>
                                                         <th className={ds.d20th4}>Bedrooms</th>
                                                         <th className={ds.d20th5}>Arrival Date</th>
                                                         <th className={ds.d20th6}>Depart Date</th>
-                                                        <th className={ds.d20th7}><img src={settingsIcon} alt='' /></th>
+                                                        <th className={ds.d20th7}>Chat</th>
                                                     </tr>
 
                                                     {bookingList.map((host, key) => {return (
@@ -364,7 +419,7 @@ export default function profile() {
                                                             <td className={ds.d20td4}>{host.guests}</td>
                                                             <td className={ds.d20td5}>{new Date(host.fromDate).getDate()}/{new Date(host.fromDate).getMonth()}/{new Date(host.fromDate).getFullYear()}</td>
                                                             <td className={ds.d20td6}>{new Date(host.toDate).getDate()}/{new Date(host.toDate).getMonth()}/{new Date(host.toDate).getFullYear()}</td>
-                                                            <td className={ds.d20td7}><img src={moreIcon} alt='' /></td>
+                                                            <td className={ds.d20td7}><img src={ChatImage} alt='' /></td>
                                                         </tr>
                                                     )})}
                                                 </tbody>
@@ -382,12 +437,12 @@ export default function profile() {
                                                 <tbody>
                                                     <tr className={ds.d20th}>
                                                         <th className={ds.d20th1}>No</th>
-                                                        <th className={ds.d20th2}>Listing</th>
-                                                        <th className={ds.d20th3}>Last Modified</th>
+                                                        <th className={ds.d20th2}>Name</th>
+                                                        <th className={ds.d20th3}>Phone No.</th>
                                                         <th className={ds.d20th4}>Bedrooms</th>
                                                         <th className={ds.d20th5}>Arrival Date</th>
                                                         <th className={ds.d20th6}>Depart Date</th>
-                                                        <th className={ds.d20th7}><img src={settingsIcon} alt='' /></th>
+                                                        <th className={ds.d20th7}>Chat</th>
                                                     </tr>
 
                                                     {carBookingList.map((host, key) => {return (
@@ -400,7 +455,7 @@ export default function profile() {
                                                             <td className={ds.d20td4}>{host.guests}</td>
                                                             <td className={ds.d20td5}>{new Date(host.fromDate).getDate()}/{new Date(host.fromDate).getMonth()}/{new Date(host.fromDate).getFullYear()}</td>
                                                             <td className={ds.d20td6}>{new Date(host.toDate).getDate()}/{new Date(host.toDate).getMonth()}/{new Date(host.toDate).getFullYear()}</td>
-                                                            <td className={ds.d20td7}><img src={moreIcon} alt='' /></td>
+                                                            <td className={ds.d20td7}><img src={ChatImage} alt='' /></td>
                                                         </tr>
                                                     )})}
                                                 </tbody>

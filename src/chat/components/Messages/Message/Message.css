@@ -5,6 +5,7 @@
     color: white;
     display: inline-block;
     max-width: 80%;
+   
   }
   
   .messageText {
@@ -23,7 +24,7 @@
     display: flex;
     justify-content: flex-end;
     padding: 0 5%;
-    margin-top: 3px;
+    margin-top: 5px;
   }
   
   .sentText {
