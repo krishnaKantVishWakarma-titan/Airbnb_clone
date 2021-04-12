@@ -60,7 +60,7 @@ export default function Chats () {
     }, []);
 
     var named = JSON.parse(localStorage.getItem("token")).userName;
-    console.log(named);
+    console.log("prateek",named);
 
     if (!rooms) {
         return (<div style={{display: "flex", alignContent: "center", justifyContent: "center"}}><img style={{marginTop: "20%", width: "100px"}} src={loading} alt="" /></div>)

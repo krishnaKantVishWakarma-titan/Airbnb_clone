@@ -90,7 +90,7 @@ export default function HostYourApartment() {
                 } else if (res.data[0].isDocVerified === 1) {
                     setDocStatus(res.data[0].isDocVerified);
                 } else if (res.data[0].isDocVerified === 2) {
-                    swal("Your profile is pending for verification", "Please wait while your profile verify !!!", "error");
+                    swal("Your profile is pending verification", "Please wait while Your profile is verify !!!", "error");
                     history.push('/');
                 } else if (res.data[0].isDocVerified === 4) {
                     swal("Your profile is rejected", "Please contact with our support !!!", "error");
@@ -2102,6 +2102,7 @@ export default function HostYourApartment() {
                                              {allVar.listingDescription}
                                           </div>
                                       </div> </div>
+                                      
                                       <div className="hotelInfo0S1">
                                        <div className="hotelInfo1">
                                            <div className="hotelInfo01">Type Of property</div>

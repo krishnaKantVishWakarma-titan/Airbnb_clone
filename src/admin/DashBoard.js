@@ -192,8 +192,8 @@ export default function DashBoard() {
                     <TabList>
                         <Tab>Apartment hosting</Tab>
                         <Tab onClick={() => activateCarListing()}>Car hosting</Tab>
-                        <Tab>Inbox</Tab>
-                        <Tab>Reservations</Tab>
+                        {/* <Tab>Inbox</Tab>
+                        <Tab>Reservations</Tab> */}
                     </TabList>
 
                     <TabPanel>

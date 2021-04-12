@@ -1,6 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import SliderCss from '../css/ImageSlider.module.css';
+import rightArrowIcon from '../img/icons/headerMinBack.png';
+
 // import v1 from '../img/demo/1.png';
 // import v2 from '../img/demo/2.png';
 // import v3 from '../img/demo/3.png';
@@ -32,7 +34,10 @@ export default function Examples({images}) {
             <div className={SliderCss.container}>
                 <button className={SliderCss.slideLeftBtn} onClick={slideLeft}>{"<"}</button>
                 <img className={SliderCss.mainImage} src={images[index]} alt="" />
+             {/* <img src={rightArrowIcon} alt="" />  */}
+
                 <button className={SliderCss.slideRightBtn} onClick={slideRight}>{">"}</button>
+              
             </div>
         )
     );

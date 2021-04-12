@@ -2,7 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import '../css/header.css';
 import {useState, useEffect, useCallback, useRef} from 'react';
-import Checkin from "../img/banners/WhatsAppImage.jpeg";
+
 import backIconGrey from '../img/icons/backGrey.svg';
 import RecentGreyIcon from '../img/icons/watch.svg';
 import profileIcon from '../img/icons/profileGrey.svg';
@@ -506,7 +506,6 @@ export default function Header() {
                         id="covidTitle"
                         defaultMessage={defaultMgs.Mgs.covidTitle}
                     />
-                    <img src={Checkin} alt="" className="checkin" />
                 </div>
                 <div className="headBody">
                     <div className="headUpNavMain">

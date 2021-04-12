@@ -15,6 +15,20 @@ export default function Profiles() {
     const [tab2, setTab2] = useState(false);
     const [tab3, setTab3] = useState(false);
 
+     
+    var data = localStorage.getItem("token");
+    var name = JSON.parse(data);
+    console.log(name.userId);
+
+
+    const profile = JSON.parse(localStorage.getItem("token")).userProfile;
+    console.log(profile);
+
+    var Email = JSON.parse(localStorage.getItem("token")).userEmail;
+    console.log(Email);
+
+
+
     return (
         <>
             <div style={{ width: "100%", height: "100%" }}>
@@ -45,13 +59,13 @@ export default function Profiles() {
                     <div className="div_0">
                         <h1 className="p5"> Profile</h1>
                         <div className="p4">
-                            <img src={adminPro} alt="" /> </div>
+                            <img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" /> </div>
                         <div style={{ marginLeft: "38%", marginTop: "-22px" }}>
                             <img style={{ width: '30px', height: '20px', borderRadius: "20px" }} src={Image} alt="" />
                         </div>
 
 
-                        <p className="p6">John Doe</p>
+                        <p className="p6">{JSON.parse(localStorage.getItem("token")).userName}</p>
                         <div className="p8">
                             <textarea placeholder="About yourself" className="p7"></textarea></div>
                         <div className="p8">
@@ -110,7 +124,7 @@ export default function Profiles() {
                     <div className="div_1">
                         <div className="div_02">
                             <h1 className="p5"> Verifications  </h1>
-                            <p className="p6_1">john.doe@gmail.com</p>
+                            <p className="p6_1">{JSON.parse(localStorage.getItem("token")).userEmail}</p>
                             <div className="Icons0">
                                 <img style={{ width: '20px', height: '20px' }} src={Right} alt="" />
                             </div>

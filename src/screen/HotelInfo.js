@@ -43,13 +43,17 @@ import Map from "../components/Map";
 import swal from 'sweetalert';
 // date
 import { DateRange } from 'react-date-range';
+import ImageSlider from '../components/ImageSlider';
+
 
 export default function HotelInfo() {
 
     const {id} = useParams();
     const [person, setPerson] = useState(null);
     const [p, setp] = useState(null);
-
+     const [imagetab2, setImageTab2]=useState(false)
+     const [imagetab1, setImageTab1]=useState(true)
+    
     const [isSignedIn, setIsSignedIn] = useState(true);
 
     const [sideBar, setSideBar] = useState(false);
@@ -534,6 +538,8 @@ console.log(HostId);
         });
     }
 
+   
+
     const names = JSON.parse(localStorage.getItem("token")).userId;
     console.log(names)
 
@@ -558,21 +564,27 @@ console.log(HostId);
                         </div>
                     </div>
                     <div className="carInfo0Cont">
-
+                        
                         <div className="carInfo0">
+{ imagetab1 &&(
 
-                            <div className="carInfo01">
-                                
-                                
-                                {person.imageList[0] ? <div className="carInfo01img1"><img src={person.imageList[0]} alt="" /></div> : <div className="carInfo01img1"><img src={bg} alt="" /></div>}
+                            <div className="carInfo01">     
+                              {person.imageList[0] ? <div className="carInfo01img1"><img src={person.imageList[0]} alt="" /></div> : <div className="carInfo01img1"><img src={bg} alt="" /></div>}
                                 <div className="carInfo01img2">
                                     {person.imageList[1] ? <img src={person.imageList[1]} alt="" /> : <img src={bg} alt="" />}
                                     {person.imageList[2] ? <img src={person.imageList[2]} alt="" /> : <img src={bg} alt="" />}
                                     {/* <img src={bg} alt="" /> */}
                                 </div>
-                                <div className="carInfo01img3">5+ Photos</div>
+                                <div className="carInfo01img3" onClick={() => {setImageTab2(true); setImageTab1(false)}} >5+ Photos </div>
+                                </div>
+  )  }
+                      { imagetab2 &&(
 
-                            </div>
+                                 <ImageSlider images={person.imageList} />
+
+                                )
+
+                                }
 
                             <div style={{float: "left"}}>
                                 <div style={{width: "100%", float: "left"}}>
@@ -588,9 +600,7 @@ console.log(HostId);
                                         <div className="hotelInfo1">
                                             <div className="hotelInfo01">About Apartment</div>
                                             <div className="hotelInfo01I1">
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque repellat nisi voluptatum repellendus! Repudiandae, maiores laudantium esse doloribus blanditiis nihil aliquam enim ea doloremque saepe quis provident eaque cum ratione?
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque repellat nisi voluptatum repellendus! Repudiandae, maiores laudantium esse doloribus blanditiis nihil aliquam enim ea doloremque saepe quis provident eaque cum ratione?
-                                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque repellat nisi voluptatum repellendus! Repudiandae, maiores laudantium esse doloribus blanditiis nihil aliquam enim ea doloremque saepe quis provident eaque cum ratione?
+                                                {person.listingDescription}
                                             </div>
                                         </div>
                                     </div>
