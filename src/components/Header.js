@@ -19,6 +19,8 @@ import LockImg from '../img/icons/lock.png';
 import EmailImg from '../img/icons/email.png';
 import downArrow from '../img/icons/down-arrow.png';
 
+import phonenu from '../img/icons/phone-book.svg'
+
 import sidebarIcon from '../img/icons/sidebar.png';
 import worldIcon from '../img/icons/worldIcon.png';
 import closeBtn from '../img/icons/close.png';
@@ -314,6 +316,7 @@ export default function Header() {
         login_type: "",
         login_id: "",
         profile_pic: "",
+        otp: ''
     });
 
     const signOutSubmit = () => {
@@ -385,69 +388,137 @@ export default function Header() {
         console.log(err, data);
     };
 
+    // sign up sub tabs
+    const [subTab1, setSubTab1] = useState(true);
+    const [subTab2, setSubTab2] = useState(false);
+
+    // debug code
+    useEffect(() => {
+        console.log(signupVal);
+    }, [signupVal]);
+
     const SignUpSubmit = () => {
 
         // validation
-        if (signupVal.firstName === "") {
-            alert("Enter first name ...")
-        } else if (signupVal.lastName === "") {
-            alert("Enter last name ...")
-        } else if (signupVal.email === "") {
+        if (signupVal.firstName === "") {  // full name
+            alert("Enter full name ...")
+        } else if (signupVal.lastName === "") {  //  mobile number 
+            alert("Enter mobile no. ...")
+        } else if (signupVal.email === "") {  // email
             alert("Enter email ...")
-        } else if (signupVal.password === "") {
+        } else if (signupVal.password === "") {  // password
             alert("Enter password ...")
         } else {
-            setSignupVal({...signupVal, login_type: "normal"})
+            setSignupVal({...signupVal, login_type: "normal"});
+            console.log(signupVal)
 
-            var name = signupVal.firstName + " " + signupVal.lastName
-
-            fetch(url.baseUrl + "register", {
+            fetch(url.baseUrl + "sendVerificationCode", {
                 method: "post",
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-
                 //make sure to serialize your JSON body
                 body: JSON.stringify({
-                    name: name,
-                    email: signupVal.email,
-                    password: signupVal.password,
+                    phone: signupVal.lastName
+                })
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log("flag 1");
+                console.log(res);
+                if (res.code === 200) {
+                    setSubTab1(false);
+                    setSubTab2(true);
+                }
+            })
+            .catch(error => console.log(error));
+        }
+    }
+    //its working
+
+    const SignUpVerfiyOTP = () => {
+        if (signupVal.otp === "") {
+            alert("Enter otp !!!");
+        } else {
+            fetch(url.baseUrl + "verifyCode", {
+                method: "post",
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                //make sure to serialize your JSON body
+                body: JSON.stringify({
+                    phone: signupVal.lastName,
+                    code: signupVal.otp
                 })
             })
             .then(res => res.json())
             .then(res => { 
+                console.log("flag 2");
+                console.log(signupVal);
                 console.log(res);
-                if (res.code === 205) {
-                    swal("Already register", "You are already register !!!", "info");
-                    setSignInPage(true);
-                    setSignupPage(false);
-                } 
-                if (res.code === 200) {
-                    swal("Good job!", "You are successfully register !!!", "success");
-                    var userData = {
-                        "userId": res.user.id,
-                        "userToken": res.user.logintoken,
-                        "userName": res.user.name,
-                        "userEmail": res.user.email,
-                        "userProfile": res.user.profile_pic
-                    }
-                    if (localStorage.getItem("token") === null) {
-                        localStorage.setItem("token", JSON.stringify(userData));
-                        setUserName(res.user.name);
-                        setSignInPage(false);
-                        setIsSignedIn(true);
-                    } else {
-                        alert("Storage error")
-                    }
-                } 
-
+                if (res.status === 'pending') {
+                    alert("Otp do not passed");
+                } else if (res.status === 'approved') {
+                    // setSubTab1(true);
+                    // setSubTab2(false);
+                    signupfinalcall();
+                }
             })
             .catch(error => console.log(error));
-
         }
     }
-    //its working
+
+    const signupfinalcall = () => {
+        console.log(signupVal)
+        fetch(url.baseUrl + "register", {
+            method: "post",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            //make sure to serialize your JSON body
+            body: JSON.stringify({
+                name: signupVal.firstName,
+                email: signupVal.email,
+                password: signupVal.password,
+                phone: signupVal.otp,
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log("flag 4");
+            console.log(res);
+            if (res.code === 205) {
+                swal("Already register", "You are already register !!!", "info");
+                setSignInPage(true);
+                setSignupPage(false);
+            } 
+            if (res.code === 200) {
+                swal("Good job!", "You are successfully register !!!", "success");
+                var userData = {
+                    "userId": res.user.id,
+                    "userToken": res.user.logintoken,
+                    "userName": res.user.name,
+                    "userEmail": res.user.email,
+                    "userProfile": res.user.profile_pic
+                }
+                if (localStorage.getItem("token") === null) {
+                    localStorage.setItem("token", JSON.stringify(userData));
+                    setUserName(res.user.name);
+                    setSubTab1(false);
+                    setSubTab2(false);
+                    setSignupPage(false);
+                    setIsSignedIn(true);
+                } else {
+                    alert("Storage error")
+                }
+            } 
+
+        })
+        .catch(error => console.log(error));
+    }
 
     const responseFacebook = resp => {
         alert("Signed In"+ resp)
@@ -1204,77 +1275,98 @@ export default function Header() {
                             <div className="Closebtn">
                                 <div onClick={() => setSignupPage(false)}>Close</div>
                             </div>
-                            {/* 2nd row */}
-                            <div className="sign021Ex">Sign Up</div>
-                            <div className="sign022">
-                                <span className="sign0221"><img src={UserImg} alt="" /></span>
-                                <span className="sign0222"><input type="text" placeholder="First name ..." onChange={e => setSignupVal({...signupVal, firstName: e.target.value})} /></span>
-                                <span className="sign0223"><img src={downArrow} alt="" /></span>
-                            </div>
-                            <div className="sign022">
-                                <span className="sign0221"><img src={UserImg} alt="" /></span>
-                                <span className="sign0222"><input type="text" placeholder="Last name ..." onChange={e => setSignupVal({...signupVal, lastName: e.target.value})} /></span>
-                                <span className="sign0223"><img src={downArrow} alt="" /></span>
-                            </div>
-                            <div className="sign022">
-                                <span className="sign0221"><img src={EmailImg} alt="" /></span>
-                                <span className="sign0222"><input type="text" placeholder="Email ..." onChange={e => setSignupVal({...signupVal, email: e.target.value})} /></span>
-                                <span className="sign0223"><img src={downArrow} alt="" /></span>
-                            </div>
-                            <div className="sign022">
-                                <span className="sign0221"><img src={LockImg} alt="" /></span>
-                                <span className="sign0222"><input type="password" placeholder="Password ..."  onChange={e => setSignupVal({...signupVal, password: e.target.value})} /></span>
-                                <span className="sign0223"><img src={downArrow} alt="" /></span>
-                            </div>
-                            <div className="sign023">
-                                <span className="sign0231"><input type="checkbox" /></span>
-                                <span className="sign0232">Remember me</span>
-                            </div>
-                            <div className="sign023"><button onClick={SignUpSubmit}>Sign Up</button></div>
+
+                            {subTab1 && (
+                                <>
+                                    {/* 2nd row */}
+                                    <div className="sign021Ex">Sign Up</div>
+                                    <div className="sign022">
+                                        <span className="sign0221"><img src={UserImg} alt="" /></span>
+                                        <span className="sign0222"><input type="text" placeholder="Full name ..." onChange={e => setSignupVal({...signupVal, firstName: e.target.value})} /></span>
+                                        <span className="sign0223"><img src={downArrow} alt="" /></span>
+                                    </div>
+                                    <div className="sign022">
+                                        <span className="sign0221"><img src={phonenu} alt="" /></span>
+                                        <span className="sign0222"><input type="text" placeholder="Mobile no. (+91 7697114202)" onChange={e => setSignupVal({...signupVal, lastName: e.target.value})} /></span>
+                                        <span className="sign0223"><img src={downArrow} alt="" /></span>
+                                    </div>
+                                    <div className="sign022">
+                                        <span className="sign0221"><img src={EmailImg} alt="" /></span>
+                                        <span className="sign0222"><input type="text" placeholder="Email ..." onChange={e => setSignupVal({...signupVal, email: e.target.value})} /></span>
+                                        <span className="sign0223"><img src={downArrow} alt="" /></span>
+                                    </div>
+                                    <div className="sign022">
+                                        <span className="sign0221"><img src={LockImg} alt="" /></span>
+                                        <span className="sign0222"><input type="password" placeholder="Password ..."  onChange={e => setSignupVal({...signupVal, password: e.target.value})} /></span>
+                                        <span className="sign0223"><img src={downArrow} alt="" /></span>
+                                    </div>
+                                    {/* <div className="sign023">
+                                        <span className="sign0231"><input type="checkbox" /></span>
+                                        <span className="sign0232">Remember me</span>
+                                    </div> */}
+                                    <div className="sign023"><button onClick={SignUpSubmit}>Sign Up</button></div>
+                                    <div className="sign024Ex">
+                                        <span className="sign0241">Or Sign Up with</span>
+                                        <div className="sign0242">
+                                            <GoogleLogin
+                                                clientId="712330131270-mbt3jl3i2ohaqsuk3cqvm6gkpf2qaefo.apps.googleusercontent.com"
+                                                onSuccess={responseGoogle}
+                                                onFailure={responseGoogleFail}
+                                                render={renderProp => (
+                                                    <button onClick={renderProp.onClick} className="GoogleBtn">
+                                                        <img src={googleImg} alt="" />
+                                                    </button>
+                                                )}
+                                                cookiePolicy={'single_host_origin'}
+                                            />
+                                        </div>
+                                        <div className="sign0242">
+                                            <TwitterLogin
+                                                authCallback={authHandler}
+                                                consumerKey="oY4NkDIMi7E3iLlmr0JXZn0oZ"
+                                                consumerSecret="swRWHCK1JOUSK8TzORMzUfzxAcEG8Pk17B4Hv0FYwpFkYY7Csz"
+                                            >
+                                                <button className="GoogleBtn">
+                                                    <img src={twitter} alt="" />
+                                                </button>
+                                            </TwitterLogin>
+                                        </div>
+                                        <div className="sign0242">
+                                            <FacebookLogin
+                                                appId="225590285712276"
+                                                autoLoad={false}
+                                                status={true}
+                                                xfbml={true}
+                                                fields="name,email,picture"
+                                                callback={responseFacebook} 
+                                                render={renderProp => (
+                                                    <button onClick={renderProp.onClick} className="GoogleBtn">
+                                                        <img src={FbImg} alt="" />
+                                                    </button>
+                                                )}
+                                            />
+                                        </div>
+                                    </div>
+
+                                </>
+                            )}
+
+                            {subTab2 && (
+                                <>
+                                
+                                    <div className="sign021Ex">Enter OTP</div>
+                                    <div className="sign022" style={{marginTop: '50px'}}>
+                                        <span className="sign0221"><img src={UserImg} alt="" /></span>
+                                        <span className="sign0222"><input type="text" placeholder="Enter OTP ..." onChange={e => setSignupVal({...signupVal, otp: e.target.value})} /></span>
+                                        <span className="sign0223"><img src={downArrow} alt="" /></span>
+                                    </div>
+                                    <div className="sign023"><button style={{marginTop: '10px'}} onClick={SignUpVerfiyOTP}>Verify</button></div>
 
 
-                            <div className="sign024Ex">
-                                <span className="sign0241">Or Sign Up with</span>
-                                <div className="sign0242">
-                                    <GoogleLogin
-                                        clientId="712330131270-mbt3jl3i2ohaqsuk3cqvm6gkpf2qaefo.apps.googleusercontent.com"
-                                        onSuccess={responseGoogle}
-                                        onFailure={responseGoogleFail}
-                                        render={renderProp => (
-                                            <button onClick={renderProp.onClick} className="GoogleBtn">
-                                                <img src={googleImg} alt="" />
-                                            </button>
-                                        )}
-                                        cookiePolicy={'single_host_origin'}
-                                    />
-                                </div>
-                                <div className="sign0242">
-                                    <TwitterLogin
-                                        authCallback={authHandler}
-                                        consumerKey="oY4NkDIMi7E3iLlmr0JXZn0oZ"
-                                        consumerSecret="swRWHCK1JOUSK8TzORMzUfzxAcEG8Pk17B4Hv0FYwpFkYY7Csz"
-                                    >
-                                        <button className="GoogleBtn">
-                                            <img src={twitter} alt="" />
-                                        </button>
-                                    </TwitterLogin>
-                                </div>
-                                <div className="sign0242">
-                                    <FacebookLogin
-                                        appId="225590285712276"
-                                        autoLoad={false}
-                                        status={true}
-                                        xfbml={true}
-                                        fields="name,email,picture"
-                                        callback={responseFacebook} 
-                                        render={renderProp => (
-                                            <button onClick={renderProp.onClick} className="GoogleBtn">
-                                                <img src={FbImg} alt="" />
-                                            </button>
-                                        )}
-                                    />
-                                </div>
-                            </div>
+                                </>
+                            )}
+                            
+
 
                         </div>
                     </div>

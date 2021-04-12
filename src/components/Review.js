@@ -3,12 +3,12 @@ import { useEffect, useRef, useState } from 'react';
 import '../css/components.css';
 import varimg1 from '../img/demo/22.png';
 
-import starIcon from '../img/icons/star.svg';
-import usFilledStarIcon from '../img/icons/unFilledStar.svg';
+// import starIcon from '../img/icons/star.svg';
+// import usFilledStarIcon from '../img/icons/unFilledStar.svg';
 import thumbLike from '../img/icons/thumbLike.svg';
 import url from '../data/urls.json';
 import loading from '../img/icons/loadingHostingList.gif';
-import swal from 'sweetalert';
+// import swal from 'sweetalert';
 
 export default function Review({hostingId}) {
     const [reviewsList, setReviewsList] = useState(null);
@@ -35,112 +35,112 @@ export default function Review({hostingId}) {
         .catch(error => console.log(error));
     }
 
-    const [rating, setRating] = useState(null);
-    const [val1, setVal1] = useState(false);
-    const [val2, setVal2] = useState(false);
-    const [val3, setVal3] = useState(false);
-    const [val4, setVal4] = useState(false);
-    const [val5, setVal5] = useState(false);
-    const handleReview = (e, val) => {
-        setVal1(false);
-        setVal2(false);
-        setVal3(false);
-        setVal4(false);
-        setVal5(false);
-        for (var i=1; i<=val; i++) {
-            if (i === 1) {
-                setVal1(!val1);
-            } else if (i === 2) {
-                setVal2(!val2);
-            } else if (i === 3) {
-                setVal3(!val3);
-            } else if (i === 4) {
-                setVal4(!val4);
-            } else if (i === 5) {
-                setVal5(!val5);
-            }
-        }
-        if(rating) {
-            ratingOnClickHandle(null, rating);
-        }
-    }
-    const ratingOnClickHandle = (e, val) => {
-        setRating(val);
-        setVal1(false);
-        setVal2(false);
-        setVal3(false);
-        setVal4(false);
-        setVal5(false);
-        for (var i=1; i<=val; i++) {
-            if (i === 1) {
-                setVal1(true);
-            } else if (i === 2) {
-                setVal2(true);
-            } else if (i === 3) {
-                setVal3(true);
-            } else if (i === 4) {
-                setVal4(true);
-            } else if (i === 5) {
-                setVal5(true);
-            }
-        }
-    }
-    const mesBox = useRef(null);
-    const [message, setMessage] = useState(null);
-    const handleReviewPost = () => {
-        mesBox.current.style.border = "1px solid grey";
-        if (message === null) {
-            mesBox.current.style.border = "1px solid red";
-            mesBox.current.focus();
-        } else if (message === "") {
-            mesBox.current.style.border = "1px solid red";
-            mesBox.current.focus();
-        } else if (rating === null) {
-            swal("Rate us", "Must select the stars", "info");
-        } else if (rating === 0) {
-            swal("Rate us", "Please rate us", "info");
-        } else {
+    // const [rating, setRating] = useState(null);
+    // const [val1, setVal1] = useState(false);
+    // const [val2, setVal2] = useState(false);
+    // const [val3, setVal3] = useState(false);
+    // const [val4, setVal4] = useState(false);
+    // const [val5, setVal5] = useState(false);
+    // const handleReview = (e, val) => {
+    //     setVal1(false);
+    //     setVal2(false);
+    //     setVal3(false);
+    //     setVal4(false);
+    //     setVal5(false);
+    //     for (var i=1; i<=val; i++) {
+    //         if (i === 1) {
+    //             setVal1(!val1);
+    //         } else if (i === 2) {
+    //             setVal2(!val2);
+    //         } else if (i === 3) {
+    //             setVal3(!val3);
+    //         } else if (i === 4) {
+    //             setVal4(!val4);
+    //         } else if (i === 5) {
+    //             setVal5(!val5);
+    //         }
+    //     }
+    //     if(rating) {
+    //         ratingOnClickHandle(null, rating);
+    //     }
+    // }
+    // const ratingOnClickHandle = (e, val) => {
+    //     setRating(val);
+    //     setVal1(false);
+    //     setVal2(false);
+    //     setVal3(false);
+    //     setVal4(false);
+    //     setVal5(false);
+    //     for (var i=1; i<=val; i++) {
+    //         if (i === 1) {
+    //             setVal1(true);
+    //         } else if (i === 2) {
+    //             setVal2(true);
+    //         } else if (i === 3) {
+    //             setVal3(true);
+    //         } else if (i === 4) {
+    //             setVal4(true);
+    //         } else if (i === 5) {
+    //             setVal5(true);
+    //         }
+    //     }
+    // }
+    // const mesBox = useRef(null);
+    // const [message, setMessage] = useState(null);
+    // const handleReviewPost = () => {
+    //     mesBox.current.style.border = "1px solid grey";
+    //     if (message === null) {
+    //         mesBox.current.style.border = "1px solid red";
+    //         mesBox.current.focus();
+    //     } else if (message === "") {
+    //         mesBox.current.style.border = "1px solid red";
+    //         mesBox.current.focus();
+    //     } else if (rating === null) {
+    //         swal("Rate us", "Must select the stars", "info");
+    //     } else if (rating === 0) {
+    //         swal("Rate us", "Please rate us", "info");
+    //     } else {
 
-            fetch(url.baseUrl+"review", {
-                method: "POST",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    "userId": JSON.parse(localStorage.getItem("token")).userId,
-                    "hosting_id": hostingId,
-                    "message": message,
-                    "ratings": rating
-                })
-            })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res);
-                setRating(null);
-                setMessage(null);
-                mesBox.current.value = "";
-                reviewList();
-                setVal1(false);
-                setVal2(false);
-                setVal3(false);
-                setVal4(false);
-                setVal5(false);
-            })
-            .catch(error => console.log(error));
+    //         fetch(url.baseUrl+"review", {
+    //             method: "POST",
+    //             headers: {
+    //                 'Accept': 'application/json',
+    //                 'Content-Type': 'application/json'
+    //             },
+    //             body: JSON.stringify({
+    //                 "userId": JSON.parse(localStorage.getItem("token")).userId,
+    //                 "hosting_id": hostingId,
+    //                 "message": message,
+    //                 "ratings": rating
+    //             })
+    //         })
+    //         .then(res => res.json())
+    //         .then(res => {
+    //             console.log(res);
+    //             setRating(null);
+    //             setMessage(null);
+    //             mesBox.current.value = "";
+    //             reviewList();
+    //             setVal1(false);
+    //             setVal2(false);
+    //             setVal3(false);
+    //             setVal4(false);
+    //             setVal5(false);
+    //         })
+    //         .catch(error => console.log(error));
 
-        }
-    }
-    useEffect(() => {
-        console.log(message)
-    }, [message]);
+    //     }
+    // }
+    // useEffect(() => {
+    //     console.log(message)
+    // }, [message]);
 
     return (
 
         <>
         
             <div className="container">
-                <div className="ReviewW0">
+                {/* <div className="ReviewW0">
                     <div className="ReviewW01">Write your review</div>
                     <textarea placeholder="Krishna" ref={mesBox} onChange={e => setMessage(e.target.value)} />
                     <div className="ReviewW02">
@@ -164,7 +164,7 @@ export default function Review({hostingId}) {
                         )}
                     </div>
                     <div className="ReviewW03" onClick={handleReviewPost}>Post</div>
-                </div>
+                </div> */}
                 <div className="ReviewCont0">
 
                     {reviewsList ? (
