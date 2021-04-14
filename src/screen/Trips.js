@@ -331,7 +331,7 @@ export default function Trips() {
                                         <>
                                             {/* single container */}
                                             <div className="DetailList0" key={key}>
-                                                <div className="DetailList01"><img src={host.imageList[0] || host.imageList} alt="" /></div>
+                                                <div className="DetailList01"><img src={host.imageList[0]} alt="" /></div>
                                                 <div className="DetailList02">
                                                     <div className="DetailList021">{host.guests}</div>
                                                     <div className="DetailList022">{host.listingTitle}</div>

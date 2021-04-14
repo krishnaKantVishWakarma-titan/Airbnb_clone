@@ -17,8 +17,8 @@
 }
 .mgs0111 {
   float: left;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
 }
 .mgs0111 img {
   width: 100%;
@@ -26,19 +26,33 @@
   border-radius: 500px;
 }
 .mgs0111name {
-  float: left;
+  float: right;
+  /* background-color: blue; */
   width: calc(100% - 50px);
-  padding-bottom: 5px;
-  margin-left: 50px;
+  padding-top: 2px;
+  padding-bottom: 8px;
+  /* margin-left: 50px; */
   font-size: 13px;
+  font-weight: 600;
+}
+.mgs0111name1 {
+  float: left;
+  text-align: right;
+  /* background-color: blue; */
+  width: calc(100% - 50px);
+  padding-top: 2px;
+  padding-bottom: 8px;
+  /* margin-left: 50px; */
+  font-size: 13px;
+  font-weight: 600;
 }
 .mgs0112 {
   float: left;
-  max-width: calc(100% - 88px);
+  max-width: calc(100% - 158px);
   margin-left: 10px;
   width: auto;
   font-size: 12.5px;
-  border-radius: 20px;
+  border-radius: 15px;
   line-height: 22px;
   background-color: #F3F3F3;
   padding: 10px 20px;
@@ -49,8 +63,8 @@
 }
 .mgs0121 {
   float: right;
-  width: 35px;
-  height: 35px;
+  width: 40px;
+  height: 40px;
 }
 .mgs0121 img {
   width: 100%;
@@ -63,7 +77,7 @@
   width: auto;
   margin-right: 10px;
   font-size: 12.5px;
-  border-radius: 20px;
+  border-radius: 15px;
   line-height: 22px;
   background-color: #214ED3;
   color: white;

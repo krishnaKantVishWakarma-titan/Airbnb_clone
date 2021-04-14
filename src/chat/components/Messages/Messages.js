@@ -44,11 +44,11 @@ export const Messages = ({ messages, name, usern, prevData, profiles }) => (
                                     // </div>
                                     <div className="mgs01">
                                         <div className="mgs012">
-                                        <div className="mgs0121">
+                                            <div className="mgs0121">
                                                 <img src={JSON.parse(localStorage.getItem("token")).userProfile || profile} alt="" />
                                             </div>
+                                            <div className="mgs0111name1">{JSON.parse(localStorage.getItem("token")).userName}</div>
                                             <div className="mgs0122">{ReactEmoji.emojify(item.message)}</div>
-                                            
                                         </div>
                                     </div>
                                 )}
@@ -65,11 +65,12 @@ export const Messages = ({ messages, name, usern, prevData, profiles }) => (
                 <div className="mgs0111">
                     <img src={profile} alt="" />
                 </div>
+                <div className="mgs0111name">kk</div>
                 <div className="mgs0112">Some Text Some Text Some Text Some Text Some Text Some TextSome TextSome TextSome TextSome TextSome TextSome TextSome TextSome Text</div>
             </div>
-        </div>
+        </div> */}
 
-        <div className="mgs01">
+        {/* <div className="mgs01">
             <div className="mgs012">
                 <div className="mgs0122">Some Text Some Text Some Text Some Text Some Text Some TextSome TextSome TextSome TextSome TextSome TextSome TextSome TextSome Text</div>
                 <div className="mgs0121">

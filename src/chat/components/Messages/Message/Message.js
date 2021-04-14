@@ -29,6 +29,8 @@ export const Message = ({message: { user, text }, name, profiles}) => {
                 <div className="mgs0121">
                     <img src={JSON.parse(localStorage.getItem("token")).userProfile || profile} alt="" />
                 </div>
+                
+                <div className="mgs0111name1">{JSON.parse(localStorage.getItem("token")).userName}</div>
                 <div className="mgs0122">{ReactEmoji.emojify(text)}</div>
             </div>
         </div>
@@ -47,6 +49,7 @@ export const Message = ({message: { user, text }, name, profiles}) => {
                 <div className="mgs0111">
                     <img src={profiles || profile} alt="" />
                 </div>
+                <div className="mgs0111name">{user}</div>
                 <div className="mgs0112">{text}</div>
             </div>
         </div>
