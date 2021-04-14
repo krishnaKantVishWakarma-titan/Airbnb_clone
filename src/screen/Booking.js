@@ -17,6 +17,7 @@ import StripeCheckout from 'react-stripe-checkout';
 import PublishableKey from '../data/api_keys.json';
 import { useLocation } from 'react-router-dom/cjs/react-router-dom.min';
 import loading from '../img/icons/loading.gif';
+import swal from 'sweetalert';
 import url from '../data/urls.json';
 
 export default function Booking () {
@@ -124,13 +125,15 @@ export default function Booking () {
         })
         .then(res => res.json())
         .then(res => {
-            if (res.code === 200) {
-                history.push("/hosting");
-            }
+            console.log('stripe res after')
+            console.log(res)
+            swal("Good job!", "Your payment has been done successfully !!!", "success");
+            history.push("/Trips");
+            // if (res.code === 200) {
+            // }
         })
         .catch(err => console.log(err))
     }
-
     if (!places) {
         return (<div style={{display: "flex", alignContent: "center", justifyContent: "center"}}><img style={{marginTop: "20%", width: "100px"}} src={loading} alt="" /></div>)
     } else {
@@ -154,7 +157,7 @@ export default function Booking () {
 
                             <div className={b.b13}>
                                 <div className={b.b131}>Dates</div>
-                                <div className={b.b132}>{new Date(startDate).getDate()}/{new Date(startDate).getMonth()}/{new Date(startDate).getFullYear()} - {new Date(endDate).getDate()}/{new Date(endDate).getMonth()}/{new Date(endDate).getFullYear()}</div>
+                                <div className={b.b132}>{new Date(startDate).getDate()}/{new Date(startDate).getMonth()+1}/{new Date(startDate).getFullYear()} - {new Date(endDate).getDate()}/{new Date(endDate).getMonth()+1}/{new Date(endDate).getFullYear()}</div>
                                 <div className={b.b133}><img src={clockSmall} width="13px" style={{paddingTop: '4.5px', float: 'left', paddingRight: '5px'}} alt="" /> Check-in : After {new Date('1970-01-01T' + places.arriveAfter + 'Z').toLocaleTimeString({},{timeZone:'UTC',hour12:true,hour:'numeric',minute:'numeric'})}</div>
                             </div>
                             <div className={b.b13}>
@@ -162,11 +165,11 @@ export default function Booking () {
                                 <div className={b.b132}>{noOfGuestView}</div>
                             </div>
 
-                            <div className={b.b14}>Required for your trip</div>
+                            {/* <div className={b.b14}>Required for your trip</div>
                             <div className={b.b141}>
                                 <div className={b.b1411}>Message the host</div>
                                 <button>Add</button>
-                            </div>
+                            </div> */}
 
                             <div className={b.b14}>Cancellation Policy</div>
                             <div className={b.b17}>
@@ -217,11 +220,11 @@ export default function Booking () {
                                         <div className={b.b22x22}>$ {places.basePrice * Math.round(Math.abs((new Date(startDate) - new Date(endDate)) / 8.64e7)) + 1.14}</div>
                                     </div>
                                 </div>
-                                <div className={b.b23x}>
+                                {/* <div className={b.b23x}>
                                     <div className={b.b23x1}>Free cancellation until 12:00 PM on 25 Apr</div>
                                     <div className={b.b23x2}>After that, cancel before 12:00 PM on 26 Apr and get a full refund, minus the first night and service fee.</div>
                                     <div className={b.b164}>Learn more</div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </div>

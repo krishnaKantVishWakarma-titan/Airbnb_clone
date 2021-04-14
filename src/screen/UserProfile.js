@@ -11,7 +11,7 @@ import sidebarIcon from '../img/icons/sidebar.png';
 import backIcon from '../img/icons/headerMinBack.png';
 // import userIcon from '../img/icons/user.png';
 import headerStyle from '../css/headerMain.module.css';
-// import url from '../data/urls.json';
+import url from '../data/urls.json';
 
 // export default function UserProfile() {
 
@@ -19,79 +19,79 @@ import headerStyle from '../css/headerMain.module.css';
 //     const [sideBar, setSideBar] = useState(false);
 //     const history = useHistory();
 //     const [profilePic, setProfilePic] = useState(null);
-//     useEffect(() => {
-//         if (localStorage.getItem("token") === null) {
-//             history.push('/');
-//         } else {
-//             setUserName(JSON.parse(localStorage.getItem("token")).userName);
-//             setProfilePic(JSON.parse(localStorage.getItem("token")).userProfile);
-//         }
-//         // console.log(JSON.parse(localStorage.getItem("token")).userProfile)
-//         // console.log(JSON.parse(localStorage.getItem("token")).userId);
-//     }, []);
-//     // desktop
-//     const [edit, SetEdit] = useState(false);
-//     const [proPic, setProPic] = useState(false);
-//     // mobile
-//     const [editMob, SetEditMob] = useState(false);
-//     const [proPicMob, setProPicMob] = useState(false);
-//     const signOutSubmit = () => {
-//         localStorage.removeItem("token");
-//         history.push("/");
-//     }
-//     const fileInput = useRef(null);
-//     const uploadProfilePic = e => {
-//         e.preventDefault();
+    // useEffect(() => {
+    //     if (localStorage.getItem("token") === null) {
+    //         history.push('/');
+    //     } else {
+    //         setUserName(JSON.parse(localStorage.getItem("token")).userName);
+    //         setProfilePic(JSON.parse(localStorage.getItem("token")).userProfile);
+    //     }
+    //     // console.log(JSON.parse(localStorage.getItem("token")).userProfile)
+    //     // console.log(JSON.parse(localStorage.getItem("token")).userId);
+    // }, []);
+    // // desktop
+    // const [edit, SetEdit] = useState(false);
+    // const [proPic, setProPic] = useState(false);
+    // // mobile
+    // const [editMob, SetEditMob] = useState(false);
+    // const [proPicMob, setProPicMob] = useState(false);
+    // const signOutSubmit = () => {
+    //     localStorage.removeItem("token");
+    //     history.push("/");
+    // }
+    // const fileInput = useRef(null);
+    // const uploadProfilePic = e => {
+    //     e.preventDefault();
         
-//         var formdata = new FormData();
-//         formdata.append("file", fileInput.current.files[0], fileInput.current.files[0].name)
+    //     var formdata = new FormData();
+    //     formdata.append("file", fileInput.current.files[0], fileInput.current.files[0].name)
 
-//         var requestOptions = {
-//             method: 'POST',
-//             body: formdata,
-//             redirect: 'follow'
-//         };
+    //     var requestOptions = {
+    //         method: 'POST',
+    //         body: formdata,
+    //         redirect: 'follow'
+    //     };
 
-//         fetch(`${url.baseUrl}/upload`, requestOptions)
-//         .then(response => response.json())
-//         .then(res => {
-//             console.log("upload api res : ");
-//             console.log(res.Data[0].Location);
-//             updateProfile(res.Data[0].Location)
-//         })
-//         .catch(error => console.log('error', error));
-//     }
+    //     fetch(`${url.baseUrl}/upload`, requestOptions)
+    //     .then(response => response.json())
+    //     .then(res => {
+    //         console.log("upload api res : ");
+    //         console.log(res.Data[0].Location);
+    //         updateProfile(res.Data[0].Location)
+    //     })
+    //     .catch(error => console.log('error', error));
+    // }
 
-//     const updateProfile = image => {
-//         var myHeaders = new Headers();
-//         myHeaders.append("Content-Type", "application/json");
+    // const updateProfile = image => {
+    //     var myHeaders = new Headers();
+    //     myHeaders.append("Content-Type", "application/json");
         
-//         var raw = JSON.stringify({"userId":JSON.parse(localStorage.getItem("token")).userId.toString(),"profile_pic":image});
-//         var requestOptions = {
-//           method: 'POST',
-//           headers: myHeaders,
-//           body: raw,
-//           redirect: 'follow'
-//         };
-//         fetch("https://taz2ic52bc.execute-api.ap-south-1.amazonaws.com/production/api/updateProfilePic", requestOptions)
-//             .then(response => response.json())
-//             .then(result => {
-//                 if (result.code === 200) {
-//                     console.log(result);
-//                     setProfilePic(image);
+    //     var raw = JSON.stringify({"userId":JSON.parse(localStorage.getItem("token")).userId.toString(),"profile_pic":image});
+    //     var requestOptions = {
+    //       method: 'POST',
+    //       headers: myHeaders,
+    //       body: raw,
+    //       redirect: 'follow'
+    //     };
+    //     fetch("https://taz2ic52bc.execute-api.ap-south-1.amazonaws.com/production/api/updateProfilePic", requestOptions)
+    //         .then(response => response.json())
+    //         .then(result => {
+    //             if (result.code === 200) {
+    //                 console.log(result);
+    //                 setProfilePic(image);
 
-//                     var data = {
-//                         "userId": JSON.parse(localStorage.getItem("token")).userId,
-//                         "userToken": JSON.parse(localStorage.getItem("token")).userToken,
-//                         "userName": JSON.parse(localStorage.getItem("token")).userName,
-//                         "userEmail": JSON.parse(localStorage.getItem("token")).userEmail,
-//                         "userProfile": image
-//                     }
-//                     localStorage.setItem("token", JSON.stringify(data));
-//                 }
-//         })
-//         .catch(error => console.log('error', error));
-//     }
+    //                 var data = {
+    //                     "userId": JSON.parse(localStorage.getItem("token")).userId,
+    //                     "userToken": JSON.parse(localStorage.getItem("token")).userToken,
+    //                     "userName": JSON.parse(localStorage.getItem("token")).userName,
+    //                     "userEmail": JSON.parse(localStorage.getItem("token")).userEmail,
+    //                     "userProfile": image
+    //                 }
+    //                 localStorage.setItem("token", JSON.stringify(data));
+    //             }
+    //     })
+    //     .catch(error => console.log('error', error));
+    // }
 //     return(
 //         <>
 //             <div className={styles.desk}>
@@ -289,26 +289,168 @@ import setting from "../img/icons/settingsIcon.svg";
 import Right from "../img/icons/right.png";
 import Check from "../img/icons/check.png";
 import Image from "../img/icons/image.png";
+import loading from '../img/icons/loadingHostingList.gif';
 
+import ds from '../css/Dashboard.module.css';
+import swal from 'sweetalert';
 
 export default function UserProfile() {
+
+    const [mainLoad, setmainLoad] = useState(false);
+    let history = useHistory();
+    const [docStatus, setDocStatus] = useState(null);
+    useEffect(() => {
+        if (localStorage.getItem("token") === null) {
+            history.push('/');
+        } else {
+            setmainLoad(true)
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var requestOptions = {
+              method: 'GET',
+              headers: myHeaders,
+              redirect: 'follow'
+            };
+            fetch(`${url.baseUrl}isDocVerified/`+JSON.parse(localStorage.getItem("token")).userId, requestOptions)
+            .then(response => response.json())
+            .then(res => {
+                console.log(res);
+                console.log(res.data[0].isDocVerified);
+                if (res.data[0].isDocVerified === 0) {
+                    setDocStatus(res.data[0].isDocVerified);
+                } else if (res.data[0].isDocVerified === 1) {
+                    setDocStatus(res.data[0].isDocVerified);
+                } else if (res.data[0].isDocVerified === 2) {
+                    swal("Your profile is pending verification", "Please wait while Your profile is verify !!!", "error");
+                    
+                } else if (res.data[0].isDocVerified === 4) {
+                    swal("Your profile is rejected", "Please contact with our support !!!", "error");
+                    
+                }
+                setmainLoad(false);
+            })
+            .catch(error => console.log('error', error));
+        }
+    }, []);
+
+     // image government id
+     const [imageGovList, setImageGovList] = useState(null);
+     const [selectedGovImage, setSelectedGovImage] = useState(null);
+     const uploadGovImageHandler = e => {
+ 
+         var formdata = new FormData();
+         formdata.append("file", e.target.files[0], e.target.files[0].name)
+ 
+         var requestOptions = {
+             method: 'POST',
+             body: formdata,
+             redirect: 'follow'
+         };
+ 
+         fetch(`${url.baseUrl}/upload`, requestOptions)
+         .then(response => response.json())
+         .then(result => {
+             setImageGovList(result.Data[0].Location)
+         })
+         .catch(error => console.log('error', error));
+     
+         if (e.target.files[0]) {
+             setSelectedGovImage(URL.createObjectURL(e.target.files[0]))
+             Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
+         }
+     }
+ 
 
     const [tab1, setTab1] = useState(true);
     const [tab2, setTab2] = useState(false);
     const [tab3, setTab3] = useState(false);
     const [sideBar, setSideBar] = useState(false);
     const [userName, setUserName] = useState(null);
+    const [profilePic, setProfilePic] = useState(null);
 
 useEffect(() => {
     if (localStorage.getItem("token") === null) {
         history.push('/');
     } else {
         setUserName(JSON.parse(localStorage.getItem("token")).userName);
-        // setProfilePic(JSON.parse(localStorage.getItem("token")).userProfile);
+        setProfilePic(JSON.parse(localStorage.getItem("token")).userProfile);
     }
     // console.log(JSON.parse(localStorage.getItem("token")).userProfile)
     // console.log(JSON.parse(localStorage.getItem("token")).userId);
 }, []);
+
+useEffect(() => {
+    if (localStorage.getItem("token") === null) {
+        history.push('/');
+    } else {
+        setUserName(JSON.parse(localStorage.getItem("token")).userName);
+        setProfilePic(JSON.parse(localStorage.getItem("token")).userProfile);
+    }
+    // console.log(JSON.parse(localStorage.getItem("token")).userProfile)
+    // console.log(JSON.parse(localStorage.getItem("token")).userId);
+}, []);
+// // desktop
+// const [edit, SetEdit] = useState(false);
+// const [proPic, setProPic] = useState(false);
+// // mobile
+// const [editMob, SetEditMob] = useState(false);
+// const [proPicMob, setProPicMob] = useState(false);
+const [progress, setProgress] = useState(false);
+const fileInput = useRef(null);
+const uploadProfilePic = e => {
+    e.preventDefault();
+    setProgress(true);
+    
+    var formdata = new FormData();
+    formdata.append("file", fileInput.current.files[0], fileInput.current.files[0].name)
+
+    var requestOptions = {
+        method: 'POST',
+        body: formdata,
+        redirect: 'follow'
+    };
+
+    fetch(`${url.baseUrl}/upload`, requestOptions)
+    .then(response => response.json())
+    .then(res => {
+        console.log("upload api res : ");
+        console.log(res.Data[0].Location);
+        updateProfile(res.Data[0].Location)
+    })
+    .catch(error => console.log('error', error));
+}
+
+const updateProfile = image => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    
+    var raw = JSON.stringify({"userId":JSON.parse(localStorage.getItem("token")).userId.toString(),"profile_pic":image});
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    fetch("https://taz2ic52bc.execute-api.ap-south-1.amazonaws.com/production/api/updateProfilePic", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            if (result.code === 200) {
+                console.log(result);
+                setProfilePic(image);
+
+                var data = {
+                    "userId": JSON.parse(localStorage.getItem("token")).userId,
+                    "userToken": JSON.parse(localStorage.getItem("token")).userToken,
+                    "userName": JSON.parse(localStorage.getItem("token")).userName,
+                    "userEmail": JSON.parse(localStorage.getItem("token")).userEmail,
+                    "userProfile": image
+                }
+                localStorage.setItem("token", JSON.stringify(data));
+            }
+            setProgress(false);
+    })
+    .catch(error => console.log('error', error));
+}
 
 
     const signOutSubmit = () => {
@@ -317,7 +459,6 @@ useEffect(() => {
             }
 
 
-    const history = useHistory();
 
     return (
         <>
@@ -386,16 +527,27 @@ useEffect(() => {
         
                 {tab1 && (
 
-                    <div className="div_0">
+                    <div className="div_0" style={{paddingTop: '30px'}}>
                         <h1 className="p5"> Profile</h1>
                         <div className="p4">
-                            <img src={adminPro} alt="" /> </div>
+                            <img src={profilePic} alt="" /> </div>
                         <div style={{ marginLeft: "38%", marginTop: "-22px" }}>
-                            <img style={{ width: '30px', height: '20px', borderRadius: "20px" }} src={Image} alt="" />
+                            <label htmlFor="file">
+                                <img style={{ width: '30px', height: '20px', borderRadius: "20px" }} src={Image} alt="" />
+                            </label>
+                            
+                            {progress && (<span style={{fontSize: '10px'}}>Uploading profile pic, Please wait</span>)}
                         </div>
 
 
-                        <p className="p6">John Doe</p>
+                        <p className="p6">{userName}</p>
+                        
+
+                            <input type="file" ref={fileInput} style={{display: 'none'}} accept="image/jpg, image/jpeg, image/png" id="file" onChange={e => uploadProfilePic(e)} />
+                            {/* <label className="p9-1" style={{backgroundColor: 'grey', color: 'white'}} htmlFor="file">Update profile pic</label> */}
+
+                        {/* <button className="p9-1">Upload</button> */}
+                        
                         <div className="p8">
                             <textarea placeholder="About yourself" className="p7"></textarea></div>
                         <div className="p8">
@@ -451,10 +603,10 @@ useEffect(() => {
 
 
                 {tab2 && (
-                    <div className="div_1">
+                    <div className="div_1" style={{paddingTop: '30px'}}>
                         <div className="div_02">
                             <h1 className="p5"> Verifications  </h1>
-                            <p className="p6_1">john.doe@gmail.com</p>
+                            <p className="p6_1">{JSON.parse(localStorage.getItem("token")).userEmail}</p>
                             <div className="Icons0">
                                 <img style={{ width: '20px', height: '20px' }} src={Right} alt="" />
                             </div>
@@ -462,13 +614,33 @@ useEffect(() => {
                             <div className="Icons0">
                                 <img style={{ width: '20px', height: '20px' }} src={Right} alt="" />
                             </div>
-                            <h3 className="p6_3">Government ID</h3>
-                            <button className="p9-1">Upload</button> </div>
+
+                            {docStatus === 1 ? (
+                                <>
+                                
+                                    <h3 className="p6_3">Government ID</h3><br/>
+                                    <label htmlFor="gov" className="p9-1" style={{backgroundColor: 'lightgrey', marginBottom: '100px'}}><span style={{backgroundColor: 'lightgrey', marginTop: '100px'}}>Upload</span></label>
+                                    <input type="file" id="gov" accept="image/jpg, image/jpeg, image/png" onChange={e => uploadGovImageHandler(e)} style={{display: "none"}} />
+
+                                    {selectedGovImage && (
+                                        <div className="uploadedImageCont" style={{marginLeft: '400px'}}>
+                                            <div className="uploadedImage"><img src={selectedGovImage} alt="" /></div>
+                                        </div>
+                                    )}
+                                
+                                </>
+                            ) : (
+                                <p className="p6_1">Your Government Id is verified</p>
+                            )}
+
+                            {/* <h3 className="p6_3">Government ID</h3>
+                            <label><button className="p9-1">Upload</button></label>  */}
+                            </div>
                     </div>
                 )}
 
                 {tab3 && (
-                    <div className="div_0">
+                    <div className="div_0" style={{paddingTop: '30px'}}>
                         <div className="p10">
                             <h1 className="p5"> Settings </h1>
                             <div>
@@ -484,6 +656,9 @@ useEffect(() => {
                 )}
 
             </div> 
+            {mainLoad && (
+                <div className={ds.mainLoad}><img className={ds.mainLoad0} src={loading} alt="" /></div>
+            )}
         </>)
 }
 

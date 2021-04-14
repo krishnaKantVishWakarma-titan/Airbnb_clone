@@ -322,7 +322,7 @@ hr {
     float: left;
     width: auto;
     height: auto;
-    background-color: white;
+    /* background-color: white; */
     box-shadow: 3px 3px 9px rgba(105, 105, 105, 0.374);
     margin-top: -15px;
     border-radius: 30px;

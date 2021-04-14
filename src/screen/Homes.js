@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import '../css/components.css';
-import {useState, useEffect, useCallback} from 'react';
+import {useState, useEffect, useCallback, useRef} from 'react';
 
 // mobile
 import backIconGrey from '../img/icons/backGrey.svg';
@@ -77,6 +77,17 @@ export default function Homes() {
 
     const {searchKey, noAdult, noChild, noInfant} = useLocation().state;
 
+    
+    const [topBar, setTopBar] = useState(false);
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            setTopBar(false)
+        }
+        console.log(window.scrollY)
+    });
+    const [barTab2, setBarTab2] = useState(false);
+    const [barTab3, setBarTab3] = useState(false);
+
     // search places api
     const [address, setAddress] = useState("");
     const [searchWord, setSearchWord] = useState(null);
@@ -85,15 +96,19 @@ export default function Homes() {
         console.log(result[0].address_components);
         console.log(result[0].address_components[0].long_name);
         setSearchWord(result[0].address_components[0].long_name);
-        // alert("select");
-        TopBarCall(result[0].address_components[0].long_name);
-        setTopBar(false);
+        setAddress(result[0].address_components[0].long_name);
+        // TopBarCall(result[0].address_components[0].long_name);
+        setBarTab2(true);
+        setBarTab3(false);
     }
 
-    const TopBarCall = (val) => {
-        // alert(val);
-        mainTopUrl(val);
-    }
+    // const TopBarCall = (val) => {
+    //     mainTopUrl(val);
+    // }
+
+    useEffect(() => {
+        console.log("searchWord : " +searchWord);
+    }, [searchWord]);
 
     const [places, setPlaces] = useState(null);
     useEffect(async () => {
@@ -115,6 +130,24 @@ export default function Homes() {
                 setHeading("Places near you");
             } else {
                 setHeading(val);
+            }
+        }
+    }
+
+    
+    const [heading1, setHeading1] = useState(null);
+    const placesNearbyTopBar = (no, val) => {
+        if (no === 1) {
+            if (searchKey === "") {
+                setHeading1("Select map area");
+            } else {
+                setHeading1(searchKey);
+            }
+        } else {
+            if (val === "") {
+                setHeading1("Select map area");
+            } else {
+                setHeading1(val);
             }
         }
     }
@@ -174,6 +207,7 @@ export default function Homes() {
             .then(res => res.json())
             .then(res => {
                 placesNearby(1, "");
+                placesNearbyTopBar(1, '');
                 if (localStorage.getItem("token") === null) {
                     console.log(res.data)
                     setPlaces(res.data);
@@ -197,6 +231,7 @@ export default function Homes() {
             .then(res => {
                 console.log(res.result);
                 placesNearby(1, "");
+                placesNearbyTopBar(1, '');
                 if (localStorage.getItem("token") === null) {
                     setPlaces(res.result);
                 } else {
@@ -221,6 +256,7 @@ export default function Homes() {
             // console.log("main result")
             // console.log(res.result);
             placesNearby(2, val);
+            placesNearbyTopBar(2, val);
             if (localStorage.getItem("token") === null) {
                 setPlaces(res.result);
             } else {
@@ -229,6 +265,9 @@ export default function Homes() {
         })
         .catch(error => console.log(error));
     }
+
+    
+    const [dateA, setDateA] = useState("Apply dates");
 
     const getSavedList = (userid, data) => {
         fetch(url.baseUrl+"saved?userId="+userid, {
@@ -262,15 +301,6 @@ export default function Homes() {
     }
 
     // header transition
-    const [topBar, setTopBar] = useState(false);
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 100) {
-            setTopBar(false)
-        }
-        console.log(window.scrollY)
-    });
-    const [barTab2, setBarTab2] = useState(false);
-    const [barTab3, setBarTab3] = useState(false);
 
     const [filterPopup, setFilterPopup] = useState(false);
     const [sliderValuePath, setSliderValuePath] = useState([30, 40]);
@@ -327,6 +357,7 @@ export default function Homes() {
         
     }, []);
 
+    const [dateApplyBtn, setDateApplyBtn] = useState(false);
     // dates
     const [startDate, setStartDate] = useState(new Date());
     const [endDate, setEndDate] = useState(new Date());
@@ -340,11 +371,19 @@ export default function Homes() {
         console.log("endDate: ", endDate);
         localStorage.setItem("startDate", startDate);
         localStorage.setItem("endDate", endDate);
+        setDateApplyBtn(false);
+        const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"
+        ];
+        var sdate = new Date(localStorage.getItem("startDate"));
+        var edate = new Date(localStorage.getItem("endDate"));
+        setDateA(`${sdate.getDate()} ${monthNames[sdate.getMonth()]} - ${edate.getDate()} ${monthNames[edate.getMonth()]}`);
     }, [startDate, endDate]);
     function handleDateSelect(ranges) {
         setStartDate(ranges.selection.startDate);
         setEndDate(ranges.selection.endDate);
         onDateApply();
+        setDateApplyBtn(true);
     }
     const onDateMobApply = useCallback(() => {
 
@@ -356,7 +395,6 @@ export default function Homes() {
         console.log("endDate: ", endDate);
         localStorage.setItem("startDate", startDate);
         localStorage.setItem("endDate", endDate);
-        // setDateApplyBtn(false);s
         
         // var sdate = new Date(localStorage.getItem("startDate"));
         // var edate = new Date(localStorage.getItem("endDate"));
@@ -583,9 +621,10 @@ export default function Homes() {
     const [filterOption, setFilterOption] = useState(false);
 
     // filters
-    const [filter1, setFilter1] = useState(true);
-    const [filter2, setFilter2] = useState(true);
-    const [filter3, setFilter3] = useState(true);
+    const [filter1, setFilter1] = useState(false);
+    const [filter2, setFilter2] = useState(false);
+    const [filter3, setFilter3] = useState(false);
+
 
     if (!places) {
         return (<div style={{display: "flex", alignContent: "center", justifyContent: "center"}}><img style={{marginTop: "20%", width: "100px"}} src={loading} alt="" /></div>)
@@ -617,10 +656,10 @@ export default function Homes() {
 
                             <div className={headerStyle.headNav0}>
                                 <div className={headerStyle.headNav01}>
-                                    <div className={headerStyle.headNav011} style={{color: 'black'}}>Select map area</div>
+                                    <div className={headerStyle.headNav011} style={{color: 'black'}}>{heading1}</div>
                                 </div>
                                 <div className={headerStyle.headNav01}>
-                                    <center><div className={headerStyle.headNav011}>Add dates</div></center>
+                                    <center><div className={headerStyle.headNav011} style={{fontSize: '13px'}}>{dateA}</div></center>
                                 </div>
                                 <div className={headerStyle.headNav0111}>
                                     <center><div className={headerStyle.headNav011}>Guests</div></center>
@@ -650,7 +689,7 @@ export default function Homes() {
                     <div className="DetailListCont">
 
                         {places
-                        // .filter(item => item.whatGuestBook == filter1)
+                        // .filter(item => item.whatGuestBook == filter1) clickHandleHomesCard
                         .map((val, ind) => {return (
                             <div className="DetailList0" key={ind}>
                                 <div className="DetailList01">
@@ -662,7 +701,9 @@ export default function Homes() {
                                             <div className="DetailList021" onClick={() => history.push(`/hotelInfo/${val.id}`)}>{val.whatGuestBook}</div>
                                             <div className="DetailList022" onClick={() => history.push(`/hotelInfo/${val.id}`)}>{val.listingTitle}</div>
                                         </div>
-                                        <SetFav val={val.isFav} id={val.id} isFavid={val.isFavid} openLogin={() => setSignInPage(true)} />
+                                        <span>
+                                            <SetFav val={val.isFav} id={val.id} isFavid={val.isFavid} openLogin={() => setSignInPage(true)} />
+                                        </span>
                                     </div>
                                     <div className="DetailList023">{val.noOfGuests} guests . Studio . {val.noOfBed} beds . {val.baths} bathroom</div>
                                     <div className="DetailList024">$ {val.basePrice}/night</div>
@@ -785,6 +826,8 @@ export default function Homes() {
                                             moveRangeOnFirstSelection={false}
                                             ranges={[selectionRange]}
                                         />
+
+                                        
 
                                         </div>
 
@@ -1016,7 +1059,7 @@ export default function Homes() {
         
                             <div className={headerStyle.headUpNavMainT}>
         
-                                <div style={{float: "left", width: "16px", marginTop: "25px", marginLeft: "25px", cursor: "pointer"}} onClick={() => setTopBar(false)}><img style={{width: "100%"}} src={closeBtn} alt="" /></div>
+                                {/* <div style={{float: "left", width: "16px", marginTop: "25px", marginLeft: "25px", cursor: "pointer"}} onClick={() => setTopBar(false)}><img style={{width: "100%"}} src={closeBtn} alt="" /></div> */}
 
                                 <div className={headerStyle.headUpNav}>
                                     <a className={headerStyle.headUpNavLink} onClick={switchToHosting}><span>Switch to hosting</span></a>
@@ -1070,12 +1113,14 @@ export default function Homes() {
                                                 <>
                                                     <div className={headerStyle.headNav012}><input {...getInputProps({placeholder: "Where are you going?"})} onClick={() => {setBarTab3(false); setBarTab2(false)}} /></div>
 
+                                                    
                                                     <div className={headerStyle.headNav012Over}>
                                                         {loading ? <div>Loading ... </div> : null}
                                                         {suggestions.map((suggestion,ind) => {
                                                             return <div className={headerStyle.topBar011} {...getSuggestionItemProps(suggestion)} key={ind}><img src={pinIcon} alt="" /><p>{suggestion.description}</p></div>
                                                         })}
                                                     </div>
+    
                                                 </>
                                             )}
                                         </PlacesAutocomplete>
@@ -1086,7 +1131,7 @@ export default function Homes() {
                                         setBarTab2(true);
                                     }}>
                                         <center><div className={headerStyle.headNav011T}>Travelling</div></center>
-                                        <center><div className={headerStyle.headNav012}>Adds dates</div></center>
+                                        <center><div className={headerStyle.headNav012} style={{fontSize: '12px'}}>{dateA}</div></center>
                                     </div>
                                     <div className={headerStyle.headNav01T} onClick={() => {
                                         setBarTab2(false);
@@ -1112,10 +1157,17 @@ export default function Homes() {
                                         moveRangeOnFirstSelection={false}
                                         months={2}
                                         direction="horizontal"
-                                        ranges={[selectionRange]} 
+                                        ranges={[selectionRange]}
                                         onChange={handleDateSelect}
                                     />
                                     </div>
+                                    {dateApplyBtn && (
+                                        <div className="dateCont01CloseBtn"><button onClick={() => {
+                                            setBarTab2(false);
+                                            onDateApply();
+                                            setBarTab3(true);
+                                        }}>Apply dates</button></div>
+                                    )}
                                 </div>
                             )}
         

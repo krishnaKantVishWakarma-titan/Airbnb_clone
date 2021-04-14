@@ -6,6 +6,7 @@ import headerStyle from '../css/headerMain.module.css';
 import rightArrowIcon from '../img/icons/headerMinBack.png';
 import { useState, useEffect} from 'react';
 import loading from '../img/icons/loading.gif';
+import profilepic from '../img/icons/profile.png';
 
 
 export default function Chats () {
@@ -25,20 +26,13 @@ export default function Chats () {
     // const [name, setName] = useState(JSON.parse(localStorage.getItem('token')).userName);
     const [rooms, setRooms] = useState(null);
 
-    
-   
-
-  
-
-        useEffect( () => {
+    useEffect( () => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         myHeaders.append("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl9pZCI6MSwidHlwZSI6ImRldmljZSIsImlhdCI6MTYxNjU2MjM2NX0.n8dGBHbi9_I6JObUpSEa2k-fC-mcwVK-JFh920344_o");
         
         var name = JSON.parse(localStorage.getItem("token")).userId;
-        console.log(name)
-
-      
+        console.log("userid : "+name)
         
         var requestOptions = {
           method: 'GET',
@@ -47,14 +41,16 @@ export default function Chats () {
           redirect: 'follow'
         };
         
-        fetch("http://13.233.154.141:5000/api/listConnections/"  + name ,  requestOptions)
+        fetch("http://13.233.154.141:5000/api/listConnections/" + name ,  requestOptions)
           .then(response => response.json())
           .then(res=> {
-              if(res.data === undefined){
-                  alert("No chat")
-              }else {
-             
-            setRooms(res.data);}
+            //console.log(res);
+            if (res.data === undefined){
+                alert("No chat");
+                setRooms([]);
+            } else {
+                setRooms(res.data);
+            }
             console.log(res.data)}) 
           .catch(error => console.log('error', error));
     }, []);
@@ -77,22 +73,21 @@ export default function Chats () {
                 <div className="headerMinTitle">Chats</div>
             </div>
 
-           
-            {   rooms.map((currElm, index) => { return (<>
-            <div className="noti">
-            <Link className="noti0" to={`/chat?name=${currElm.name}&room=${currElm.room}&username=${named}`}>
-                    <div className="noti01"><img src={varimg} alt="" /></div>
-                    <div className="noti02">
-                        <div className="noti021">
-                            <div className="noti0211"><span className="noti02111"  >{currElm.name}</span><span className="noti02112">(host)</span> </div>
-                            <div className="noti0212">Aug 19, 9:25 PM</div>
+            {rooms.map((currElm, index) => { return (<>
+                <div className="noti" key={index}>
+                    <Link className="noti0" to={`/chat?name=${named}&room=${currElm.room}&username=${currElm.name}&profile=${currElm.profile_pic||profilepic}`}>
+                        <div className="noti01">
+                            {currElm.profile_pic ? <img src={currElm.profile_pic} alt="" /> : <img src={profilepic} alt="" />}
                         </div>
-                        <div className="noti022">Hiiii</div>
-                    </div>
-                </Link>
-             
-
-            </div>
+                        <div className="noti02">
+                            <div className="noti021">
+                                <div className="noti0211"><span className="noti02111">{currElm.name}</span></div>
+                                <div className="noti0212">Aug 19, 9:25 PM</div>
+                            </div>
+                            <div className="noti022">Hiiii</div>
+                        </div>
+                    </Link>
+                </div>
             </>);
             })} 
 

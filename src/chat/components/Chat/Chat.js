@@ -23,20 +23,18 @@ export const Chat = ({ location }) => {
   const [room , setRoom] = useState("")
   const [prevData , setPreData]=useState(null)
   const ENDPOINT = 'http://13.233.154.141:5000/';
- 
-  
-
-
+  const [usern, setUserN] = useState(null);
+  const [profiles, setProfile] = useState(null);
 
    useEffect(() => {
-    const { name, room } = queryString.parse(window.location.search);
+    const { name, room, username, profile } = queryString.parse(window.location.search);
 
+    setUserN(username);
+    setProfile(profile)
 
     socket = io(ENDPOINT);
     console.log(socket)
-
-    setNames(name);   
-
+    setNames(name);
     setName(name);
 
     socket.emit('join', { name, room }, (error) => {
@@ -54,28 +52,15 @@ export const Chat = ({ location }) => {
     socket.on("roomData", ({ users }) => {
       setUsers(users);
     });
-}, []);
 
-  const sendMessage = (event) => {
-    event.preventDefault();
-
-    if(message) {
-      socket.emit('sendMessage', message, () => setMessage(''));
-    }
-  }
-
-  const history = useHistory();
-
-  
-  useEffect(()=>{
     const { room } = queryString.parse(window.location.search);
-    setRoom(room)
+    setRoom(room);
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     myHeaders.append("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl9pZCI6MTQ2LCJ0eXBlIjoidXNlciIsImlhdCI6MTYwNzQ5OTA2N30.ElDA6X2XtEXfYFBDB0VUjuEbd1E1-aBV2-ngabyKewg");
     
     const roomID = room
-  console.log(roomID)
+    console.log(roomID)
   
     var raw = JSON.stringify({
      "roomId": roomID
@@ -89,21 +74,33 @@ export const Chat = ({ location }) => {
     };
     
     fetch("http://13.233.154.141:5000/api/getRoomMessages", requestOptions)
-      .then(response => response.json())
-      .then(result =>{
-        setPreData(result)
-        
-        console.log(result)})
-      .catch(error => console.log('error', error));
-         },[]); 
+    .then(response => response.json())
+    .then(result =>{
+      console.log(result)
+      setPreData(result.data)
+    })
+    .catch(error => console.log('error', error));
+}, []);
 
+useEffect(() => {
+  console.log(messages);
+}, [messages])
 
+  const sendMessage = (event) => {
+    event.preventDefault();
+
+    if(message) {
+      socket.emit('sendMessage', message, () => setMessage(''));
+    }
+  }
+
+  const history = useHistory();
   return (
     <div className="outerContainer">
     {/* <TextContainer users={users} /> */}
       <div className="container">
-          <InfoBar name={names} history={history} />
-          <Messages messages={messages} name={name} />
+          <InfoBar name={usern} history={history} />
+          <Messages messages={messages} profiles={profiles} prevData={prevData} usern={usern} name={name} />
           <Input message={message} setMessage={setMessage} sendMessage={sendMessage} />
       </div>
     </div>

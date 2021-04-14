@@ -19,7 +19,8 @@ import LockImg from '../img/icons/lock.png';
 import EmailImg from '../img/icons/email.png';
 import downArrow from '../img/icons/down-arrow.png';
 
-import phonenu from '../img/icons/phone-book.svg'
+// import phonenu from '../img/icons/phone-book.svg'
+import dailCode from '../data/CountryDialCodes.json';
 
 import sidebarIcon from '../img/icons/sidebar.png';
 import worldIcon from '../img/icons/worldIcon.png';
@@ -567,17 +568,22 @@ export default function Header() {
         if (inRefGuest.current.contains(e.target)) return;
         setNoOfGuest(false);
     }
+    const [phoneCode, setPhoneCode] = useState(0);
+    const phoneClickHandle = e => {
+        setPhoneCode(e.target.value);
+        setSignupVal({...signupVal, lastName: e.target.value+" " });
+    }
 
     return (
         <>                
             {/* desktop version  */}
             <div className="header">
-                <div className="headUpTxt">
+                {/* <div className="headUpTxt">
                     <FormattedMessage 
                         id="covidTitle"
                         defaultMessage={defaultMgs.Mgs.covidTitle}
                     />
-                </div>
+                </div> */}
                 <div className="headBody">
                     <div className="headUpNavMain">
                         <div className="headUpNav1">
@@ -1286,8 +1292,13 @@ export default function Header() {
                                         <span className="sign0223"><img src={downArrow} alt="" /></span>
                                     </div>
                                     <div className="sign022">
-                                        <span className="sign0221"><img src={phonenu} alt="" /></span>
-                                        <span className="sign0222"><input type="text" placeholder="Mobile no. (+91 7697114202)" onChange={e => setSignupVal({...signupVal, lastName: e.target.value})} /></span>
+                                        <span className="sign0221" style={{width: '120px'}}>
+                                            <select value={phoneCode} onChange={e => phoneClickHandle(e)}>
+                                                <option value="0">Select code</option>
+                                                {dailCode.sort((a, b) => a.name > b.name ? 1 : -1).map((item, ind) => <option value={item.dial_code} key={ind}>{item.name} ({item.dial_code})</option>)}
+                                            </select>
+                                        </span>
+                                        <span className="sign0222I"><input type="text" placeholder="Mobile no." value={signupVal.lastName} onChange={e => setSignupVal({...signupVal, lastName: e.target.value})} /></span>
                                         <span className="sign0223"><img src={downArrow} alt="" /></span>
                                     </div>
                                     <div className="sign022">

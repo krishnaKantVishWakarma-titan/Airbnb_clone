@@ -23,6 +23,7 @@ import EmailImg from '../img/icons/email.png';
 import downArrow from '../img/icons/down-arrow.png';
 import rightArrowIcon from '../img/icons/headerMinBack.png';
 import sidebarIcon from '../img/icons/sidebar.png';
+import profilepic from '../img/icons/profile.png';
 import worldIcon from '../img/icons/blackWorldIcon.png';
 import LoginBanner from '../img/banners/undraw_enter_uhqk.png';
 import SignUpBanner from '../img/banners/undraw_mobile_payments_vftl.png';
@@ -69,38 +70,35 @@ const HostId = hostIds;
 //var chatData = {};
 console.log(HostId);
 
-    const chatHandler = () => {           
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl9pZCI6MSwidHlwZSI6ImRldmljZSIsImlhdCI6MTYxNjU2MjM2NX0.n8dGBHbi9_I6JObUpSEa2k-fC-mcwVK-JFh920344_o");
+    // const chatHandler = () => {           
+    //     var myHeaders = new Headers();
+    //     myHeaders.append("Content-Type", "application/json");
+    //     myHeaders.append("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl9pZCI6MSwidHlwZSI6ImRldmljZSIsImlhdCI6MTYxNjU2MjM2NX0.n8dGBHbi9_I6JObUpSEa2k-fC-mcwVK-JFh920344_o");
         
-        var name = JSON.parse(localStorage.getItem("token")).userId;
-        console.log(name);
-
-     
-        
-        var requestOptions = {
-          method: 'post',
-          headers: myHeaders,
-          redirect: 'follow',
-          body: JSON.stringify({
-            "userId" : name,
-            "hostId" :HostId
+    //     var name = JSON.parse(localStorage.getItem("token")).userId;
+    //     console.log(name);
+    //     var requestOptions = {
+    //         method: 'post',
+    //         headers: myHeaders,
+    //         redirect: 'follow',
+    //         body: JSON.stringify({
+    //             "userId" : name,
+    //             "hostId" :HostId
             
-        })
-        };
-        console.log("sanjeev", requestOptions);
-        fetch("http://13.233.154.141:5000/api/addConnection" ,  requestOptions)
-          .then(response => response.json())
-          .then(res=> {
-            console.log("name",res.data.name);
-            console.log("room",res.data.room);
+    //         })
+    //     };
+    //     console.log("sanjeev", requestOptions);
+    //     fetch("http://13.233.154.141:5000/api/addConnection" ,  requestOptions)
+    //       .then(response => response.json())
+    //       .then(res=> {
+    //         console.log("name",res.data.name);
+    //         console.log("room",res.data.room);
 
-            history.push(`/chat?name=${res.data.name}&room=${res.data.room}`) 
-          setChat(chat);
-         }) 
-        .catch(error => console.log('error', error));
-         }
+    //         history.push(`/chat?name=${res.data.name}&room=${res.data.room}`)
+    //       setChat(chat);
+    //      }) 
+    //     .catch(error => console.log('error', error));
+    // }
 
 
 
@@ -128,6 +126,9 @@ console.log(HostId);
     const [langView, SetLAngView] = useState(false);
     const [userName, setUserName] = useState("null"); 
     const [isAdmin, setIsAdmin] = useState(true);
+
+    const [chatName, setChatName] = useState(null);
+    const [chatRoom, setChatRoom] = useState(null);
     // run only once
     useEffect(() => {
 
@@ -138,10 +139,14 @@ console.log(HostId);
             setIsSignedIn(false);
         } else {
             // get their value and check the token
+            
+
             var data = localStorage.getItem("token");
             var name = JSON.parse(data);
             setUserName(name.userName);
             setIsSignedIn(true);
+
+            
         }
 
         fetch(url.baseUrl+"host/"+id, {
@@ -160,19 +165,19 @@ console.log(HostId);
            
             
             if (localStorage.getItem("token") === null) {
-                getUserDetails(res.data);
+                getUserDetails(res.data, res.data.userId);
             } else {
                 if (res.data.userId === JSON.parse(localStorage.getItem("token")).userId) {
                     setIsAdmin(false);
                 }
-                getUserDetails(res.data);
+                getUserDetails(res.data, res.data.userId);
             }
         })
         .catch(error => console.log(error));
         
     }, []);
 
-    const getUserDetails = (data) => {
+    const getUserDetails = (data, hostId) => {
         fetch(url.baseUrl+"user?userId="+data.userId, {
             method: "get",
             headers: {
@@ -187,13 +192,13 @@ console.log(HostId);
                 setp(res.data);
                 setPerson(data);
             } else {
-                getUserDetailsTwo(res.data, data);
+                getUserDetailsTwo(res.data, data, hostId);
             }
         })
         .catch(error => console.log(error));
     }
 
-    const getUserDetailsTwo = (res, data) => {
+    const getUserDetailsTwo = (res, data, hostId) => {
         var m_data = localStorage.getItem("token");
         var name = JSON.parse(m_data);
         fetch(url.baseUrl+"saved?userId="+name.userId, {
@@ -219,10 +224,47 @@ console.log(HostId);
             }
             console.log("host");
             console.log(data);
-            setp(res);
-            setPerson(data);
+            // setp(res);
+            // setPerson(data);
+
+            getUserDetailsThree(res, data, hostId)
         })
         .catch(error => console.log(error));
+    }
+
+    const getUserDetailsThree = (data1, data2, hostId) => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl9pZCI6MSwidHlwZSI6ImRldmljZSIsImlhdCI6MTYxNjU2MjM2NX0.n8dGBHbi9_I6JObUpSEa2k-fC-mcwVK-JFh920344_o");
+        
+        var userid = JSON.parse(localStorage.getItem("token")).userId;
+        console.log(userid);
+        var requestOptions = {
+            method: 'post',
+            headers: myHeaders,
+            redirect: 'follow',
+            body: JSON.stringify({
+                "userId" : userid,
+                "hostId" : hostId
+            
+            })
+        };
+        console.log("sanjeev", requestOptions);
+        fetch("http://13.233.154.141:5000/api/addConnection" ,  requestOptions)
+        .then(response => response.json())
+        .then(res=> {
+            console.log("name",res.data.name);
+            setChatName(res.data.name);
+            setChatRoom(res.data.room);
+            console.log("room",res.data.room);
+
+            // history.push(`/chat?name=${res.data.name}&room=${res.data.room}`)
+            setChat(chat);
+
+            setp(data1);
+            setPerson(data2);
+        }) 
+        .catch(error => console.log('error', error));
     }
 
     const signinSubmit = () => {
@@ -566,25 +608,26 @@ console.log(HostId);
                     <div className="carInfo0Cont">
                         
                         <div className="carInfo0">
-{ imagetab1 &&(
+                            {imagetab1 &&(
 
-                            <div className="carInfo01">     
-                              {person.imageList[0] ? <div className="carInfo01img1"><img src={person.imageList[0]} alt="" /></div> : <div className="carInfo01img1"><img src={bg} alt="" /></div>}
+                                <div className="carInfo01">     
+                                {person.imageList[0] ? <div className="carInfo01img1"><img src={person.imageList[0]} alt="" /></div> : <div className="carInfo01img1"><img src={bg} alt="" /></div>}
                                 <div className="carInfo01img2">
-                                    {person.imageList[1] ? <img src={person.imageList[1]} alt="" /> : <img src={bg} alt="" />}
-                                    {person.imageList[2] ? <img src={person.imageList[2]} alt="" /> : <img src={bg} alt="" />}
-                                    {/* <img src={bg} alt="" /> */}
+                                    <div className="carInfo01img21">
+                                        {person.imageList[1] ? <img src={person.imageList[1]} alt="" /> : <img src={bg} alt="" />}
+                                    </div>
+                                    <div className="carInfo01img21" style={{marginTop: '10px', height: '50%'}}>
+                                        {person.imageList[2] ? <img src={person.imageList[2]} alt="" /> : <img src={bg} alt="" />}
+                                    </div>
+                                    
                                 </div>
                                 <div className="carInfo01img3" onClick={() => {setImageTab2(true); setImageTab1(false)}} >5+ Photos </div>
                                 </div>
-  )  }
-                      { imagetab2 &&(
+                                )}
 
-                                 <ImageSlider images={person.imageList} />
-
-                                )
-
-                                }
+                                {imagetab2 &&(
+                                    <ImageSlider images={person.imageList} />
+                                )}
 
                             <div style={{float: "left"}}>
                                 <div style={{width: "100%", float: "left"}}>
@@ -604,13 +647,12 @@ console.log(HostId);
                                             </div>
                                         </div>
                                     </div>
-                   
                                     
-                                    <div className="hotelInfo0S1">
-                                <Link style={{width: '15%',cursor: 'pointer'}} onClick={chatHandler} >
-                                 <img src={ChatImage} alt="" style={{width:'3%',marginLeft:'5%'}} />
-                                <div style={{fontSize:'17px',fontWeight:'600' , marginLeft:"5px",color:"black"}}>Message Host</div>
-                                </Link>
+                                    <div className="hotelInfo0S1" style={{backgroundColor: '#ECECEC', width: 'auto', padding: '10px', borderRadius: '5px'}}>
+                                        <Link style={{width: '15%',cursor: 'pointer'}} to={`/chat?name=${JSON.parse(localStorage.getItem('token')).userName}&room=${chatRoom}&username=${chatName}&profile=${p.profile_pic||profilepic}`}>
+                                        <img src={ChatImage} alt="" style={{width:'20px', float: 'left', marginLeft: '40%'}} />
+                                        <div style={{fontSize:'17px',fontWeight:'600' , marginLeft:"5px",color:"black", textDecoration: 'none'}}>Message Host</div>
+                                        </Link>
                                     </div> 
                         
                                     <div className="hotelInfo0S1">

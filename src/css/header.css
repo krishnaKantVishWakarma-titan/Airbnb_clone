@@ -39,9 +39,9 @@ src: url('../fonts/Segoe UI Bold.woff') format('woff');
     /* background-color: blue; */
 }
 .headBody {
-    background-image: url(../img/banners/table-3143080_1920.png);
+    background-image: url(../img/banners/bgMain.jpg);
     background-size: cover;
-    background-position: top;
+    background-position: 25%;
     height: 600px;
 }
 .checkin{
@@ -163,7 +163,7 @@ src: url('../fonts/Segoe UI Bold.woff') format('woff');
     background-color: white;
     position: absolute;
     width: 230px;
-    top: 50px;
+    top: 45px;
     right: 55px;
     border-radius: 6px;
     padding: 10px 0;
@@ -410,6 +410,13 @@ hr {
     width: 20px;
     height: 20px;
 }
+.sign0221 select {
+    width: 100%;
+    float: left;
+    margin-left: 1px;
+    border-color: lightgrey;
+    padding: 5px 0;
+}
 .sign0221 img {
     width:100%;
 }
@@ -417,7 +424,21 @@ hr {
     float: left;
     width: calc(100% - 58px);
 }
+.sign0222I {
+    float: left;
+    width: calc(100% - 158px);
+}
 .sign0222 input {
+    width:100%;
+    margin: 0 5px;
+    padding-top: 2px;
+    border: none;
+    margin-top: 3px;
+    outline: none;
+    float: left;
+    height: 20px;
+}
+.sign0222I input {
     width:100%;
     margin: 0 5px;
     padding-top: 2px;
