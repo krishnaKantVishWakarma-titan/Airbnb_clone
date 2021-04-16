@@ -623,7 +623,7 @@ export default function HostYourApartment() {
                         <div className="HostYourApartment2E1">
                             <div className="HostYourApartment21">
                                 
-                                <div>Hi, John</div>
+                                <div>Hi, {JSON.parse(localStorage.getItem("token")).userName}</div>
                                 <h1>Ready to host?</h1>
 
                                 <p style={{width: "80%", fontSize: "13px", marginTop: "30px"}}>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.</p>

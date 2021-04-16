@@ -1,32 +1,35 @@
 import adminPro from "../img/demo/24.png";
 import "../css/Profile.css"
-import React, { useState } from "react";
-import profile from "../img/icons/profile.png";
+import React, { useEffect, useState } from "react";
+// import profile from "../img/icons/profile.png";
 import Verification from "../img/icons/user-verification.svg";
+import ds from '../css/Dashboard.module.css';
 import setting from "../img/icons/settingsIcon.svg";
 import Right from "../img/icons/right.png";
 import Check from "../img/icons/check.png";
 import Image from "../img/icons/image.png";
-
+import loading from '../img/icons/loadingHostingList.gif';
+import url from '../data/urls.json';
 
 export default function Profiles() {
 
     const [tab1, setTab1] = useState(true);
     const [tab2, setTab2] = useState(false);
     const [tab3, setTab3] = useState(false);
+    const [mainLoad, setmainLoad] = useState(false);
 
-     
     var data = localStorage.getItem("token");
     var name = JSON.parse(data);
     console.log(name.userId);
-
-
     const profile = JSON.parse(localStorage.getItem("token")).userProfile;
     console.log(profile);
-
     var Email = JSON.parse(localStorage.getItem("token")).userEmail;
     console.log(Email);
 
+    useEffect(() => {
+        setmainLoad(true);
+        
+    }, []);
 
 
     return (
@@ -41,17 +44,20 @@ export default function Profiles() {
                         <div className="profile_pic">
                             <img className="img" src={profile} alt="" />
                         </div>
-                        <p style={{ marginRight: "89px" }}> Profile</p></div>
+                        <p style={{ marginRight: "89px" }}> Profile</p>
+                    </div>
                     <div className="p2" onClick={() => { setTab2(true); setTab1(false); setTab3(false) }} >
                         <div className="profile_pic">
                             <img className="img" src={Verification} alt="" />
                         </div>
-                        <p style={{ marginRight:'28px'}}>  Verifications </p> </div>
+                        <p style={{ marginRight:'28px'}}>  Verifications </p> 
+                    </div>
                     <div className="p3" onClick={() => { setTab2(false); setTab1(false); setTab3(true) }}>
                         <div className="profile_pic">
                             <img className="img" src={setting} alt="" />
                         </div>
-                        <p style={{ marginRight: "70px" }}> Settings</p> </div>
+                        <p style={{ marginRight: "70px" }}> Settings</p> 
+                    </div>
 
                 </div>
                 {tab1 && (
@@ -154,6 +160,10 @@ export default function Profiles() {
                 )}
 
             </div>
+
+            {mainLoad && (
+                <div className={ds.mainLoad}><img className={ds.mainLoad0} src={loading} alt="" /></div>
+            )}
         </>)
 }
 

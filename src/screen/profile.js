@@ -143,6 +143,7 @@ export default function profile() {
         })
         .then(res => res.json())
         .then(res => {
+            console.log("reervation")
             console.log(res.data);
             setReserList(res.data);
             setHostIds(res.data)
@@ -357,7 +358,7 @@ export default function profile() {
                                                 <th className={ds.d20th4}>Bedrooms</th>
                                                 <th className={ds.d20th5}>Beds</th>
                                                 <th className={ds.d20th6}>Bathrooms</th>
-                                                {/* <th className={ds.d20th7}>Chat</th> */}
+                                                <th className={ds.d20th7}>Chat</th>
                                             </tr>
 
                                             {reserList.map((host, key) => {return (
@@ -365,13 +366,13 @@ export default function profile() {
                                                     <td className={ds.d20td1}><div style={{float: 'left', paddingTop: 8}}>{key+1}</div></td>
                                                     <td className={ds.d20td2}>
                                                         {/* <div className={ds.d20td2Img}><img src={host.imageList[0]} alt="" /></div> */}
-                                                        <span>{host.listingTitle}</span>
+                                                        <span>{host.host_name}</span>
                                                     </td>
                                                     <td className={ds.d20td3}>{host.amountPaid}</td>
                                                     <td className={ds.d20td4}>{host.guests}</td>
                                                     <td className={ds.d20td5}>{new Date(host.fromDate).getDate()}/{new Date(host.fromDate).getMonth()}/{new Date(host.fromDate).getFullYear()}</td>
                                                     <td className={ds.d20td6}>{new Date(host.toDate).getDate()}/{new Date(host.toDate).getMonth()}/{new Date(host.toDate).getFullYear()}</td>
-                                                    {/* < td className={ds.d20td7} onClick={chatHandler} ><img src={ChatImage} alt="" /></td> */}
+                                                    <td className={ds.d20td7}><Link to={`/chat?name=${JSON.parse(localStorage.getItem('token')).userName}&room=${host.room}&username=${host.host_name}&profile=${host.host_pic}`}><img src={ChatImage} alt='' /></Link></td>
                                                 </tr>
                                             )})}
 
@@ -405,7 +406,7 @@ export default function profile() {
                                                         <th className={ds.d20th4}>Bedrooms</th>
                                                         <th className={ds.d20th5}>Arrival Date</th>
                                                         <th className={ds.d20th6}>Depart Date</th>
-                                                        {/* <th className={ds.d20th7}>Chat</th> */}
+                                                        <th className={ds.d20th7}>Chat</th>
                                                     </tr>
 
                                                     {bookingList.map((host, key) => {return (
@@ -413,13 +414,13 @@ export default function profile() {
                                                             <td className={ds.d20td1}><div style={{float: 'left', paddingTop: 8}}>{key+1}</div></td>
                                                             <td className={ds.d20td2}>
                                                                 {/* <div className={ds.d20td2Img}><img src={host.imageList[0]} alt="" /></div> */}
-                                                                <span>{host.transactionEmail}</span>
+                                                                <span>{host.customer_name}</span>
                                                             </td>
-                                                            <td className={ds.d20td3}>{host.amountPaid}</td>
+                                                            <td className={ds.d20td3}>{host.customer_phone}</td>
                                                             <td className={ds.d20td4}>{host.guests}</td>
                                                             <td className={ds.d20td5}>{new Date(host.fromDate).getDate()}/{new Date(host.fromDate).getMonth()}/{new Date(host.fromDate).getFullYear()}</td>
                                                             <td className={ds.d20td6}>{new Date(host.toDate).getDate()}/{new Date(host.toDate).getMonth()}/{new Date(host.toDate).getFullYear()}</td>
-                                                            {/* <td className={ds.d20td7}><img src={ChatImage} alt='' /></td> */}
+                                                            <td className={ds.d20td7}><Link to={`/chat?name=${JSON.parse(localStorage.getItem('token')).userName}&room=${host.room}&username=${host.customer_name}&profile=${host.customer_pic}`}><img src={ChatImage} alt='' /></Link></td>
                                                         </tr>
                                                     )})}
                                                 </tbody>
@@ -442,20 +443,20 @@ export default function profile() {
                                                         <th className={ds.d20th4}>Bedrooms</th>
                                                         <th className={ds.d20th5}>Arrival Date</th>
                                                         <th className={ds.d20th6}>Depart Date</th>
-                                                        {/* <th className={ds.d20th7}>Chat</th> */}
+                                                        <th className={ds.d20th7}>Chat</th>
                                                     </tr>
 
                                                     {carBookingList.map((host, key) => {return (
                                                         <tr className={ds.d20tr} key={key}>
                                                             <td className={ds.d20td1}><div style={{float: 'left', paddingTop: 8}}>{key+1}</div></td>
                                                             <td className={ds.d20td2}>
-                                                                <span>{host.transactionEmail}</span>
+                                                                <span>{host.customer_name}</span>
                                                             </td>
-                                                            <td className={ds.d20td3}>{host.amountPaid}</td>
+                                                            <td className={ds.d20td3}>{host.customer_phone}</td>
                                                             <td className={ds.d20td4}>{host.guests}</td>
                                                             <td className={ds.d20td5}>{new Date(host.fromDate).getDate()}/{new Date(host.fromDate).getMonth()}/{new Date(host.fromDate).getFullYear()}</td>
                                                             <td className={ds.d20td6}>{new Date(host.toDate).getDate()}/{new Date(host.toDate).getMonth()}/{new Date(host.toDate).getFullYear()}</td>
-                                                            {/* <td className={ds.d20td7}><img src={ChatImage} alt='' /></td> */}
+                                                            <td className={ds.d20td7}><Link to={`/chat?name=${JSON.parse(localStorage.getItem('token')).userName}&room=${host.room}&username=${host.customer_name}&profile=${host.customer_pic}`}><img src={ChatImage} alt='' /></Link></td>
                                                         </tr>
                                                     )})}
                                                 </tbody>
@@ -595,6 +596,8 @@ export default function profile() {
                         <p onClick={signOutSubmit}>Signout</p>
                 </div>
             )}
+
+            
         
         </>
     );

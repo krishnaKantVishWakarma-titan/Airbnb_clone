@@ -185,17 +185,20 @@ margin-top: 15px;
 }
 .Review{
   font-family:  sans-serif;
-   margin-left: 32%;
+  margin-left: 32%;
+  /* background-color: blue; */
   margin-top: 30px;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
   color: dimgray;
 }
 
 
 .Reviews0 {
-  border: ridge;
-    border-width: thin;
+  border: none;
+    /* border-width: none; */
     width: 47%;
-    margin: 10px 0px 15px 32%;
+    margin: 20px 10px 15px 32%;
     height: 150px;
 
 }

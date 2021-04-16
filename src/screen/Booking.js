@@ -95,8 +95,16 @@ export default function Booking () {
     //     localStorage.removeItem("token");
     //     history.push('/');
     // }
+    // useEffect(() => {
+    //     // alert(`${new Date(startDate).getFullYear()}/${new Date(startDate).getMonth()+1}/${new Date(startDate).getDate()}`)
+    //     // alert(`${new Date(endDate).getFullYear()}/${new Date(endDate).getMonth()+1}/${new Date(endDate).getDate()}`)
+    //     alert(new Date(startDate).toLocaleDateString('en-CA'));
+    // }, []);
+
     const onToken = token => {
         console.log(token);
+        // const sdate = `${new Date(startDate).getFullYear()}/${new Date(startDate).getMonth()+1}/${new Date(startDate).getDate()}`;
+        // const edate = `${new Date(endDate).getFullYear()}/${new Date(endDate).getMonth()+1}/${new Date(endDate).getDate()}`;
 
         fetch(url.baseUrl + "bookProperty", {
             method: 'POST',
@@ -107,8 +115,8 @@ export default function Booking () {
             body: JSON.stringify({
                 "propertyId": hostingId,
                 "userId": JSON.parse(localStorage.getItem("token")).userId,
-                "fromDate": startDate,
-                "toDate": endDate,
+                "fromDate": new Date(startDate).toLocaleDateString('en-CA'),
+                "toDate": new Date(endDate).toLocaleDateString('en-CA'),
                 "guests": noOfAdult + noOfChildren + noOfInfant,
                 "amountPaid": places.basePrice * Math.round(Math.abs((new Date(startDate) - new Date(endDate)) / 8.64e7)) + 1.14,
                 "currencyType": "₹",

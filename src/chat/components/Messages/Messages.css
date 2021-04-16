@@ -17,8 +17,8 @@
 }
 .mgs0111 {
   float: left;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
 }
 .mgs0111 img {
   width: 100%;
@@ -28,9 +28,9 @@
 .mgs0111name {
   float: right;
   /* background-color: blue; */
-  width: calc(100% - 50px);
+  width: calc(100% - 55px);
   padding-top: 2px;
-  padding-bottom: 8px;
+  padding-bottom: 5px;
   /* margin-left: 50px; */
   font-size: 13px;
   font-weight: 600;
@@ -39,9 +39,9 @@
   float: left;
   text-align: right;
   /* background-color: blue; */
-  width: calc(100% - 50px);
-  padding-top: 2px;
-  padding-bottom: 8px;
+  width: calc(100% - 55px);
+  padding-top: 0px;
+  padding-bottom: 5px;
   /* margin-left: 50px; */
   font-size: 13px;
   font-weight: 600;
@@ -49,13 +49,13 @@
 .mgs0112 {
   float: left;
   max-width: calc(100% - 158px);
-  margin-left: 10px;
+  margin-left: 7px;
   width: auto;
   font-size: 12.5px;
   border-radius: 15px;
   line-height: 22px;
   background-color: #F3F3F3;
-  padding: 10px 20px;
+  padding: 7px 20px;
 }
 .mgs012 {
   width: 75%;
@@ -63,8 +63,8 @@
 }
 .mgs0121 {
   float: right;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
 }
 .mgs0121 img {
   width: 100%;
@@ -81,5 +81,5 @@
   line-height: 22px;
   background-color: #214ED3;
   color: white;
-  padding: 10px 20px;
+  padding: 7px 20px;
 }

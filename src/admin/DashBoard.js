@@ -13,6 +13,7 @@ import 'react-tabs/style/react-tabs.css';
 import '../css/adminTab.css';
 import loading from '../img/icons/loadingHostingList.gif';
 import url from '../data/urls.json';
+import swal from 'sweetalert';
 // import moreIcon from '../img/icons/more.svg';
 // import styles from '../css/profile.module.css';
 
@@ -21,6 +22,65 @@ export default function DashBoard() {
     const [mainLoad, setmainLoad] = useState(false);
     const [sidePro, setSidePro] = useState(false);
     // apartment listing
+    
+    const [sideUserPro, setSideUsertPro] = useState(false);
+    const [userSide, setUserSide] = useState({
+        userProf: '',
+        userName: '',
+        userAddr: '',
+        userEmail: '',
+        userCity: '',
+        arriveAfter: '',
+        arriveBefore: '',
+        isDocVerified: "",
+        userId: ''
+    });
+    const userSideBarHandle = (id) => {
+        setmainLoad(true);
+        fetch(url.baseUrl+"user?userId="+id, {
+            method: "get",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log("user info")
+            console.log(res.data)
+            setUserSide({...apartSide, 
+                userProf: res.data.profile_pic,
+                userName: res.data.name,
+                userEmail: res.data.email,
+                isDocVerified: res.data.isDocVerified,
+                userId: id
+            });
+            setSideUsertPro(true);
+            setmainLoad(false);
+        })
+        .catch(error => console.log(error));
+    }
+
+    useEffect(() => {
+        activateUsersList()
+    }, []);
+    const [users, setUsers] = useState(null);
+    const activateUsersList = () => {
+        fetch(url.baseUrl+"getAllUsers", {
+            method: "get",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res.data);
+            setUsers(res.data);
+        })
+        .catch(error => console.log(error));
+    }
+    
     const [sideApartPro, setSideApartPro] = useState(false);
     const [apartSide, setApartSide] = useState({
         userProf: '',
@@ -100,9 +160,10 @@ export default function DashBoard() {
         .catch(error => console.log(error));
     }
 
-    useEffect(() => {
-        activateListing()
-    }, []);
+    
+
+
+
     const [hosting, setHosting] = useState(null);
     const activateListing = () => {
         fetch(url.baseUrl+"host", {
@@ -132,6 +193,36 @@ export default function DashBoard() {
         .then(res => {
             console.log(res.data);
             setCarHosting(res.data);
+        })
+        .catch(error => console.log(error));
+    }
+
+    const changeDocType = (e, id) => {
+        setmainLoad(true);
+        console.log(e.target.value)
+        console.log(typeof e.target.value)
+        fetch(url.baseUrl+"changeHostDocStatus", {
+            method: "post",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                userId: id,
+                status: parseInt(e.target.value)
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log('updated')
+            console.log(res);
+            if (res.code === 200) {
+                swal("Well done!", "Document status updated successfully!!", 'success');
+                // activateUsersList();
+                setTimeout(() => activateUsersList(), 3000);
+                setSideUsertPro(false);
+                setmainLoad(false);
+            }
         })
         .catch(error => console.log(error));
     }
@@ -190,11 +281,97 @@ export default function DashBoard() {
 
                 <Tabs>
                     <TabList>
-                        <Tab>Apartment hosting</Tab>
+                        <Tab>All user's </Tab>
+                        <Tab onClick={() => activateListing()}>Apartment hosting</Tab>
                         <Tab onClick={() => activateCarListing()}>Car hosting</Tab>
                         {/* <Tab>Inbox</Tab>
                         <Tab>Reservations</Tab> */}
                     </TabList>
+
+                    <TabPanel>
+                        <div className={ds.d2}>
+                            {users ? (
+                                <>
+                                    <table className={ds.d20t}>
+                                        <tbody>
+                                            <tr className={ds.d20th}>
+                                                <th className={ds.d20th1}>No</th>
+                                                <th className={ds.d20th2}>Users</th>
+                                                <th className={ds.d20th3}>Email</th>
+                                                <th className={ds.d20th4}>Location</th>
+                                                <th className={ds.d20th5}>Work</th>
+                                                <th className={ds.d20th6}>About</th>
+                                                <th className={ds.d20th7}>Doc status</th>
+                                            </tr>
+                                                    
+                                            {users.map((host, key) => {return (
+                                                <>
+                                                    <tr className={ds.d20tr} key={key} onClick={() => userSideBarHandle(host.id)}>
+                                                        <td className={ds.d20td1}>{key+1}</td>
+                                                        <td className={ds.d20td2}>
+                                                            <div className={ds.d20td2Img}><img src={host.profile_pic} alt="" /></div>
+                                                            <span>{host.name}</span>
+                                                        </td>
+                                                        <td className={ds.d20td3}>{host.email}</td>
+                                                        <td className={ds.d20td4}>{host.location}</td>
+                                                        <td className={ds.d20td5}>{host.work}</td>
+                                                        <td className={ds.d20td6}>{host.about}</td>
+                                                        <td className={ds.d20td7}>
+                                                            {host.isDocVerified === 0 && "Not Uploaded"}
+                                                            {host.isDocVerified === 1 && "Verified"}
+                                                            {host.isDocVerified === 2 && "Pending"}
+                                                            {host.isDocVerified === 3 && "Rejected"}
+                                                        </td>
+                                                    </tr>
+                                                </>
+                                            )})}
+                                        </tbody>
+                                    </table>
+                                    
+                                </>
+                            ) : (
+                                <div style={{width: '100%',float: 'left'}}><img style={{marginLeft: '50%', transform: 'translateX(-50%)', width: 40}} src={loading} alt="" /></div>
+                            )}
+                        </div>
+
+                        {sideUserPro && (
+                            <>
+                                <div className={ds.d4} onClick={() => setSideUsertPro(false)}></div>
+                                <div className={ds.d3}>
+                                    <div className={ds.d30}><img src={userSide.userProf} alt="" /></div>
+                                    <div className={ds.d31}>{userSide.userName}</div>
+                                    {/* <div className={ds.d32}>{userSide.userCity}</div> */}
+                                    
+                                    <div className={ds.d33} style={{marginTop: '10px'}}>
+                                        <div className={ds.d331}>{userSide.userEmail}</div>
+                                        <div className={ds.d332}><img src={message} alt="" /></div>
+                                    </div>
+                                    {/* <div className={ds.d33}>
+                                        <div className={ds.d331}><b>{userSide.userAddr}</b></div>
+                                        <div className={ds.d332}><img src={pinGrey} alt="" /></div>
+                                    </div> */}
+                                    {/* <div className={ds.d33} style={{marginTop: "20px"}}>
+                                        <div className={ds.d331}><b>Arrival after :</b> {userSide.arriveAfter}</div><br />
+                                        <div className={ds.d331}><b>Arrival before :</b> {userSide.arriveBefore}</div>
+                                    </div> */}
+
+                                    <select value={userSide.isDocVerified} onChange={e => changeDocType(e, userSide.userId)} style={{width: '90%', marginLeft: '5%', marginTop: '15px'}}>
+                                        <option value="0">Not Verified</option>
+                                        <option value="1">Verified</option>
+                                        <option value="2">Pending for verification</option>
+                                        <option value="3">Rejected</option>
+                                    </select>
+                                    <div className={ds.d33} style={{marginTop: "20px"}}>
+                                        <div className={ds.d331}>Current Status</div>
+                                    </div>
+                                    <div className={ds.d341}>
+                                        Remove User
+                                    </div>
+                                </div>
+                            </>
+                        )}
+
+                    </TabPanel>
 
                     <TabPanel>
                         <div className={ds.d2}>

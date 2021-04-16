@@ -31,6 +31,7 @@ import English from './translations/en.json';
 import Hindi from './translations/hi.json';
 import MetaTags from 'react-meta-tags';
 import Profiles from "./screen/Profiles";
+import GetReviews from './screen/GetReviews';
 
 function App() {
 
@@ -83,7 +84,10 @@ function App() {
             <Route exact path="/">
               <Index />
             </Route>
-            <Route exact path="/Dashboard">
+            <Route exact path="/getReviews/:id/:userId">
+              <GetReviews />
+            </Route>
+            <Route path="/Dashboard">
               <DashBoard />
             </Route>
             <Route exact path="/hotelInfo/:id/">

@@ -1,14 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import '../css/components.css';
-import DetailsList from '../components/DetailsList';
+// import DetailsList from '../components/DetailsList';
 import {useState, useEffect} from 'react';
 import loading from '../img/icons/loadingHostingList.gif';
 
 import React from 'react';
 import v1 from '../img/demo/16.png';
 import starIcon from '../img/icons/star.png';
-import userIcon from '../img/icons/user.png';
+// import userIcon from '../img/icons/user.png';
 import trips from '../css/trips.module.css';
 import favRed from '../img/icons/favRed.svg';
 import styles from '../css/profile.module.css';
@@ -33,13 +33,13 @@ import worldIcon from '../img/icons/blackWorldIcon.png';
 
 import LoginBanner from '../img/banners/undraw_enter_uhqk.png';
 import SignUpBanner from '../img/banners/undraw_mobile_payments_vftl.png';
-
+import ChatImage from "../img/icons/images1.png";
 
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props';
 import TwitterLogin from "react-twitter-login";
 
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 // base url
 import url from '../data/urls.json';
 
@@ -62,11 +62,9 @@ export default function Trips() {
     });
     
     const [langView, SetLAngView] = useState(false);
-
     const [userName, setUserName] = useState("null"); 
     // run only once
     useEffect(() => {
-
         if (localStorage.getItem("token") === null) {
             history.push("/");
         } else {
@@ -75,8 +73,8 @@ export default function Trips() {
             var name = JSON.parse(data);
             setUserName(name.userName);
             activateReservationList();
+            activateFinishedList();
         }
-        
     }, []);
 
     const signinSubmit = () => {
@@ -92,7 +90,6 @@ export default function Trips() {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-
                 //make sure to serialize your JSON body
                 body: JSON.stringify({
                     email: signinval.email,
@@ -271,7 +268,7 @@ export default function Trips() {
 
     const [finishList, setFinishList] = useState(null);
     const activateFinishedList = () => {
-        fetch(url.baseUrl+"getListofBookings", {
+        fetch(url.baseUrl+"bookingHistory", {
             method: "POST",
             headers: {
                 'Accept': 'application/json',
@@ -320,22 +317,29 @@ export default function Trips() {
                     <TabList>
                         {/* <Tab>Favorites</Tab> */}
                         <Tab>Upcoming</Tab>
-                        <Tab onClick={activateFinishedList()}>Finished</Tab>
+                        <Tab>Finished</Tab>
                     </TabList>
 
                     <TabPanel>
                         {reserList ? (
                             <>
                                 <div className="DetailListCont">
-                                    {reserList.map((host, key) => {return (
+                                    {reserList.slice(0).reverse().map((host, key) => {return (
                                         <>
                                             {/* single container */}
                                             <div className="DetailList0" key={key}>
                                                 <div className="DetailList01"><img src={host.imageList[0]} alt="" /></div>
                                                 <div className="DetailList02">
-                                                    <div className="DetailList021">{host.guests}</div>
-                                                    <div className="DetailList022">{host.listingTitle}</div>
-                                                    <div className="DetailList023">2 guests . Studio . 2 beds . 1 bathroom</div>
+                                                    <div className="DetailList02Side0">
+                                                        <div className="DetailList02Side01">
+                                                            <div className="DetailList021" onClick={() => history.push('/hotelInfo/'+host.propertyId)}>{host.addrStreet}</div>
+                                                            <div className="DetailList022" onClick={() => history.push('/hotelInfo/'+host.propertyId)}>{host.listingTitle}</div>
+                                                        </div>
+                                                        <Link to={`/chat?name=${JSON.parse(localStorage.getItem('token')).userName}&room=${host.room}&username=${host.host_name}&profile=${host.host_pic}`}>
+                                                            <img style={{cursor: 'pointer'}} src={ChatImage} alt="" width="28px" />
+                                                        </Link>
+                                                    </div>
+                                                    <div className="DetailList023">{host.guests} guests . Studio . 2 beds . 1 bathroom</div>
                                                     <div className="DetailList024">$ {host.amountPaid} / night</div>
                                                 </div>
                                             </div>
@@ -358,8 +362,15 @@ export default function Trips() {
                                             <div className="DetailList0" key={key}>
                                                 <div className="DetailList01"><img src={v1} alt="" /></div>
                                                 <div className="DetailList02">
-                                                    <div className="DetailList021" >{host.guests}</div>
-                                                    <div className="DetailList022">{host.listingTitle}</div>
+                                                    <div className="DetailList02Side0">
+                                                        <div className="DetailList02Side01">
+                                                            <div className="DetailList021" onClick={() => history.push('/hotelInfo/'+host.propertyId)}>{host.addrStreet}</div>
+                                                            <div className="DetailList022" onClick={() => history.push('/hotelInfo/'+host.propertyId)}>{host.listingTitle}</div>
+                                                        </div>
+                                                        <span onClick={() => alert("chat")}>
+                                                            <img style={{cursor: 'pointer'}} src={ChatImage} alt="" width="28px" />
+                                                        </span>
+                                                    </div>
                                                     <div className="DetailList023">2 guests . Studio . 2 beds . 1 bathroom</div>
                                                     <div className="DetailList024">$ {host.amountPaid} / night</div>
                                                 </div>

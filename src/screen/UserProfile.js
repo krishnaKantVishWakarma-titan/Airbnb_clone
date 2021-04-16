@@ -303,35 +303,57 @@ export default function UserProfile() {
         if (localStorage.getItem("token") === null) {
             history.push('/');
         } else {
-            setmainLoad(true)
-            var myHeaders = new Headers();
-            myHeaders.append("Content-Type", "application/json");
-            var requestOptions = {
-              method: 'GET',
-              headers: myHeaders,
-              redirect: 'follow'
-            };
-            fetch(`${url.baseUrl}isDocVerified/`+JSON.parse(localStorage.getItem("token")).userId, requestOptions)
-            .then(response => response.json())
-            .then(res => {
-                console.log(res);
-                console.log(res.data[0].isDocVerified);
-                if (res.data[0].isDocVerified === 0) {
-                    setDocStatus(res.data[0].isDocVerified);
-                } else if (res.data[0].isDocVerified === 1) {
-                    setDocStatus(res.data[0].isDocVerified);
-                } else if (res.data[0].isDocVerified === 2) {
-                    swal("Your profile is pending verification", "Please wait while Your profile is verify !!!", "error");
-                    
-                } else if (res.data[0].isDocVerified === 4) {
-                    swal("Your profile is rejected", "Please contact with our support !!!", "error");
-                    
-                }
-                setmainLoad(false);
-            })
-            .catch(error => console.log('error', error));
+            setmainLoad(true);
+            getUserInfo();
+            checkGov();
         }
     }, []);
+
+    const checkGov = () => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        var requestOptions = {
+          method: 'GET',
+          headers: myHeaders,
+          redirect: 'follow'
+        };
+        fetch(`${url.baseUrl}isDocVerified/`+JSON.parse(localStorage.getItem("token")).userId, requestOptions)
+        .then(response => response.json())
+        .then(res => {
+            console.log(res);
+            console.log(res.data[0].isDocVerified);
+            if (res.data[0].isDocVerified === 0) {
+                setDocStatus(res.data[0].isDocVerified);
+            } else if (res.data[0].isDocVerified === 1) {
+                setDocStatus(res.data[0].isDocVerified);
+            } else if (res.data[0].isDocVerified === 2) {
+                swal("Your profile is pending verification", "Please wait while Your profile is verify !!!", "error");
+                
+            } else if (res.data[0].isDocVerified === 4) {
+                swal("Your profile is rejected", "Please contact with our support !!!", "error");
+                
+            }
+            setmainLoad(false);
+        })
+        .catch(error => console.log('error', error));
+    }
+
+    const [userInfo, setUserInfo] = useState(null);
+    const getUserInfo = () => {
+        fetch(url.baseUrl+"user?userId="+JSON.parse(localStorage.getItem("token")).userId, {
+            method: "get",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            setUserInfo(res.data);
+        })
+        .catch(error => console.log(error));
+    }
 
      // image government id
      const [imageGovList, setImageGovList] = useState(null);
@@ -350,7 +372,9 @@ export default function UserProfile() {
          fetch(`${url.baseUrl}/upload`, requestOptions)
          .then(response => response.json())
          .then(result => {
-             setImageGovList(result.Data[0].Location)
+             console.log(result.Data[0].Location);
+             setImageGovList(result.Data[0].Location);
+             updateGov(result.Data[0].Location);
          })
          .catch(error => console.log('error', error));
      
@@ -358,8 +382,35 @@ export default function UserProfile() {
              setSelectedGovImage(URL.createObjectURL(e.target.files[0]))
              Array.from(e.target.files).map(file => URL.revokeObjectURL(file))
          }
-     }
- 
+    }
+    
+    const updateGov = val => {
+
+        var requestOptions = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                govt_id: val,
+                userId: JSON.parse(localStorage.getItem("token")).userId,
+            }),
+            redirect: 'follow'
+        };
+
+        fetch(`${url.baseUrl}updateGovtId`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log("user id");
+            console.log(result);
+            if (result.code === 200) {
+                swal("Good job!", "You are successfully Upload your government ID !!!", "success");
+                checkGov();
+            }
+        })
+        .catch(error => console.log('error', error));
+    }
 
     const [tab1, setTab1] = useState(true);
     const [tab2, setTab2] = useState(false);
@@ -458,207 +509,286 @@ const updateProfile = image => {
                 history.push("/");
             }
 
+    const [resetVar, setResetVar] = useState({
+        oldpass: '',
+        newpass: ''
+    });
 
+    useEffect(() => console.log(resetVar), [resetVar]);
 
-    return (
-        <>
-       
-          <div className={styles.desk}>
-                 {/* header */}
-                 <div className={styles.header0}>
-                    <div className={user.head01} onClick={() => history.goBack()}>     
-                                        <img src={backIcon} alt="" />
-                    </div>
-
-                    <div className={styles.header02}>
-                        <Link to="/HostYourApartment" className={styles.header021}><p>Create new listing</p></Link>
-                        <div className={styles.header021}><img src={sidebarIcon} alt="" onMouseEnter={() => {setSideBar(true);}} onMouseLeave={() => setSideBar(false)} /></div>
-                   </div>
-
+    const resetSubmission = () => {
+        if (resetVar.oldpass === "") {
+            swal("Enter Fields", "Must enter old password first!!", "info");
+        } else if (resetVar.newpass === "") {
+            swal("Enter Fields", "Must enter new password first!!", "info");
+        } else {
             
-              </div>
-              
-              
-              </div>
-               
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
 
-            <div style={{ width: "100%", height: "100%" }}>
+            var raw = JSON.stringify({
+                "old_password": resetVar.oldpass,
+                "new_password": resetVar.newpass,
+                "userId": JSON.parse(localStorage.getItem("token")).userId
+            });
+
+            var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+            };
+
+            fetch("http://13.233.154.141:5000/api/changePassword", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+
+                if (result.code === 200) {
+                    swal("Success", "Your password successfully changed !!!", "success");
+                } else {
+                    swal("Something wrong", "Must enter correct information!!", "error");
+                }
+            })
+            .catch(error => console.log('error', error));
+
+        }
+    }
 
 
-                <div className="Profile">
 
-
-                    <div className="p1" onClick={() => { setTab1(true); setTab2(false); setTab3(false) }}>
-                        <div className="profile_pic">
-                            <img className="img" src={profile} alt="" />
+    if (!userInfo) {
+        return (<div>j</div>)
+    } else {
+        return (
+            <>
+           
+              <div className={styles.desk}>
+                     {/* header */}
+                     <div className={styles.header0}>
+                        <div className={user.head01} onClick={() => history.goBack()}>     
+                                            <img src={backIcon} alt="" />
                         </div>
-                        <p style={{ marginRight: "89px",  color: "dimgray" }}> Profile</p></div>
-                    <div className="p2" onClick={() => { setTab2(true); setTab1(false); setTab3(false) }} >
-                        <div className="profile_pic">
-                            <img className="img" src={Verification} alt="" />
-                        </div>
-                        <p style={{ marginRight:'28px',color: "dimgray"}}>  Verifications </p> </div>
-                    <div className="p3" onClick={() => { setTab2(false); setTab1(false); setTab3(true) }}>
-                        <div className="profile_pic">
-                            <img className="img" src={setting} alt="" />
-                        </div>
-                        <p style={{ marginRight: "70px",color: "dimgray" }}> Settings</p> </div>
-
-                </div>
-                {sideBar && (
-                <div className={headerStyle.headSideBar} onMouseEnter={() => setSideBar(true)} onMouseLeave={() => setSideBar(false)}>
-                        <div className={headerStyle.headSideBar011S0}>
-                            <div className={headerStyle.headSideBar011S01}><img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" /></div>
-                            <div className={headerStyle.headSideBar011S02}>{userName} 
-                                <div className={headerStyle.headSideBar011S021}>{JSON.parse(localStorage.getItem("token")).userEmail}</div>
+    
+                        <div className={styles.header02}>
+                            <Link to="/HostYourApartment" className={styles.header021}><p>Create new listing</p></Link>
+                            <div className={styles.header021}><img src={sidebarIcon} alt="" onMouseEnter={() => {setSideBar(true);}} onMouseLeave={() => setSideBar(false)} /></div>
+                       </div>
+    
+                
+                  </div>
+                  
+                  
+                  </div>
+                   
+    
+                <div style={{ width: "100%", height: "100%" }}>
+    
+    
+                    <div className="Profile">
+    
+    
+                        <div className="p1" onClick={() => { setTab1(true); setTab2(false); setTab3(false) }}>
+                            <div className="profile_pic">
+                                <img className="img" src={profile} alt="" />
                             </div>
-                        </div>
-                        <p onClick={() => history.push('/')}>Home</p>
-                        <p onClick={() => history.push('/hosting')}>Listing</p>
-                        <p onClick={() => history.push('/notify')}>Notification</p>
-                        <p onClick={() => history.push('/chats')}>Messages</p>
-                        <p onClick={() => history.push('/Saved')}>Saved</p>
-                        <p onClick={() => history.push('/Trips')}>Trips</p>
-                        <p onClick={() => history.push('/hostCars')}>Host your cars</p>
-                        <p onClick={() => history.push('/HostYourApartment')}>Host your apartment</p>
-                        <p onClick={signOutSubmit}>Signout</p>
-                </div>
-            )}
-        
-                {tab1 && (
-
-                    <div className="div_0" style={{paddingTop: '30px'}}>
-                        <h1 className="p5"> Profile</h1>
-                        <div className="p4">
-                            <img src={profilePic} alt="" /> </div>
-                        <div style={{ marginLeft: "38%", marginTop: "-22px" }}>
-                            <label htmlFor="file">
-                                <img style={{ width: '30px', height: '20px', borderRadius: "20px" }} src={Image} alt="" />
-                            </label>
+                            <p style={{ marginRight: "89px",  color: "dimgray" }}> Profile</p></div>
+                        <div className="p2" onClick={() => { setTab2(true); setTab1(false); setTab3(false) }} >
+                            <div className="profile_pic">
+                                <img className="img" src={Verification} alt="" />
+                            </div>
+                            <p style={{ marginRight:'28px',color: "dimgray"}}>  Verifications </p> </div>
+                        <div className="p3" onClick={() => { setTab2(false); setTab1(false); setTab3(true) }}>
+                            <div className="profile_pic">
+                                <img className="img" src={setting} alt="" />
+                            </div>
+                            <p style={{ marginRight: "70px",color: "dimgray" }}> Settings</p> </div>
+    
+                    </div>
+                    {sideBar && (
+                    <div className={headerStyle.headSideBar} onMouseEnter={() => setSideBar(true)} onMouseLeave={() => setSideBar(false)}>
+                            <div className={headerStyle.headSideBar011S0}>
+                                <div className={headerStyle.headSideBar011S01}><img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" /></div>
+                                <div className={headerStyle.headSideBar011S02}>{userName} 
+                                    <div className={headerStyle.headSideBar011S021}>{JSON.parse(localStorage.getItem("token")).userEmail}</div>
+                                </div>
+                            </div>
+                            <p onClick={() => history.push('/')}>Home</p>
+                            <p onClick={() => history.push('/hosting')}>Listing</p>
+                            <p onClick={() => history.push('/notify')}>Notification</p>
+                            <p onClick={() => history.push('/chats')}>Messages</p>
+                            <p onClick={() => history.push('/Saved')}>Saved</p>
+                            <p onClick={() => history.push('/Trips')}>Trips</p>
+                            <p onClick={() => history.push('/hostCars')}>Host your cars</p>
+                            <p onClick={() => history.push('/HostYourApartment')}>Host your apartment</p>
+                            <p onClick={signOutSubmit}>Signout</p>
+                    </div>
+                )}
+            
+                    {tab1 && (
+    
+                        <div className="div_0" style={{paddingTop: '30px'}}>
+                            <h1 className="p5"> Profile</h1>
+                            <div className="p4">
+                                <img src={profilePic} alt="" /> </div>
+                            <div style={{ marginLeft: "38%", marginTop: "-22px" }}>
+                                <label htmlFor="file">
+                                    <img style={{ width: '30px', height: '20px', borderRadius: "20px" }} src={Image} alt="" />
+                                </label>
+                                
+                                {progress && (<span style={{fontSize: '10px'}}>Uploading profile pic, Please wait</span>)}
+                            </div>
+    
+    
+                            <p className="p6">{userName}</p>
                             
-                            {progress && (<span style={{fontSize: '10px'}}>Uploading profile pic, Please wait</span>)}
-                        </div>
-
-
-                        <p className="p6">{userName}</p>
-                        
-
-                            <input type="file" ref={fileInput} style={{display: 'none'}} accept="image/jpg, image/jpeg, image/png" id="file" onChange={e => uploadProfilePic(e)} />
-                            {/* <label className="p9-1" style={{backgroundColor: 'grey', color: 'white'}} htmlFor="file">Update profile pic</label> */}
-
-                        {/* <button className="p9-1">Upload</button> */}
-                        
-                        <div className="p8">
-                            <textarea placeholder="About yourself" className="p7"></textarea></div>
-                        <div className="p8">
-                            <input className="p8_1" type="text" placeholder="Your Location" /></div>
-                        <div className="p8">  <input className="p8_2" type="Email " placeholder="Your Email Address" />
-                        </div> <button className="p9">Save</button>
-                        <hr className="hr" />
-                        <h1 className="Review"> Reviews</h1>
-
-                        <div className="Reviews0">
-                            <div className="Reviews01">
-                                <div className="p4_1">
-                                    <img src={adminPro} alt="" /> </div></div>
-                            <div className="Reviews02">
-                                <div className="Reviews021" >Mensa Kumar</div>
-                                <div className="Reviews022">Booked Jan, 2021</div>
-                                <div className="Review023 ">This is a great location to stay. Linda was very generous to give me a ride back tot he aiport.</div>
-                                <div className="Reviews0222">Posted:01/23/2021</div>
+    
+                                <input type="file" ref={fileInput} style={{display: 'none'}} accept="image/jpg, image/jpeg, image/png" id="file" onChange={e => uploadProfilePic(e)} />
+                                {/* <label className="p9-1" style={{backgroundColor: 'grey', color: 'white'}} htmlFor="file">Update profile pic</label> */}
+    
+                            {/* <button className="p9-1">Upload</button> */}
+                            
+                            <div className="p8">
+                                {userInfo.about ? 
+                                <textarea placeholder="About yourself" className="p7" value={userInfo.about}></textarea> : 
+                                <textarea placeholder="About yourself" className="p7"></textarea>}
                             </div>
-
-                        </div>
-                        <div className="Reviews0">
-                            <div className="Reviews01">
-                                <div className="p4_1">
-                                    <img src={adminPro} alt="" /> </div></div>
-                            <div className="Reviews02">
-                                <div className="Reviews021" >Mensa Kumar</div>
-                                <div className="Reviews022">Booked Jan, 2021</div>
-                                <div className="Review023 ">This is a great location to stay. Linda was very generous to give me a ride back tot he aiport.</div>
-                                <div className="Reviews0222">Posted:01/23/2021</div>
+                            <div className="p8">
+                                {userInfo.location ? 
+                                <input className="p8_1" type="text" placeholder="Your Location" value={userInfo.location} /> : 
+                                <input className="p8_1" type="text" placeholder="Your Location" />}
                             </div>
-
-                        </div>
-                        <div className="Reviews0">
-                            <div className="Reviews01">
-                                <div className="p4_1">
-                                    <img src={adminPro} alt="" /> </div></div>
-                            <div className="Reviews02">
-                                <div className="Reviews021" >Mensa Kumar</div>
-                                <div className="Reviews022">Booked Jan, 2021</div>
-                                <div className="Review023 ">This is a great location to stay. Linda was very generous to give me a ride back tot he aiport.</div>
-                                <div className="Reviews0222">Posted:01/23/2021</div>
+                            <div className="p8">  
+                            {userInfo.location ? 
+                            <input className="p8_2" type="Email " placeholder="Your Email Address" value={userInfo.work}/> : 
+                            <input className="p8_2" type="Email " placeholder="Your Email Address"/>}
+                            </div> <button className="p9">Save</button>
+                            <hr className="hr" />
+                            <h1 className="Review"> Reviews</h1>
+    
+                            <div className="Reviews0">
+                                <div className="Reviews01">
+                                    <div className="p4_1">
+                                        <img src={adminPro} alt="" />
+                                    </div>
+                                </div>
+                                <div className="Reviews02">
+                                    <div className="Reviews021" >Mensa Kumar</div>
+                                    <div className="Reviews022">Booked Jan, 2021</div>
+                                    <div className="Review023 ">This is a great location to stay. Linda was very generous to give me a ride back tot he aiport.</div>
+                                    <div className="Reviews0222">Posted:01/23/2021</div>
+                                </div>
+    
                             </div>
-
+                            <div className="Reviews0">
+                                <div className="Reviews01">
+                                    <div className="p4_1">
+                                        <img src={adminPro} alt="" /> </div></div>
+                                <div className="Reviews02">
+                                    <div className="Reviews021" >Mensa Kumar</div>
+                                    <div className="Reviews022">Booked Jan, 2021</div>
+                                    <div className="Review023 ">This is a great location to stay. Linda was very generous to give me a ride back tot he aiport.</div>
+                                    <div className="Reviews0222">Posted:01/23/2021</div>
+                                </div>
+    
+                            </div>
+                            <div className="Reviews0">
+                                <div className="Reviews01">
+                                    <div className="p4_1">
+                                        <img src={adminPro} alt="" /> </div></div>
+                                <div className="Reviews02">
+                                    <div className="Reviews021" >Mensa Kumar</div>
+                                    <div className="Reviews022">Booked Jan, 2021</div>
+                                    <div className="Review023 ">This is a great location to stay. Linda was very generous to give me a ride back tot he aiport.</div>
+                                    <div className="Reviews0222">Posted:01/23/2021</div>
+                                </div>
+    
+                            </div>
+                            <div style={{ margin: "10px 0 10px 32%", fontSize: "14px", fontWeight: "bold", }} >View all reviews</div>
+    
+    
                         </div>
-                        <div style={{ margin: "10px 0 10px 32%", fontSize: "14px", fontWeight: "bold", }} >View all reviews</div>
+    
+                    )}
+    
+    
+    
+                    {tab2 && (
+                        <div className="div_1" style={{paddingTop: '30px'}}>
+                            <div className="div_02">
+                                <h1 className="p5"> Verifications  </h1>
+                                <p className="p6_1">{JSON.parse(localStorage.getItem("token")).userEmail}</p>
+                                <div className="Icons0">
+                                    <img style={{ width: '20px', height: '20px' }} src={Right} alt="" />
+                                </div>
+                                {userInfo.phone && (
+                                    <p className="p6_1">{userInfo.phone}</p>
+                                )}
+                                <div className="Icons0">
+                                    <img style={{ width: '20px', height: '20px' }} src={Right} alt="" />
+                                </div>
+    
+                                {docStatus === 0 && (
+                                    <>
+                                    
+                                        <h3 className="p6_3">Government ID</h3><br/>
+                                        <label htmlFor="gov" className="p9-1" style={{backgroundColor: 'lightgrey', marginBottom: '100px'}}><span style={{backgroundColor: 'lightgrey', marginTop: '100px'}}>Upload</span></label>
+                                        <input type="file" id="gov" accept="image/jpg, image/jpeg, image/png" onChange={e => uploadGovImageHandler(e)} style={{display: "none"}} />
+    
+                                        {selectedGovImage && (
+                                            <div className="uploadedImageCont" style={{marginLeft: '400px'}}>
+                                                <div className="uploadedImage"><img src={selectedGovImage} alt="" /></div>
+                                            </div>
+                                        )}
+                                    
+                                    </>
+                                )}
 
+                                {docStatus === 1 && (
+                                    <p className="p6_1">Your Government Id is verified</p>
+                                )}
 
-                    </div>
+                                {docStatus === 2 && (
+                                    <p className="p6_1">Your Government Id is pending for verification</p>
+                                )}
 
+                                {docStatus === 3 && (
+                                    <p className="p6_1">Your Government Id is Rejected !!</p>
+                                )}
+    
+                                {/* <h3 className="p6_3">Government ID</h3>
+                                <label><button className="p9-1">Upload</button></label>  */}
+                                </div>
+                        </div>
+                    )}
+    
+                    {tab3 && (
+                        <div className="div_0" style={{paddingTop: '30px'}}>
+                            <div className="p10">
+                                <h1 className="p5"> Settings </h1>
+                                <div>
+                                <div className="p8">
+                                    <input className="p8_1" type="text" placeholder="Enter old password" value={resetVar.oldpass} onChange={e => setResetVar({...resetVar, oldpass: e.target.value})} />
+                                    <input className="p8_1" type="text" placeholder="Enter new password" value={resetVar.newpass} onChange={e => setResetVar({...resetVar, newpass: e.target.value})} style={{marginTop: '15px', marginBottom: '10px'}} />
+                                    
+                                </div>
+                                    <button className="p9_1" onClick={() => resetSubmission()}>Reset Password</button>
+                                </div>
+                                <h2 className="p6_2">Social Connection</h2>
+                                <p className="p6_4">Always available to connect</p>
+                                <div className="Icons1">
+                                    <img style={{ width: '20px', height: '20px' }} src={Check} alt="" />
+                                </div>
+                            </div>
+                        </div>
+                    )}
+    
+                </div> 
+                {mainLoad && (
+                    <div className={ds.mainLoad}><img className={ds.mainLoad0} src={loading} alt="" /></div>
                 )}
+            </>)
+    }
 
-
-
-                {tab2 && (
-                    <div className="div_1" style={{paddingTop: '30px'}}>
-                        <div className="div_02">
-                            <h1 className="p5"> Verifications  </h1>
-                            <p className="p6_1">{JSON.parse(localStorage.getItem("token")).userEmail}</p>
-                            <div className="Icons0">
-                                <img style={{ width: '20px', height: '20px' }} src={Right} alt="" />
-                            </div>
-                            <p className="p6_1">+1-234-567-8900</p>
-                            <div className="Icons0">
-                                <img style={{ width: '20px', height: '20px' }} src={Right} alt="" />
-                            </div>
-
-                            {docStatus === 1 ? (
-                                <>
-                                
-                                    <h3 className="p6_3">Government ID</h3><br/>
-                                    <label htmlFor="gov" className="p9-1" style={{backgroundColor: 'lightgrey', marginBottom: '100px'}}><span style={{backgroundColor: 'lightgrey', marginTop: '100px'}}>Upload</span></label>
-                                    <input type="file" id="gov" accept="image/jpg, image/jpeg, image/png" onChange={e => uploadGovImageHandler(e)} style={{display: "none"}} />
-
-                                    {selectedGovImage && (
-                                        <div className="uploadedImageCont" style={{marginLeft: '400px'}}>
-                                            <div className="uploadedImage"><img src={selectedGovImage} alt="" /></div>
-                                        </div>
-                                    )}
-                                
-                                </>
-                            ) : (
-                                <p className="p6_1">Your Government Id is verified</p>
-                            )}
-
-                            {/* <h3 className="p6_3">Government ID</h3>
-                            <label><button className="p9-1">Upload</button></label>  */}
-                            </div>
-                    </div>
-                )}
-
-                {tab3 && (
-                    <div className="div_0" style={{paddingTop: '30px'}}>
-                        <div className="p10">
-                            <h1 className="p5"> Settings </h1>
-                            <div>
-                                <button className="p9_1">Reset Password</button>
-                            </div>
-                            <h2 className="p6_2">Social Connection</h2>
-                            <p className="p6_4">Always available to connect</p>
-                            <div className="Icons1">
-                                <img style={{ width: '20px', height: '20px' }} src={Check} alt="" />
-                            </div>
-                        </div>
-                    </div>
-                )}
-
-            </div> 
-            {mainLoad && (
-                <div className={ds.mainLoad}><img className={ds.mainLoad0} src={loading} alt="" /></div>
-            )}
-        </>)
+    
 }
 

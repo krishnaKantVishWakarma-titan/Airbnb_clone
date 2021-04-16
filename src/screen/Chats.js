@@ -67,29 +67,29 @@ export default function Chats () {
 
         <>
             <div className="headerMinCont">
-                    
-                    <div className={headerStyle.headUpNavMain1} onClick={() => history.goBack()}><img src={rightArrowIcon} alt="" /></div>
-                
+                <div className={headerStyle.headUpNavMain1} onClick={() => history.goBack()}><img src={rightArrowIcon} alt="" /></div>
                 <div className="headerMinTitle">Chats</div>
             </div>
 
-            {rooms.map((currElm, index) => { return (<>
-                <div className="noti" key={index}>
-                    <Link className="noti0" to={`/chat?name=${named}&room=${currElm.room}&username=${currElm.name}&profile=${currElm.profile_pic||profilepic}`}>
-                        <div className="noti01">
-                            {currElm.profile_pic ? <img src={currElm.profile_pic} alt="" /> : <img src={profilepic} alt="" />}
-                        </div>
-                        <div className="noti02">
-                            <div className="noti021">
-                                <div className="noti0211"><span className="noti02111">{currElm.name}</span></div>
-                                <div className="noti0212">Aug 19, 9:25 PM</div>
+            <div style={{paddingBottom: '60px', float: 'left', width: '100%'}}>
+                {rooms.map((currElm, index) => { return (<>
+                    <div className="noti" key={index}>
+                        <Link className="noti0" to={`/chat?name=${named}&room=${currElm.room}&username=${currElm.name}&profile=${currElm.pic||profilepic}`}>
+                            <div className="noti01">
+                                {currElm.pic ? <img src={currElm.pic} alt="" /> : <img src={profilepic} alt="" />}
                             </div>
-                            <div className="noti022">Hiiii</div>
-                        </div>
-                    </Link>
-                </div>
-            </>);
-            })} 
+                            <div className="noti02">
+                                <div className="noti021">
+                                    <div className="noti0211"><span className="noti02111">{currElm.name}</span></div>
+                                    <div className="noti0212">Aug 19, 9:25 PM</div>
+                                </div>
+                                <div className="noti022">Hiiii</div>
+                            </div>
+                        </Link>
+                    </div>
+                </>)
+                })}
+            </div>
 
         </>
 
