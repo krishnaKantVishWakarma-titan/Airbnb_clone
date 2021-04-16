@@ -19,23 +19,23 @@ export default function CarList () {
     }, []);
 
     const mainUrl = () => {
-        
-            fetch(url.baseUrl+"carHost", {
-                method: "get",
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-            })
-            .then(res => res.json())
-            .then(res=> {setCarLists(res.data);
-                console.log(res.data)}) 
-              
-            .catch(error => console.log(error));
-            }
+        fetch(url.baseUrl+"carHost", {
+            method: "get",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+        })
+        .then(res => res.json())
+        .then(res=> {setCarLists(res.data);
+            console.log(res.data)
+        })
+        .catch(error => console.log(error));
+    }
 
 
     const history = useHistory();
+    const [searchString, setsearchString] = useState("");
 
     return (
 
@@ -50,7 +50,7 @@ export default function CarList () {
                     <div className={headerStyle.headNavEMinCarList}>
 
                         <div className={headerStyle.headNav0}>
-                            <input type="text" placeholder="Search here cars ..." />
+                            <input type="text" placeholder="Search here cars ..." value={searchString} onChange={e => setsearchString(e.target.value)} />
                         </div>
                         <div className="headNav1">
                             <img src={serachIcon} alt="" /> 
@@ -66,7 +66,11 @@ export default function CarList () {
 
                     {CarLists ? (
                         <>
-                            {CarLists.map((carElm, indx)=>{ return(
+                            {CarLists
+                            .filter(l => {
+                                return l.cityName.toLowerCase().match( searchString );
+                              })
+                            .map((carElm, indx)=>{ return(
                                 <>
                                     <div className="DetailList0" key={indx}>
                                         <div className="DetailList01">

@@ -767,8 +767,8 @@ const updateProfile = image => {
                                 <h1 className="p5"> Settings </h1>
                                 <div>
                                 <div className="p8">
-                                    <input className="p8_1" type="text" placeholder="Enter old password" value={resetVar.oldpass} onChange={e => setResetVar({...resetVar, oldpass: e.target.value})} />
-                                    <input className="p8_1" type="text" placeholder="Enter new password" value={resetVar.newpass} onChange={e => setResetVar({...resetVar, newpass: e.target.value})} style={{marginTop: '15px', marginBottom: '10px'}} />
+                                    <input className="p8_1" type="password" placeholder="Enter old password" value={resetVar.oldpass} onChange={e => setResetVar({...resetVar, oldpass: e.target.value})} />
+                                    <input className="p8_1" type="password" placeholder="Enter new password" value={resetVar.newpass} onChange={e => setResetVar({...resetVar, newpass: e.target.value})} style={{marginTop: '15px', marginBottom: '10px'}} />
                                     
                                 </div>
                                     <button className="p9_1" onClick={() => resetSubmission()}>Reset Password</button>

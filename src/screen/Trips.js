@@ -360,16 +360,16 @@ export default function Trips() {
                                         <>
                                             {/* single container */}
                                             <div className="DetailList0" key={key}>
-                                                <div className="DetailList01"><img src={v1} alt="" /></div>
+                                                <div className="DetailList01"><img src={host.imageList[0]} alt="" /></div>
                                                 <div className="DetailList02">
                                                     <div className="DetailList02Side0">
                                                         <div className="DetailList02Side01">
                                                             <div className="DetailList021" onClick={() => history.push('/hotelInfo/'+host.propertyId)}>{host.addrStreet}</div>
                                                             <div className="DetailList022" onClick={() => history.push('/hotelInfo/'+host.propertyId)}>{host.listingTitle}</div>
                                                         </div>
-                                                        <span onClick={() => alert("chat")}>
+                                                        <Link to={`/chat?name=${JSON.parse(localStorage.getItem('token')).userName}&room=${host.room}&username=${host.host_name}&profile=${host.host_pic}`}>
                                                             <img style={{cursor: 'pointer'}} src={ChatImage} alt="" width="28px" />
-                                                        </span>
+                                                        </Link>
                                                     </div>
                                                     <div className="DetailList023">2 guests . Studio . 2 beds . 1 bathroom</div>
                                                     <div className="DetailList024">$ {host.amountPaid} / night</div>
@@ -508,7 +508,7 @@ export default function Trips() {
                 <div className={headerStyle.headSideBar} onMouseEnter={() => setSideBar(true)} onMouseLeave={() => setSideBar(false)}>
                         <div className={headerStyle.headSideBar011S0}>
                             <div className={headerStyle.headSideBar011S01}><img src={JSON.parse(localStorage.getItem("token")).userProfile} alt="" /></div>
-                            <div className={headerStyle.headSideBar011S02}>{userName} 
+                            <div className={headerStyle.headSideBar011S02}><div>{userName}</div>
                                 <div className={headerStyle.headSideBar011S021}>{JSON.parse(localStorage.getItem("token")).userEmail}</div>
                             </div>
                         </div>

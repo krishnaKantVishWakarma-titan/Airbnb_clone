@@ -188,7 +188,6 @@ export default function Booking () {
                             <StripeCheckout 
                                 token={onToken}
                                 stripeKey={PublishableKey.stripe_publisable_key}
-                    
                                 name={places.listingTitle}
                                 image={places.imageList[0]}
                                 email={JSON.parse(localStorage.getItem("token")).userEmail}

@@ -45,7 +45,7 @@ export const Message = ({message: { user, text }, name, profiles}) => {
         // </div>
         <div className="mgs01">
             <div className="mgs011">
-                <div className="mgs0111name">{user}</div>
+                {/* <div className="mgs0111name">{user}</div> */}
                 <div className="mgs0111">
                     <img src={profiles || profile} alt="" />
                 </div>
