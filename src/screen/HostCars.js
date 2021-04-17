@@ -1,5 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+﻿import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import h from '../css/hostCar.module.css';
 import countryName from '../data/countryName.json';
@@ -13,22 +12,15 @@ import '../css/react_dates_overrides.css';
 import '../css/components.css';
 import url from '../data/urls.json';
 import pinIcon from '../img/icons/pin.png';
+import d from '../css/carInfo.module.css';
 
 
-import PlacesAutocomplete,{ geocodeByAddress, getLatLng}from 'react-places-autocomplete';
+import PlacesAutocomplete, { geocodeByAddress, getLatLng } from 'react-places-autocomplete';
 import headerStyle from '../css/headerMain.module.css';
 
-
-
-
-
-
-
-
-
-
-
-
+import ImageSlider from '../components/ImageSliderCarlist';
+import sidebarIcon from '../img/icons/sidebar.png';
+import rightArrowIcon from '../img/icons/headerMinBack.png';
 
 
 export default function HostCars(props) {
@@ -49,8 +41,7 @@ export default function HostCars(props) {
     const [tab7, setTab7] = useState(false);
     const [tab8, setTab8] = useState(false);
     const [tab9, setTab9] = useState(false);
-
-
+    const [tab10, setTab10] = useState(false);
 
     const [errTab, setErrTab] = useState(false);
     const [errTab2, setErrTab2] = useState(false);
@@ -62,85 +53,86 @@ export default function HostCars(props) {
     });
 
 
-   const [address, setAddress] = useState("");
-   const handleSelect = async address => {
-        
-    const result = await geocodeByAddress(address);
-    console.log(result[0].formatted_address);
-    const placeArr = result[0].formatted_address.split(/\s/).join('').replace(/[0-9]/g, '').split(",");
-    console.log(placeArr);
-    if (placeArr.length >=  3 ) {
-        setAllVar({
-            ...allVar, 
-            countryName: placeArr[placeArr.length-1],
-            addrState: placeArr[placeArr.length-2],
-            addrCity: placeArr[placeArr.length-3]
-        });
-    } else if (placeArr.length === 2) {
-        setAllVar({
-            ...allVar, 
-            countryName: placeArr[placeArr.length-1],
-            addrState: placeArr[placeArr.length-2]
-        });
-    } else if (placeArr.length === 1) {
-        setAllVar({...allVar, countryName: placeArr[placeArr.length-1]});
-    }
-    
-    setAddress(address);
-    geocodeByAddress(address)
-    .then(results => getLatLng(results[0]))
-    .then(latLng => {
-        setCenter({
-            lat: latLng.lat,
-            lng: latLng.lng
-        });
-        console.log('Success', latLng);
-    })
-    .catch(error => console.error('Error', error));
-};
+    const [address, setAddress] = useState("");
+    const handleSelect = async address => {
 
-const [center1, setCenter1] = useState({
-    lat: 43,
-    lng: 43
-});
-// ........................................................................................
+        const result = await geocodeByAddress(address);
+        console.log(result[0].formatted_address);
+        const placeArr = result[0].formatted_address.split(/\s/).join('').replace(/[0-9]/g, '').split(",");
+        console.log(placeArr);
+        if (placeArr.length >= 3) {
+            setAllVar({
+                ...allVar,
+                address: placeArr[placeArr.length - 1],
+                state: placeArr[placeArr.length - 2],
+                city: placeArr[placeArr.length - 3]
+            });
+        } else if (placeArr.length === 2) {
+            setAllVar({
+                ...allVar,
+                address: placeArr[placeArr.length - 1],
+                state: placeArr[placeArr.length - 2]
+            });
+        } else if (placeArr.length === 1) {
+            setAllVar({ ...allVar, address: placeArr[placeArr.length - 1] });
+        }
 
-const [address1, setAddress1] = useState("");
-const handleSelect1 = async address => {
-    
-const result = await geocodeByAddress(address);
-console.log(result[0].formatted_address);
-const placeArr = result[0].formatted_address.split(/\s/).join('').replace(/[0-9]/g, '').split(",");
-console.log(placeArr);
-if (placeArr.length >=  3 ) {
-    setAllVar({
-        ...allVar, 
-        countryName: placeArr[placeArr.length-1],
-        addrState: placeArr[placeArr.length-2],
-        addrCity: placeArr[placeArr.length-3]
-    });
-} else if (placeArr.length === 2) {
-    setAllVar({
-        ...allVar, 
-        countryName: placeArr[placeArr.length-1],
-        addrState: placeArr[placeArr.length-2]
-    });
-} else if (placeArr.length === 1) {
-    setAllVar({...allVar, countryName: placeArr[placeArr.length-1]});
-}
+        setAddress(address);
+        geocodeByAddress(address)
+            .then(results => getLatLng(results[0]))
+            .then(latLng => {
+                setCenter({
+                    lat: latLng.lat,
+                    lng: latLng.lng
+                });
+                console.log('Success', latLng);
+            })
+            .catch(error => console.error('Error', error));
+    };
 
-setAddress1(address);
-geocodeByAddress(address)
-.then(results => getLatLng(results[0]))
-.then(latLng => {
-    setCenter({
-        lat: latLng.lat,
-        lng: latLng.lng
+    const [center1, setCenter1] = useState({
+        lat: 43,
+        lng: 43
     });
-    console.log('Success', latLng);
-})
-.catch(error => console.error('Error', error));
-};
+    // ........................................................................................
+
+    const [address1, setAddress1] = useState("");
+    const handleSelect1 = async address => {
+
+        const result = await geocodeByAddress(address);
+        console.log(result[0].formatted_address);
+        const placeArr = result[0].formatted_address.split(/\s/).join('').replace(/[0-9]/g, '').split(",");
+        console.log(placeArr);
+        if (placeArr.length >= 3) {
+            setAllVar({
+                ...allVar,
+                addressLicense: placeArr[placeArr.length - 1],
+                stateLicense: placeArr[placeArr.length - 2],
+            });
+        } else if (placeArr.length === 2) {
+            setAllVar({
+                ...allVar,
+                addressLicense: placeArr[placeArr.length - 1],
+                addrState: placeArr[placeArr.length - 2]
+            });
+        } else if (placeArr.length === 1) {
+            setAllVar({ ...allVar, addressLicense: placeArr[placeArr.length - 1] });
+        }
+
+        setAddress1(address);
+        geocodeByAddress(address)
+            .then(results => getLatLng(results[0]))
+            .then(latLng => {
+                setCenter({
+                    lat: latLng.lat,
+                    lng: latLng.lng
+                });
+                console.log('Success', latLng);
+            })
+            .catch(error => console.error('Error', error));
+    };
+
+
 
 
 
@@ -318,152 +310,125 @@ geocodeByAddress(address)
        console.log(allVar);
     },[allVar]);
       
+    
 
     return (
         <>
         
             <div className={h.desktop}>
 
-                {tab1 && (
-                
-                    <div className={h.d0}>
-                      
-                        <div className={h.d01b}><div className={h.d01Back}><img src={backIcon} alt="" onClick={() => history.goBack()} /></div> Car Listing</div>
-                        <div className={h.d02}>Car Info : Step 1</div>
-                        {/* <h4>{allVar.address}{allVar.city}{allVar.vin}{allVar.zip}</h4> */}
-                        <div className={h.d03}>
-                            <select className={h.d031} ref={f1} value={allVar.country} onChange={e=> setAllVar({...allVar,country: e.target.value})}>
-                                <option value="0">Select country</option>
-                                {countryName.map((val, key) => <option value={val.name} key={key}>{val.name}</option>)}
-                            </select>
-                        </div>
+            {tab1 && (
 
-                        <div className={h.d04}>
-                            <input ref={f2} type="text" placeholder="Enter address ..." value={allVar.address} onChange={e=> setAllVar({...allVar,address: e.target.value})} />
-                        </div>
-                             <div>
+<div className={h.d0}>
 
-                        <div className={h.d0613}>
-                                <div className={h.d0611}>
+    <div className={h.d01b}><div className={h.d01Back}><img src={backIcon} alt="" onClick={() => history.goBack()} /></div> Car Listing</div>
+    <div className={h.d02}>Car Info : Step 1</div>
+    {/* <h4>{allVar.address}{allVar.city}{allVar.vin}{allVar.zip}</h4> */}
+    <div className={h.d03}>
+        <select className={h.d031} ref={f1} value={allVar.country} onChange={e => setAllVar({ ...allVar, country: e.target.value })}>
+            <option value="0">Select country</option>
+            {countryName.map((val, key) => <option value={val.name} key={key}>{val.name}</option>)}
+        </select>
+    </div>
 
-                                <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect}  >
-                                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                        <div className="HostYourApartment21Map111111" >
-                                        <input {...getInputProps({placeholder: "Select State"})} ref={p11} />
+    <div className={h.d04}>
+        <PlacesAutocomplete value={address} onChange={setAddress} onSelect={handleSelect}  >
+            {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                <div className="HostYourApartment21Map111111" >
+                    <input {...getInputProps({ placeholder: "Enter Address" })} ref={p11} />
 
-                                            <div >
-                                                {loading ? <div>Loading ... </div> : null}
+                    <div >
+                        {loading ? <div>Loading ... </div> : null}
 
-                                                {suggestions.map((suggestion, key) => {
-                                                    const style = {
-                                                        backgroundColor: suggestion.active ? "#e5e5e5" : "#fff"
-                                                    };
+                        {suggestions.map((suggestion, key) => {
+                            const style = {
+                                backgroundColor: suggestion.active ? "#e5e5e5" : "#fff"
+                            };
 
-                                                    return <div  className="HostYourApartment21Map1234" {...getSuggestionItemProps(suggestion, {style})} key={key}>{suggestion.description}</div>
-                                                })}    
-                                            </div>
-                                        </div>
-                                        )}
-                                    </PlacesAutocomplete>
-                                        </div>
-                                               </div>
-
-                                               <div className={h.d0613}>
-                                <div className={h.d0611}>
-
-                                <PlacesAutocomplete value={address1} onChange={setAddress1} onSelect={handleSelect1} >
-                                        {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
-                                        <div className="HostYourApartment21Map111111" >
-                                        <input {...getInputProps({placeholder: "Select City"})} ref={p12} />
-
-                                            <div >
-                                                {loading ? <div>Loading ... </div> : null}
-
-                                                {suggestions.map((suggestion, key) => {
-                                                    const style = {
-                                                        backgroundColor: suggestion.active ? "#e5e5e5" : "#fff"
-                                                    };
-
-                                                    return <div  className="HostYourApartment21Map1111" {...getSuggestionItemProps(suggestion, {style})} key={key}>{suggestion.description}</div>
-                                                })}    
-                                            </div>
-                                        </div>
-                                        )}
-                                    </PlacesAutocomplete>
-                                        </div>
-                                               </div>
-                            
-                        </div>
-                        <div className={h.d06}>
-                            <div className={h.d061}>
-                                <div className={h.d0611}>
-                                    <input ref={f4} type="text"  placeholder="Enter Zip/Postal code ..." value={allVar.zip} onChange={e=> setAllVar({...allVar,zip: e.target.value})} />
-                                </div>
-                            </div>
-                        </div>
-                        <div className={h.d06}>
-                            <div className={h.d08}>Car VIN</div>
-                            <div className={h.d061}>
-                                <div className={h.d0611}>
-                                    <input ref={f5} type="text" placeholder="Enter your car VIN ..." value={allVar.vin} onChange={e=> setAllVar({...allVar,vin: e.target.value})} />
-                                </div>
-                            </div>
-                            <div className={h.d061}>
-                                <input type="checkbox" checked={allVar.modalYear1980} onChange={e => setAllVar({...allVar, modalYear1980: e.target.checked})}  />
-                                Car model year is 1980 or later
-                            </div>
-                        </div>
-                        <div className={h.d07c}>
-                            <button className={h.d07b} disabled>Back</button>
-                            {/* <button className={h.d07} onClick={() => {setTab1(false);setTab2(true);}}>Next</button> */}
-                            <button className={h.d07} onClick={() => {
-                                f1.current.style.border="1px solid #e1e1e1";
-                                f2.current.style.border="1px solid #e1e1e1";           
-                                p11.current.style.border="1px solid #e1e1e1";
-                                p12.current.style.border="1px solid #e1e1e1";  
-                                f4.current.style.border="1px solid #e1e1e1";
-                                f5.current.style.border="1px solid #e1e1e1";
-                                if (allVar.country === "0") {
-                                    f1.current.style.border="1px solid red";
-                                    setErrTab(true);
-                                    setInterval(() => setErrTab(false), errorDisplayTime);
-                                } else if (allVar.address === "") {
-                                    f2.current.style.border="1px solid red";
-                                    setErrTab(true);
-                                    setInterval(() => setErrTab(false), errorDisplayTime);
-                                } else if (p11.current.value === "") {
-                                    p11.current.style.border="1px solid red";
-                                    p11.current.focus();
-                                    setErrTab(true);
-                                    setInterval(() => setErrTab(false), errorDisplayTime);
-                                } else if (p12.current.value === "") {
-                                    p12.current.style.border="1px solid red";
-                                    p12.current.focus();
-                                    setErrTab(true);
-                                    setInterval(() => setErrTab(false), errorDisplayTime);
-                                    
-                                } else if (allVar.zip === "") {
-                                    f4.current.style.border="1px solid red";
-                                    setErrTab(true);
-                                    setInterval(() => setErrTab(false), errorDisplayTime);
-                                }else if(allVar.vin === "")   {
-                                    f5.current.style.border="1px solid red";
-                                    setErrTab(true);
-                                    setInterval(() => setErrTab(false), errorDisplayTime);
-                                }else {
-                                    setTab1(false);
-                                    setTab2(true);
-                               }}}> Next</button>
-                        </div>
+                            return <div className="HostYourApartment21Map1234" {...getSuggestionItemProps(suggestion, { style })} key={key}>{suggestion.description}</div>
+                        })}
                     </div>
-                )}
+                </div>
+            )}
+        </PlacesAutocomplete>
+    </div>
+    <div>
 
-                {tab2 && (
+        <div className={h.d0613}>
+            <div className={h.d0611}>
+
+                <input value={allVar.city} type="text" placeholder="Enter your city  ..." onChange={e => setAllVar({ ...allVar, city: e.target.value })} />
+
+            </div>
+        </div>
+
+        <div className={h.d0613}>
+            <div className={h.d0611}>
+
+                <input value={allVar.state} type="text" placeholder="Enter your state ..." onChange={e => setAllVar({ ...allVar, state: e.target.value })} />
+
+            </div>
+        </div>
+    </div>
+    <div className={h.d06}>
+        <div className={h.d061}>
+            <div className={h.d0611}>
+                <input ref={f4} type="text" placeholder="Enter Zip/Postal code ..." value={allVar.zip} onChange={e => setAllVar({ ...allVar, zip: e.target.value })} />
+            </div>
+        </div>
+    </div>
+    <div className={h.d06}>
+        <div className={h.d08}>Car VIN</div>
+        <div className={h.d061}>
+            <div className={h.d0611}>
+                <input ref={f5} type="text" placeholder="Enter your car VIN ..." value={allVar.vin} onChange={e => setAllVar({ ...allVar, vin: e.target.value })} />
+            </div>
+        </div>
+        <div className={h.d061}>
+            <input type="checkbox" checked={allVar.modalYear1980} onChange={e => setAllVar({ ...allVar, modalYear1980: e.target.checked })} />
+            Car model year is 1980 or later
+        </div>
+    </div>
+    <div className={h.d07c}>
+        <button className={h.d07b} disabled>Back</button>
+        {/* <button className={h.d07} onClick={() => {setTab1(false);setTab2(true);}}>Next</button> */}
+        <button className={h.d07} onClick={() => {
+            f1.current.style.border = "1px solid #e1e1e1";
+            p11.current.style.border = "1px solid #e1e1e1";
+            f4.current.style.border = "1px solid #e1e1e1";
+            f5.current.style.border = "1px solid #e1e1e1";
+            if (allVar.country === "0") {
+                f1.current.style.border = "1px solid red";
+                setErrTab(true);
+                setInterval(() => setErrTab(false), errorDisplayTime);
+           } else if (p11.current.value === "") {
+                p11.current.style.border = "1px solid red";
+                p11.current.focus();
+                setErrTab(true);
+                setInterval(() => setErrTab(false), errorDisplayTime);
+            } else if (allVar.zip === "") {
+                f4.current.style.border = "1px solid red";
+                setErrTab(true);
+                setInterval(() => setErrTab(false), errorDisplayTime);
+            } else if (allVar.vin === "") {
+                f5.current.style.border = "1px solid red";
+                setErrTab(true);
+                setInterval(() => setErrTab(false), errorDisplayTime);
+            } else {
+                setTab1(false);
+                setTab2(true);
+            }
+        }}> Next</button>
+    </div>
+</div>
+)}
+
+{tab2 && (
                     <div className={h.d0}>
                         <div className={h.d01}>Car Listing</div>
                         <div className={h.d02}>Car Info : Step 2</div>
                         <div className={h.d03}>
-                            <select className={h.d031} ref={f1} value={allVar.mileage} onChange={e=> setAllVar({...allVar,mileage: e.target.value})} >
+                            <select className={h.d031} ref={f1} value={allVar.mileage} onChange={e => setAllVar({ ...allVar, mileage: e.target.value })} >
                                 <option value="0">Select car mileage ...</option>
                                 <option value="1">0 – 30k miles</option>
                                 <option value="2">30k – 60k miles</option>
@@ -486,36 +451,36 @@ geocodeByAddress(address)
                         </div>
                         <div className={h.d09}>
                             <div className={h.d062}>
-                                <input type="checkbox" value={allVar.myPersonalCar} onChange={e=> setAllVar({...allVar,myPersonalCar: e.target.value})}/>
+                                <input type="checkbox" value={allVar.myPersonalCar} onChange={e => setAllVar({ ...allVar, myPersonalCar: e.target.value })} />
                                 This is my personal car
                             </div>
                             <div className={h.d062}>
-                                <input type="checkbox" value={allVar.carIsPartOfRentalCompany} onChange={e=> setAllVar({...allVar,carIsPartOfRentalCompany: e.target.value})}/>
+                                <input type="checkbox" value={allVar.carIsPartOfRentalCompany} onChange={e => setAllVar({ ...allVar, carIsPartOfRentalCompany: e.target.value })} />
                                 This car is part of a rental company
                             </div>
                             <div className={h.d062}>
-                                <input type="checkbox" value={allVar.automaticTransmission} onChange={e=> setAllVar({...allVar,automaticTransmission: e.target.value})}/>
+                                <input type="checkbox" value={allVar.automaticTransmission} onChange={e => setAllVar({ ...allVar, automaticTransmission: e.target.value })} />
                                 This car has automatic transmission
                             </div>
                             <div className={h.d062}>
-                                <input type="checkbox" value={allVar.carHasNotSignificantDamage} onChange={e=> setAllVar({...allVar,carHasNotSignificantDamage: e.target.value})}/>
+                                <input type="checkbox" value={allVar.carHasNotSignificantDamage} onChange={e => setAllVar({ ...allVar, carHasNotSignificantDamage: e.target.value })} />
                                 This car has not had any significant damage (Branded Title)
                             </div>
                         </div>
                         <div className={h.d07c}>
-                            <button className={h.d07b} onClick={() => {setTab2(false);setTab1(true);}}>Back</button>
-                          
-                            <button className={h.d07}onClick={() =>{
-                                f1.current.style.border="none";
-                                f1.current.style.borderBottom="1px solid #e1e1e1";
-                             if(allVar.mileage==="0"){
-                                 f1.current.style.border="1px solid red"
-                             }else{
-                                setTab2(false);
-                                setTab3(true);
-                                
-                             }
-                               }}> Next</button>
+                            <button className={h.d07b} onClick={() => { setTab2(false); setTab1(true); }}>Back</button>
+
+                            <button className={h.d07} onClick={() => {
+                                f1.current.style.border = "none";
+                                f1.current.style.borderBottom = "1px solid #e1e1e1";
+                                if (allVar.mileage === "0") {
+                                    f1.current.style.border = "1px solid red"
+                                } else {
+                                    setTab2(false);
+                                    setTab3(true);
+
+                                }
+                            }}> Next</button>
 
                         </div>
                     </div>
@@ -523,150 +488,156 @@ geocodeByAddress(address)
                     
                     {tab3 && (
                     <div className={h.d0}>
-                     
+
                         <div className={h.d01}>Car Listing</div>
-                          
-                        <input type="file" id="file" accept="image/jpg, image/jpeg, image/png" style={{display: 'none'}} />
+
+                        <input type="file" id="file" accept="image/jpg, image/jpeg, image/png" style={{ display: 'none' }} />
                         <div className={h.d02}>Drive License <label htmlFor="file" className={h.d020}>Upload Drive License</label></div>
-                        {/* <h4>{allVar.state}{allVar.drivingLicense}{allVar.licenseNumber}{allVar.issuedDate}{allVar.firstName}{allVar.middleName}
- {allVar.firstName}{allVar.lastName}{allVar.dateOfBirth}{allVar.expirationDate}{allVar.address}</h4>    */}
-                       
-                       
+                
+
                         <div className={h.d03}>
-                            <select className={h.d031} ref={f1} value={allVar.nationality} onChange={e=> setAllVar({...allVar,nationality:e.target.value})}>
+                            <select className={h.d031} ref={f1} value={allVar.nationality} onChange={e => setAllVar({ ...allVar, nationality: e.target.value })}>
                                 <option value="0">Nationality</option>
-                                <option value="1">Indian</option>
-            </select>
+                                {countryName.map((val, key) => <option value={val.name} key={key}>{val.name}</option>)}
+
+                            </select>
                         </div>
                         <div className={h.d04}>
-                            <input type="text" ref={f2} placeholder="Enter address ..." value={allVar.addressLicense} onChange={e=> setAllVar({...allVar,addressLicense: e.target.value})}/>
+                        <PlacesAutocomplete value={address1} onChange={setAddress1} onSelect={handleSelect1}  >
+                                {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+                                    <div className="HostYourApartment21Map111111" >
+                                        <input {...getInputProps({ placeholder: "Enter Address" })} ref={p11} />
+
+                                        <div >
+                                            {loading ? <div>Loading ... </div> : null}
+
+                                            {suggestions.map((suggestion, key) => {
+                                                const style = {
+                                                    backgroundColor: suggestion.active ? "#e5e5e5" : "#fff"
+                                                };
+
+                                                return <div className="HostYourApartment21Map1234" {...getSuggestionItemProps(suggestion, { style })} key={key}>{suggestion.description}</div>
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
+                            </PlacesAutocomplete>
+                            {/* <input type="text" ref={f2} placeholder="Enter address ..." value={allVar.addressLicense} onChange={e => setAllVar({ ...allVar, addressLicense: e.target.value })} /> */}
                         </div>
                         <div className={h.d06}>
                             <div className={h.d061}>
-                                <select ref={f11} className={h.d0612} value={allVar.selectCountry} onChange={e=> setAllVar({...allVar,selectCountry: e.target.value})}>    
-                                    <option value="0">Select country of residence ...</option>  
-                                    <option>Select country </option>
-                                </select>
-                            </div>
+                                <select ref={f11} className={h.d0612} value={allVar.selectCountry} onChange={e => setAllVar({ ...allVar, selectCountry: e.target.value })}>
+                                    <option value="0">Select country of residence ...</option>
+                                    {countryName.map((val, key) => <option value={val.name} key={key}>{val.name}</option>)}           </select>
+                                 </div>
                             <div className={h.d061}>
                                 <div className={h.d0611}>
-                                    <input ref={f3} type="text" placeholder="State ..." value={allVar.stateLicense} onChange={e=> setAllVar({...allVar,stateLicense: e.target.value})} />
+                                    <input  type="text" placeholder="State ..." value={allVar.stateLicense} onChange={e => setAllVar({ ...allVar, stateLicense: e.target.value })} />
                                 </div>
                             </div>
                         </div>
                         <div className={h.d06}>
                             <div className={h.d061}>
                                 <div className={h.d0611}>
-                                    <input ref={f4} type="text" placeholder="Enter License Number ..." value={allVar.licenseNumber} onChange={e=> setAllVar({...allVar,licenseNumber: e.target.value})} />
+                                    <input ref={f4} type="text" placeholder="Enter License Number ..." value={allVar.licenseNumber} onChange={e => setAllVar({ ...allVar, licenseNumber: e.target.value })} />
                                 </div>
                             </div>
                             <div className={h.d061}>
                                 <div className={h.d0611}>
-                                    <input ref={f5} type="Date"  placeholder="Enter Issued Date ..." value={allVar.issuedDate} onChange={e=> setAllVar({...allVar,issuedDate: e.target.value})} />
+                                    <input ref={f5} type="Date" placeholder="Enter Issued Date ..." value={allVar.issuedDate} onChange={e => setAllVar({ ...allVar, issuedDate: e.target.value })} />
                                 </div>
                             </div>
                         </div>
                         <div className={h.d04}>
-                            <input ref={f6} type="text"  placeholder="First Name" value={allVar.firstName} onChange={e=> setAllVar({...allVar,firstName: e.target.value})} />
+                            <input ref={f6} type="text" placeholder="First Name" value={allVar.firstName} onChange={e => setAllVar({ ...allVar, firstName: e.target.value })} />
                         </div>
                         <div className={h.d04}>
-                            <input ref={f7} type="text"  placeholder="Middle Name" value={allVar.middleName} onChange={e=> setAllVar({...allVar,middleName: e.target.value})} />
+                            <input ref={f7} type="text" placeholder="Middle Name" value={allVar.middleName} onChange={e => setAllVar({ ...allVar, middleName: e.target.value })} />
                         </div>
                         <div className={h.d04}>
-                            <input ref={f8} type="text"  placeholder="Last Name" value={allVar.lastName} onChange={e=> setAllVar({...allVar,lastName: e.target.value})} />
+                            <input ref={f8} type="text" placeholder="Last Name" value={allVar.lastName} onChange={e => setAllVar({ ...allVar, lastName: e.target.value })} />
                         </div>
                         <div className={h.d06}>
-                            <h4>Date of Birth</h4><h4 style={{float:"Right", marginTop:"-22px",marginRight:"34%"}}>Expiration Date</h4>
+                            <h4>Date of Birth</h4><h4 style={{ float: "Right", marginTop: "-22px", marginRight: "34%" }}>Expiration Date</h4>
                             <div className={h.d061}>
                                 <div className={h.d0611}>
-                                    <input ref={f9} type="date"  placeholder="Date of birth" value={allVar.dateOfBirth} onChange={e=> setAllVar({...allVar,dateOfBirth: e.target.value})} />
+                                    <input ref={f9} type="date" placeholder="Date of birth" value={allVar.dateOfBirth} onChange={e => setAllVar({ ...allVar, dateOfBirth: e.target.value })} />
                                 </div>
                             </div>
                             <div className={h.d061}>
                                 <div className={h.d0611}>
-                                    <input ref={f10} type="date"  placeholder="Expiration Date" value={allVar.expirationDate} onChange={e=> setAllVar({...allVar,expirationDate: e.target.value})} />
+                                    <input ref={f10} type="date" placeholder="Expiration Date" value={allVar.expirationDate} onChange={e => setAllVar({ ...allVar, expirationDate: e.target.value })} />
                                 </div>
                             </div>
                         </div>
                         <div className={h.d07c}>
-                            <button className={h.d07b} onClick={() => {setTab3(false);setTab2(true);}}>Back</button>
+                            <button className={h.d07b} onClick={() => { setTab3(false); setTab2(true); }}>Back</button>
                             {/* <button className={h.d07} onClick={() => {setTab3(false);setTab4(true);}}>Next</button> */}
                             <button className={h.d07} onClick={() => {
-                               f1.current.style.border="none";
-                                 f1.current.style.borderBottom="1px solid #e1e1e1";
-                                 f2.current.style.border="none";
-                                 f2.current.style.borderBottom="1px solid #e1e1e1";
-                                 f11.current.style.border="none";
-                                 f11.current.style.borderBottom="1px solid #e1e1e1";
-                                 f3.current.style.border="none";                                
-                                 f3.current.style.borderBottom="1px solid #e1e1e1";
-                                 f4.current.style.border="none";
-                                 f4.current.style.borderBottom="1px solid #e1e1e1";
-                                 f5.current.style.border="none";
-                                 f5.current.style.borderBottom="1px solid #e1e1e1";
-                                 f6.current.style.border="none";
-                                 f6.current.style.borderBottom="1px solid #e1e1e1";
-                                 f7.current.style.border="none";
-                                 f7.current.style.borderBottom="1px solid #e1e1e1";
-                                 f8.current.style.border="none";
-                                 f8.current.style.borderBottom="1px solid #e1e1e1";
-                                 f9.current.style.border="none";
-                                 f9.current.style.borderBottom="1px solid #e1e1e1";
-                                 f10.current.style.border="none";
-                                 f10.current.style.borderBottom="1px solid #e1e1e1";
-                                   if (allVar.nationality === "0") {
-                                    f1.current.style.border="1px solid red";
+                                f1.current.style.border = "none";
+                                f1.current.style.borderBottom = "1px solid #e1e1e1";
+                                p11.current.style.border = "1px solid #e1e1e1";
+                                f11.current.style.border = "none";
+                                f11.current.style.borderBottom = "1px solid #e1e1e1";
+                                f4.current.style.border = "none";
+                                f4.current.style.borderBottom = "1px solid #e1e1e1";
+                                f5.current.style.border = "none";
+                                f5.current.style.borderBottom = "1px solid #e1e1e1";
+                                f6.current.style.border = "none";
+                                f6.current.style.borderBottom = "1px solid #e1e1e1";
+                                f8.current.style.border = "none";
+                                f8.current.style.borderBottom = "1px solid #e1e1e1";
+                                f9.current.style.border = "none";
+                                f9.current.style.borderBottom = "1px solid #e1e1e1";
+                                f10.current.style.border = "none";
+                                f10.current.style.borderBottom = "1px solid #e1e1e1";
+                                if (allVar.nationality === "0") {
+                                    f1.current.style.border = "1px solid red";
                                     setErrTab(true);
                                     setInterval(() => setErrTab(false), errorDisplayTime);
-                                } else if (allVar.addressLicense === "") {
-                                    f2.current.style.border="1px solid red";
+                                }  else if (p11.current.value === "") {
+                                    p11.current.style.border = "1px solid red";
+                                    p11.current.focus();
                                     setErrTab(true);
                                     setInterval(() => setErrTab(false), errorDisplayTime);
-                                  }  else if (allVar.selectCountry === "0") {
-                                        f11.current.style.border="1px solid red";
-                                        setErrTab(true);
-                                        setInterval(() => setErrTab(false), errorDisplayTime);
-                                }else if (allVar.stateLicense===""){
-                                    f3.current.style.border="1px solid red";
+                                } else if (allVar.selectCountry === "0") {
+                                    f11.current.style.border = "1px solid red";
                                     setErrTab(true);
                                     setInterval(() => setErrTab(false), errorDisplayTime);
                                 } else if (allVar.licenseNumber === "") {
-                                    f4.current.style.border="1px solid red";
+                                    f4.current.style.border = "1px solid red";
                                     setErrTab(true);
                                     setInterval(() => setErrTab(false), errorDisplayTime);
-                                }else if(allVar.issuedDate === "")   {
-                                    f5.current.style.border="1px solid red";
+                                } else if (allVar.issuedDate === "") {
+                                    f5.current.style.border = "1px solid red";
                                     setErrTab(true);
                                     setInterval(() => setErrTab(false), errorDisplayTime);
-                                }else if(allVar.firstName === "")   {
-                                    f6.current.style.border="1px solid red";
+                                } else if (allVar.firstName === "") {
+                                    f6.current.style.border = "1px solid red";
                                     setErrTab(true);
                                     setInterval(() => setErrTab(false), errorDisplayTime);
-                                } else if(allVar.middleName === "")   {
-                                    f7.current.style.border="1px solid red";
+                                } else if (allVar.lastName === "") {
+                                    f8.current.style.border = "1px solid red";
                                     setErrTab(true);
                                     setInterval(() => setErrTab(false), errorDisplayTime);
-                                } else if(allVar.lastName === "")   {
-                                    f8.current.style.border="1px solid red";
+                                } else if (allVar.dateOfBirth === "") {
+                                    f9.current.style.border = "1px solid red";
                                     setErrTab(true);
                                     setInterval(() => setErrTab(false), errorDisplayTime);
-                                } else if(allVar.dateOfBirth === "")   {
-                                    f9.current.style.border="1px solid red";
-                                    setErrTab(true);
-                                    setInterval(() => setErrTab(false), errorDisplayTime);
-                                } else if(allVar.expirationDate === "")   {
-                                    f10.current.style.border="1px solid red";
+                                } else if (allVar.expirationDate === "") {
+                                    f10.current.style.border = "1px solid red";
                                     setErrTab(true);
                                     setInterval(() => setErrTab(false), errorDisplayTime);
                                 }
-                                    else {
-                                 
+                                else {
+
                                     setTab3(false);
                                     setTab4(true);
-                                    
-                                    
-                               }   }}> Next</button>
-                             </div>
+
+
+                                }
+                            }}> Next</button>
+                        </div>
                     </div>
                 )}
 
@@ -936,46 +907,115 @@ geocodeByAddress(address)
                                 setErrTab(true);
                                 setInterval(() => setErrTab(false), errorDisplayTime);
                                }else{
-                                    finalHostingSubmition();
+                                finalHostingSubmition()
                                }
-                             } }>Next</button>
+                             } }>Publish</button>
                                </div>
 
                             </div>
                                     
                 )}
+                {tab10 &&(
 
-            {/* <div className={h.mobile}>mobile</div> */}
+                     <div style={{width: "100%", height: "100%"}}>
+                  <div className={h.d0100}>Car Listing</div>
+                {/* body */}
+                 <div className="carInfo0Conttt">
+                    <div className={h.d0101}>
+                        <p style={{fontSize:20, fontWeight:"bold", marginBottom:20,}}>Preview and Publish</p>
+                        <div className={h.d0102}>
+                            <ImageSlider images={imageList} />
+                        </div>
 
-            {/* {dateView && (
+                        <div style={{float: "left"}}>
+                            <div style={{width: "100%", float: "left"}}>
+                                <div className="hotelInfo0S">
 
-                <div className="dateCont0" ref={outRefDate} onClick={e => clickHandleDate(e)}>
-                    <div className="dateCont01" ref={inRefDate} onClick={e => clickHandleDate(e)}>
-                        {/* <DateRange
-                            showSelectionPreview={true}
-                            moveRangeOnFirstSelection={false}
-                            isOutsideRange={() => false}
-                            months={2}
-                            direction="horizontal"
-                            ranges={[selectionRange]} 
-                            onChange={handleDateSelect}
-                            minDate={new Date()}
-                        /> */}
-                        {/* <Calendar 
-                            minDate={new Date()}
-                            onChange={handleDateSelect}
-                        />
-                        {dateApplyBtn && (
-                            <div className="dateCont01CloseBtn"><button onClick={() => {
-                                setDateView(false);
-                                // onDateApply();
-                                // setNoOfGuest(true);
-                            }}>Apply dates</button></div>
-                        )}
+                                    <div className={d.c0}>
+                                        <div className={d.c01}>{allVar.ModelName}</div>
+                                        <div className={d.c02}>$ {allVar.price}/day</div>
+                                    </div>
+                                    <div className={d.c1}>
+                                        <div className={d.c11}>
+                                            <div className={d.c111}>
+                                                <div className={d.c1111}><b>Mileage</b> : {allVar.mileage}</div>
+                                                <div className={d.c1111}><b>Trim</b> : {allVar.trim}</div>
+                                            </div>
+                                            <div className={d.c111}>
+                                                <div className={d.c1111}><b>Min. trip duration</b> : {allVar.minimumTripDuration}</div>
+                                                <div className={d.c1111}><b>Max. trip duration</b> : {allVar.maximumTripDuration}</div>
+                                            </div>
+                                        </div>
+                                        <div className={h.cppp}>
+                                              <img src={JSON.parse(localStorage.getItem("token")).userProfile} className={h.cppp1} />
+                                                <p className={h.cppp2}>Host</p>
+                                            </div>
+                                            <div className={h.cppp3}>
+                                                    <p className={h.cppp4}> {JSON.parse(localStorage.getItem("token")).userName} </p>
+                                     <p className={h.cppp5}>{` ${JSON.parse(localStorage.getItem("token")).userName} 2019 `}</p>
+                                                </div>
+                                    </div> 
+
+                                     <div className={d.c2}>
+                                        <div className={d.c21}>
+                                            <div className={d.c211}>Start Date</div>
+                                            <input type="date"
+                                            //  value={sDate} ref={i1} onChange={e => setSDate(e.target.value)}
+                                              />
+                                        </div>
+                                        <div className={d.c21}>
+                                            <div className={d.c211}>Start Time</div>
+                                            <input type="time" 
+                                            // value={sTime} ref={i2} onChange={e => setSTime(e.target.value)}
+                                             />
+                                        </div>
+                                    </div>
+
+                                    <div className={d.c2}>
+                                        <div className={d.c21}>
+                                            <div className={d.c211}>End Date</div>
+                                            <input type="date"
+                                            //  value={eDate} ref={i3} onChange={e => setEDate(e.target.value)} 
+                                             />
+                                        </div>
+                                        <div className={d.c21}>
+                                            <div className={d.c211}>End Date</div>
+                                            <input type="time" 
+                                            // value={eTime} ref={i4} onChange={e => setETime(e.target.value)}
+                                             />
+                                        </div>
+                                    </div> 
+ 
+                                    <div className={d.c3}>
+                                        <div className={d.c31}>Car Description</div>
+                                        <div className={d.c32}>{allVar.carDescription}</div>
+                                    </div>
+
+                                    <div className={d.c3} style={{marginBottom: 50}}>
+                                        <div className={d.c31}>Features</div>
+                                        <div className={d.c33}>All-wheel drive</div>
+                                    </div>
+
+                                 
+
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div className={h.Publishbutton}>
+                            <button className={h.cppp8} onClick={() => {setTab10(false);setTab9(true);}}>Back</button>
+                            <button className={h.cppp6} 
+                            onClick={finalHostingSubmition} 
+                               > Publish</button>
+                            </div> 
 
-            )} */}
+</div>
+
+ ) }
+
+
 
 
 {errTab && (

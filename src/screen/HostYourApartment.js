@@ -2,16 +2,11 @@
 import '../css/components.css';
 import '../css/utils.css';
 import ds from '../css/Dashboard.module.css';
-
+import ImageSlider from '../components/ImageSlider';
 import sidePic from '../img/demo/19.png';
-// import sidePicTwo from '../img/demo/20.png';
 import headerStyle from '../css/headerMain.module.css';
 import rightArrowIcon from '../img/icons/headerMinBack.png';
 import lightBulbIcon from '../img/icons/lightbulb.svg';
-import addRectIcon from '../img/icons/addRectIcon.png';
-import CheckGreenIcon from '../img/icons/greenCheckIcon.svg';
-import loading from '../img/icons/loadingHostingList.gif';
-
 import v1 from '../img/undraw/1.png';
 import v2 from '../img/undraw/2.png';
 import v3 from '../img/undraw/3.png';
@@ -20,31 +15,20 @@ import v5 from '../img/undraw/5.png';
 import v6 from '../img/undraw/6.png';
 import v7 from '../img/undraw/7.png';
 import v8 from '../img/undraw/8.png';
-
 import url from '../data/urls.json';
 import PlacesAutocomplete, { geocodeByAddress, getLatLng} from 'react-places-autocomplete';
 import {GoogleMap, Marker} from '@react-google-maps/api';
-
-// import Switch from '@material-ui/core/Switch';
 import {useCallback, useEffect, useRef, useState} from 'react';
-
-// import countryName from '../data/countryName.json';
 import currencyName from '../data/currencyName.json';
-// import locationDetails from '../data/locationDetails.json';
-
 import { useHistory } from 'react-router-dom';
 import Switch from "react-switch";
-
-// import S3 from 'react-aws-s3';
-// import {uploadFile} from 'react-s3'
-// import isValid from 'date-fns/isValid/index';
-// import swal from 'sweetalert';
 import Delete from "../img/icons/delete.png"
 import swal from 'sweetalert';
-
 import bg from '../img/banners/ad1.jpg';
+
 import Map from "../components/Map";
-import varimg from '../img/demo/3.png';
+import loading from '../img/icons/loading.gif';
+// import "../css/reviews.css";
 
 const mapContainerStyle = {
     width: "100%",
@@ -64,9 +48,11 @@ const option = {
 // //   const ReactS3Client = new S3(config);
 
 export default function HostYourApartment() {
+    const [imagetab2, setImageTab2]=useState(false)
+    const [imagetab1, setImageTab1]=useState(true)
 
     const [mainLoad, setmainLoad] = useState(false);
-    let history = useHistory();
+    
     const [docStatus, setDocStatus] = useState(null);
     useEffect(() => {
         if (localStorage.getItem("token") === null) {
@@ -177,6 +163,40 @@ export default function HostYourApartment() {
     // }
 
     // images
+   const handleClickUploadImage=()=>{
+//     var formdata = new FormData();
+        
+//     for(var  j = 0; j < e.target.files.length; j++) {
+//         formdata.append("file", e.target.files[j], e.target.files[j].name);
+//     }
+
+//     var requestOptions = {
+//     method: 'POST',
+//     body: formdata,
+//     redirect: 'follow'
+//     };
+//     console.log("falg1")
+//     fetch(`${url.baseUrl}/upload`, requestOptions)
+//     .then(response => response.json())
+//     .then(result => {
+//         console.log("falg2")
+//         console.log(result.Data)
+//         var imageLink = result.Data;
+//         console.log(result.Data)
+//     })
+//     .catch(error => console.log('error', error));
+    
+
+   }
+
+
+
+
+
+
+
+
+
     const [imageList, setImageList] = useState([]);
     const [selectedImage, setSelectedImage] = useState([]);
     const uploadImageHandler = e => {
@@ -604,6 +624,7 @@ export default function HostYourApartment() {
             }
         }
     }
+    let history = useHistory();
     return(
 
         <>
@@ -1187,7 +1208,7 @@ export default function HostYourApartment() {
             )}
 
             {/* tab 6 */}
-            {/* {tab6 && (
+             {/* {tab6 && (
                 <div className="HostYourApartment0M">
                     <div className="HostYourApartment0">Step 6: Add photos</div>
                     <div className="HostYourApartment1">
@@ -1195,20 +1216,22 @@ export default function HostYourApartment() {
                     </div>
                     <div className="HostYourApartment2">
                         <div className="HostYourApartment2E1">
-                            <div className="HostYourApartment21"> */}
+                            <div className="HostYourApartment21"> 
 
-                                {/* <div className="HostYourApartment212">
+                        
+                                 <div className="HostYourApartment212">
                                     <form onSubmit={handleClickUploadImage}>
-                                        <input ref={fileInput} type="file" accept="video/*" /><br />
-                                        {videoUploading && <div>Uploading ...</div>}
-                                        <label htmlFor="file">Select video</label>
-                                        <button type="submit">Upload Video</button>
+                             <input type="file" accept="video/*" />
+                             <label htmlFor="file">Select video</label>
+                                        {/* {videoUploading && <div>Uploading ...</div>} */}
+                                       
+                                        {/* <button type="submit">Upload Video</button>
                                     </form>
-                                </div> */}
+                                </div>  */}
 
                                 {/* {videoList.length > 0 ? (<div>t<div>) : (<div>f</div>)} */}
 
-                            {/* </div>
+                             {/* </div>
                             <div className="HostYourApartment22">
                                 <button className="HostYourApartment221" onClick={() => {
                                     setTab6(false);
@@ -1225,7 +1248,7 @@ export default function HostYourApartment() {
                         </div>
                     </div>
                 </div>
-            )} */}
+            )}  */}
 
             {/* tab 7 */}
             {tab7 && (
@@ -2062,219 +2085,115 @@ export default function HostYourApartment() {
             )} */} 
 
 
+{/* ...................................................................................................................... */}
+
 {tab15 && (
                 <div className="HostYourApartment0M">
                     <div className="HostYourApartment0">Step 15: Preview your inputs</div>
                     <div className="HostYourApartment1">
-                        <div className="HostYourApartment11" style={{width: '100%'}}></div>
-                  
+                        <div className="HostYourApartment11" style={{width: '100%'}}></div> 
+                   
+                    <div className="carInfo0Cont">
+                        
+                        <div className="reviews0">
+                            {imagetab1 &&(
 
-                        <div className="carInfo0Cont">
-                       <div className="carInfo0">
-
-                          <div className="carInfo01">
-                              
-                              
-                              {imageList[0] ? <div className="carInfo01img1"><img src={imageList[0]} alt="" /></div> : <div className="carInfo01img1"><img src={bg} alt="" /></div>}
-                               <div className="carInfo01img2">
-                                  {imageList[1] ? <img src={imageList[1]} alt="" /> : <img src={bg} alt="" />}
-                                  {imageList[2] ? <img src={imageList[2]} alt="" /> : <img src={bg} alt="" />} 
-                                
+                                <div className="carInfo01">     
+                                {imageList[0] ? <div className="carInfo01img1"><img src={imageList[0]} alt="" /></div> : <div className="carInfo01img1"><img src={bg} alt="" /></div>}
+                                <div className="carInfo01img2">
+                                    <div className="carInfo01img21">
+                                        {imageList[1] ? <img src={imageList[1]} alt="" /> : <img src={bg} alt="" />}
+                                    </div>
+                                    <div className="carInfo01img21" style={{marginTop: '10px', height: '50%'}}>
+                                        {imageList[2] ? <img src={imageList[2]} alt="" /> : <img src={bg} alt="" />}
+                                    </div>
+                                    
                                 </div>
-                               <div className="carInfo01img3">5+ Photos</div>
+                                <div className="carInfo01img3" onClick={() => {setImageTab2(true); setImageTab1(false)}} >5+ Photos </div>
+                                </div>
+                                )}
 
-                           </div> 
+                                {imagetab2 &&(
+                                    <ImageSlider images={imageList} />
+                                )}
 
-                           <div style={{float: "left"}}>
-                               <div style={{width: "100%", float: "left"}}>
-                                   <div className="hotelInfo0S">
-                                       <div className="hotelInfo1">
-                                           <div className="hotelInfo01">{allVar.listingTitle}</div>
-                                           <div className="hotelInfo01I0">{allVar.addrStreet}, {allVar.addrCity}, {allVar.addrState}</div>
-                                           <div style={{marginBottom: "15px", marginTop: "5px", float: "left"}}>{allVar.noOfGuests} guests . {allVar.bedRooms} bedroom . {allVar.noOfBeds} bed . {allVar.baths} bathroom</div>
-                                       </div>
-                                   </div>
+                            <div style={{float: "left"}}>
+                                <div className="hotelsinfoo1">
+                                    <div className="hotelInfo0S">
+                                        <div className="hotelInfo1">
+                                            <div className="hotelInfo01">{allVar.listingTitle}</div>
+                                            <div className="hotelInfo01I0">{allVar.addrStreet}, {allVar.addrCity}, {allVar.addrState}</div>
+                                            <div style={{marginBottom: "15px", marginTop: "5px", float: "left"}}>{allVar.noOfGuests} guests . {allVar.bedrooms} bedroom . {allVar.noOfBed} bed . {allVar.baths} bathroom</div>
+                                        </div>
+                                    </div>
 
-                                    <div className="hotelInfo0S1">
-                                       <div className="hotelInfo1">
-                                           <div className="hotelInfo01">About Apartment</div>
-                                           <div className="hotelInfo01I1">
-                                             {allVar.listingDescription}
-                                          </div>
-                                      </div> </div>
-                                      
-                                      <div className="hotelInfo0S1">
-                                       <div className="hotelInfo1">
-                                           <div className="hotelInfo01">Type Of property</div>
-                                           <div className="hotelInfo01I1">
-                                             {allVar.typeOfProperty}
-                                          </div>
-                                      </div> </div>
-                                      <div className="hotelInfo0S1">
-                                       <div className="hotelInfo1">
-                                           <div className="hotelInfo01">What guest book</div>
-                                           <div className="hotelInfo01I1">
-                                             {allVar.whatGuestBook}
-                                          </div>
-                                      </div> </div>
-                                      <div className="hotelInfo0S1">
-                                       <div className="hotelInfo1">
-                                           <div className="hotelInfo01">Notice before guest arrival</div>
-                                           <div className="hotelInfo01I1">
-                                             {allVar.noticeBeforeGuestArrial}
-                                          </div>
-                                      </div> </div>
-                 
-{/*                                   
-                                   <div className="hotelInfo0S1">
-                              <Link style={{width: '15%',cursor: 'pointer'}}
-                               to={`/chat?userRoom=${chat.name}&userRoom=${chat.room}`}
-                               >
-                               <img src={ChatImage} alt="" style={{width:'3%',marginLeft:'5%'}} />
-                              <div style={{fontSize:'17px',fontWeight:'600' , marginLeft:"5px",color:"black"}}>Message Host</div>
-                              </Link>
-                                  </div>  */}
-                      
-                                  <div className="hotelInfo0S1">
-                                      <div className="hotelInfo1">
+                                     <div className="hotelInfo0S1">
+                                        <div className="hotelInfo1">
+                                            <div className="hotelInfo01">About Apartment</div>
+                                            <div className="hotelInfo01I1">
+                                                {allVar.listingDescription}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                            
+                        
+                                       <div className="hotelInfo0S1">
+                                      <div className="reviews10 ">
                                           <div className="hotelInfo01">Amenities</div>
                                           {getAmenList().map((item, key) => <div className="hotelInfo0198" >{key+1}. {item}</div>)}
                                       </div>
-                                  </div>
-
-                                  {/* <div className="hotelInfo0S1">
-                                      <div className="hotelInfo1">
-                                          <div className="hotelInfo01">Some House Rules</div>
-                                          {person.houseRuelsList.map((val, ind) => <div className="hotelInfo0198" key={ind}>{val}</div>)}
+                                  </div>   </div>
                                       </div>
-                                  </div> */}
-                              </div>
-                          </div>
-                        
-                          <div className="hotelInfo0S1">
-                              <div className="hotelInfo1">
-                                  <div className="hotelInfo01">Map</div>
-                              </div>
-                          </div>
-                          <div className="Map00">
-                              <Map lat={markers[0].lat} lng={markers[0].lng} />
-                          </div>
-                      </div>
-                  </div>
-
-
-
-
-
-                  <div className="HostYourApartment22"> 
+        
+                            <div className="hotelInfo0S1">
+                                <div className="hotelInfo1">
+                                    <div className="reviews0111">Map</div>
+                                </div>
+                            </div>
+                            <div className="Map00">
+                                <Map lat={markers[0].lat} lng={markers[0].lng} />
+                            </div>
+                        </div>
+                    </div>
+                    <div className="HostYourApartment22"> 
                                 <button className="HostYourApartment321" onClick={() => {
                                     setTab15(false);
                                     setTab14(true);
                                 }}>Back</button>
                                 <button className="HostYourApartment123" onClick={finalHostingSubmition}>Publish</button>
                             </div>
-
-                  <div className="carInfo1">
-                      <div className="carInfo10">
-                          <div className="carInfo101">$ {allVar.basePrice}/night</div>
-                          {/* {isAdmin && (
-                              <div className="hotelInfo03">
-                               
-                              </div>
-                          )} */}
-                      </div>
-                      <div className="carInfo11">
-                          <img src={allVar.profile_pic} alt="" />
-                      </div>
-                      {/* <div className="carInfo12">{p.name}</div>
-                      {isAdmin && (
-                       <div className="carInfo13">(Host)</div>
-                      )} */}
-                      <div className="carInfo14">
-                          <span className="carInfo141">
-                              4.7 <span className="carInfo1411">
-                                  {/* <img src={starIcon} alt="" /> */}
-                                  </span>
-                              . 68 Reviews
-                          </span>
-                      </div>
-                      {/* {isAdmin && (
-                          <>
-                              <div className="carInfo15"><button onClick={bookingHandle}>Book Now</button></div>
-                              <div className="carInfo16">OR</div>
-                              <div className="carInfo17"><button onClick={() => history.push('/carsList')}>Add car to booking</button></div>
-                          </>
-                      )} */}
-                  </div>
-                  
-              </div>
-
-                <div className="mobile">
-                  {/* header */}
-                  {/* <div className="placesNearMob0">
-                      <div className="placesNearMob01"><img src={backIconGrey} alt="" onClick={() => history.goBack()} /></div>
-                      <div className="placesNearMob02">Nearby</div>
-                      <div className="placesNearMob04" style={{float: "right", marginRight: "20px"}}><img src={fav} alt="" /></div>
-                  </div>  */}
-
-                  {/* body */}
-                  {/* <div className="hotelInfoMob0">
-
-                      <div className="hotelInfoMob01">
-                          <img src={varimg} alt="" /> 
-                      </div>
-
-                      <div className="hotelInfoMob02">
-                          <div className="hotelInfoMob021">Name</div>
+ 
+                    <div className="reviews">
+                        <div className="carInfo10">
+                            <div className="carInfo101">$ {allVar.basePrice}/night</div>
                           
-                          <div className="hotelInfoMob022">
-                              <div className="hotelInfoMob0221">$ 17/night</div>
-                              <div className="hotelInfoMob0222">* 5.0(34)</div>
-                          </div>
-                          <div className="hotelInfoMob023">
-                              <button>Check Availability</button>
-                          </div>
-
-                          <div className="hotelInfoMob024">Bhopal, Madhya Pradesh, India</div>
-
-                          <div className="hotelInfoMob03">
-                              <div className="hotelInfoMob031">
-                                  <div className="hotelInfoMob0311">Entire bungalow</div>
-                                  <div className="hotelInfoMob0312"><span>hosted by</span> Krishna kant vishwakarma</div>
-                              </div>
-                              <div className="hotelInfoMob032">
-                                  <img src={varimg} alt="" />
-                              </div>
-                              <button className="hotelInfoMob033">Rents host car</button>
-                          </div>
-
-                          <div className="hotelInfoMob04">
-                              <div className="hotelInfoMob041">Amenities</div>
-
-                              <div className="hotelInfoMob042">Wifi</div>
-                              <div className="hotelInfoMob042">Parking</div>
-                          </div>
-
-                          <div className="hotelInfoMob04">
-                              <div className="hotelInfoMob041">Some rules</div>
-
-                              <div className="hotelInfoMob042">Wifi</div>
-                              <div className="hotelInfoMob042">Parking</div>
-                          </div> */}
+                        </div>
+                        <div className="carInfo11">
+                            <img src={JSON.parse(localStorage.getItem("token")).userProfile}alt="" />
+                        </div>
+                        <div className="carInfo12">
+                        {JSON.parse(localStorage.getItem("token")).userName}
+                            </div>
                         
-                         
+                            <div className="carInfo13">(Host)</div>
+                   
+                        <div className="carInfo14">
+                            <span className="carInfo141">
+                                4.7 <span className="carInfo1411"><img src="" alt="" /></span>
+                                . 68 Reviews
+                            </span>
+                        </div>
+                       
+                    </div> 
                      
-                      </div>
-                       </div>
-                      
+                </div>
 
-)}
+                
 
-
-
-
-
-
+                    </div>
+                )
+    }
 
 
 

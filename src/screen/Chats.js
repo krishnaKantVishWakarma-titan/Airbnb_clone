@@ -44,7 +44,7 @@ export default function Chats () {
         fetch("http://13.233.154.141:5000/api/listConnections/" + name ,  requestOptions)
           .then(response => response.json())
           .then(res=> {
-            //console.log(res);
+            console.log(res);
             if (res.data === undefined){
                 alert("No chat");
                 setRooms([]);
@@ -73,20 +73,24 @@ export default function Chats () {
 
             <div style={{paddingBottom: '60px', float: 'left', width: '100%'}}>
                 {rooms.map((currElm, index) => { return (<>
-                    <div className="noti" key={index}>
-                        <Link className="noti0" to={`/chat?name=${named}&room=${currElm.room}&username=${currElm.name}&profile=${currElm.pic||profilepic}`}>
-                            <div className="noti01">
-                                {currElm.pic ? <img src={currElm.pic} alt="" /> : <img src={profilepic} alt="" />}
+                    {currElm && (
+                        <>
+                            <div className="noti" key={index}>
+                                <Link className="noti0" to={`/chat?name=${named}&room=${currElm.room}&username=${currElm.name}&profile=${currElm.pic||profilepic}`}>
+                                    <div className="noti01">
+                                        {currElm.pic ? <img src={currElm.pic} alt="" /> : <img src={profilepic} alt="" />}
+                                    </div>
+                                    <div className="noti02">
+                                        <div className="noti021">
+                                            <div className="noti0211"><span className="noti02111">{currElm.name}</span></div>
+                                            <div className="noti0212">{new Date(currElm.dataChat.dattime_msg).getDate()-1} - {new Date(currElm.dataChat.dattime_msg).getMonth()+1} - {new Date(currElm.dataChat.dattime_msg).getFullYear()}</div>
+                                        </div>
+                                        <div className="noti022">{currElm.dataChat.message}</div>
+                                    </div>
+                                </Link>
                             </div>
-                            <div className="noti02">
-                                <div className="noti021">
-                                    <div className="noti0211"><span className="noti02111">{currElm.name}</span></div>
-                                    <div className="noti0212">Aug 19, 9:25 PM</div>
-                                </div>
-                                <div className="noti022">Hiiii</div>
-                            </div>
-                        </Link>
-                    </div>
+                        </>
+                    )}
                 </>)
                 })}
             </div>

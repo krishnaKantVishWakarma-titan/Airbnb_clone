@@ -298,9 +298,9 @@ export default function DashBoard() {
                                                 <th className={ds.d20th1}>No</th>
                                                 <th className={ds.d20th2}>Users</th>
                                                 <th className={ds.d20th3}>Email</th>
-                                                <th className={ds.d20th4}>Location</th>
+                                                {/* <th className={ds.d20th4}>Location</th>
                                                 <th className={ds.d20th5}>Work</th>
-                                                <th className={ds.d20th6}>About</th>
+                                                <th className={ds.d20th6}>About</th> */}
                                                 <th className={ds.d20th7}>Doc status</th>
                                             </tr>
                                                     
@@ -313,9 +313,15 @@ export default function DashBoard() {
                                                             <span>{host.name}</span>
                                                         </td>
                                                         <td className={ds.d20td3}>{host.email}</td>
-                                                        <td className={ds.d20td4}>{host.location}</td>
-                                                        <td className={ds.d20td5}>{host.work}</td>
-                                                        <td className={ds.d20td6}>{host.about}</td>
+                                                        {/* <td className={ds.d20td4}>
+                                                        {host.location === '' ? 'Not filled' : host.location }
+                                                        </td>
+                                                        <td className={ds.d20td5}>
+                                                        {host.work === '' ? 'Not filled' : host.work }
+                                                        </td>
+                                                        <td className={ds.d20td6}>
+                                                        {host.about === '' ? 'Not filled' : host.about }
+                                                        </td> */}
                                                         <td className={ds.d20td7}>
                                                             {host.isDocVerified === 0 && "Not Uploaded"}
                                                             {host.isDocVerified === 1 && "Verified"}

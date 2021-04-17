@@ -338,6 +338,11 @@ export default function UserProfile() {
         .catch(error => console.log('error', error));
     }
 
+    const [about, setAbout] = useState({
+        about: '',
+        work: '',
+        location: ''
+    });
     const [userInfo, setUserInfo] = useState(null);
     const getUserInfo = () => {
         fetch(url.baseUrl+"user?userId="+JSON.parse(localStorage.getItem("token")).userId, {
@@ -351,6 +356,11 @@ export default function UserProfile() {
         .then(res => {
             console.log(res);
             setUserInfo(res.data);
+            setAbout({
+                about: res.data.about,
+                work: res.data.work,
+                location: res.data.location
+            })
         })
         .catch(error => console.log(error));
     }
@@ -429,17 +439,6 @@ useEffect(() => {
     // console.log(JSON.parse(localStorage.getItem("token")).userProfile)
     // console.log(JSON.parse(localStorage.getItem("token")).userId);
 }, []);
-
-useEffect(() => {
-    if (localStorage.getItem("token") === null) {
-        history.push('/');
-    } else {
-        setUserName(JSON.parse(localStorage.getItem("token")).userName);
-        setProfilePic(JSON.parse(localStorage.getItem("token")).userProfile);
-    }
-    // console.log(JSON.parse(localStorage.getItem("token")).userProfile)
-    // console.log(JSON.parse(localStorage.getItem("token")).userId);
-}, []);
 // // desktop
 // const [edit, SetEdit] = useState(false);
 // const [proPic, setProPic] = useState(false);
@@ -482,7 +481,7 @@ const updateProfile = image => {
       body: raw,
       redirect: 'follow'
     };
-    fetch("https://taz2ic52bc.execute-api.ap-south-1.amazonaws.com/production/api/updateProfilePic", requestOptions)
+    fetch(url.baseUrl+"updateProfilePic", requestOptions)
         .then(response => response.json())
         .then(result => {
             if (result.code === 200) {
@@ -548,6 +547,44 @@ const updateProfile = image => {
                 } else {
                     swal("Something wrong", "Must enter correct information!!", "error");
                 }
+            })
+            .catch(error => console.log('error', error));
+
+        }
+    }
+
+    // work, location, about
+    
+    useEffect(() => {
+        console.log(about);
+    }, [about])
+    const aboutSubmit = () => {
+        if (about.about === '') {
+            swal("Enter Fields", "Must enter old password first!!", "info");
+        } else if (about.work === '') {
+            swal("Enter Fields", "Must enter old password first!!", "info");
+        } else if (about.location === '') {
+            swal("Enter Fields", "Must enter old password first!!", "info");
+        } else {
+
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+            var raw = JSON.stringify({
+                "work": about.work,
+                "about": about.about,
+                "location": about.location,
+                "userId": JSON.parse(localStorage.getItem("token")).userId
+            });
+            var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+            };
+            fetch(url.baseUrl+"updateProfile", requestOptions)
+            .then(response => response.json())
+            .then(() => {
+                swal("Updated", "Your successfully updated !!!", "success");
             })
             .catch(error => console.log('error', error));
 
@@ -648,20 +685,14 @@ const updateProfile = image => {
                             {/* <button className="p9-1">Upload</button> */}
                             
                             <div className="p8">
-                                {userInfo.about ? 
-                                <textarea placeholder="About yourself" className="p7" value={userInfo.about}></textarea> : 
-                                <textarea placeholder="About yourself" className="p7"></textarea>}
+                                <textarea placeholder="About yourself" className="p7" value={about.about} onChange={e => setAbout({...about, about: e.target.value})}></textarea>
                             </div>
                             <div className="p8">
-                                {userInfo.location ? 
-                                <input className="p8_1" type="text" placeholder="Your Location" value={userInfo.location} /> : 
-                                <input className="p8_1" type="text" placeholder="Your Location" />}
+                                <input className="p8_1" type="text" placeholder="Your Location" value={about.location} onChange={e => setAbout({...about, location: e.target.value})} />
                             </div>
-                            <div className="p8">  
-                            {userInfo.location ? 
-                            <input className="p8_2" type="Email " placeholder="Your Email Address" value={userInfo.work}/> : 
-                            <input className="p8_2" type="Email " placeholder="Your Email Address"/>}
-                            </div> <button className="p9">Save</button>
+                            <div className="p8">
+                            <input className="p8_2" type="Email " placeholder="Your Email Address" value={about.work} onChange={e => setAbout({...about, work: e.target.value})} />
+                            </div> <button className="p9" onClick={aboutSubmit}>Save</button>
                             <hr className="hr" />
                             <h1 className="Review"> Reviews</h1>
     

@@ -85,8 +85,16 @@
     width: 100%;
 }
 .d06 {
-    margin-top: 15px;
+    margin-top: 20px;
 }
+
+.Publishbutton{
+    float: left;
+    width: 50%;
+    bottom: 20px;
+    margin-left: 20%;
+}
+
 .d03 select {
     float: left;
     width: calc(100% - 10px);
@@ -120,7 +128,7 @@
 .d0613{
     float: left;
     width: 50%;
-    margin-top: 10px;
+    margin-top: 30px;
 }
 .d0611 input {
     float: left;
@@ -249,6 +257,8 @@
     cursor: pointer;
 }
 
+
+
 @media only screen and (max-width: 700px) {
     /* .desktop {
         display: none;
@@ -275,4 +285,103 @@
         margin-top: 15px;
         background-color: rgb(255, 0, 0);
     }
+  
+}
+
+.cppp6{
+    float: right;
+    border: none;
+    border-radius: 4px;
+    background-color: #0277bd;
+    color: white;
+    padding: 9px 20px;
+    outline: none;
+    cursor: pointer;
+    margin-right: -10%;
+    margin-bottom: 40px;
+}
+.cppp{
+    width: 10%;
+    float: left;
+
+}
+.cppp1{
+    width: 100%;
+    border-radius: 30px;
+}
+.cppp2{
+    font-weight: bold;
+    text-align: center;
+    margin-top: 2px;
+}
+.cppp4{
+    float: right;
+    /* margin-left: 50%; */
+    margin-right: -30px;
+    margin-top: 10px;
+    font-weight: bold;
+}
+.cppp5{
+    float: right;
+    /* margin-left: 50%; */
+    margin-right: -70px;
+    margin-top: 2px;
+   
+}
+.cppp8 {
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    background-color: white;
+    text-decoration: underline;
+    margin-left: 50px;
+}
+.d0100 {
+    float: left;
+    font-size: 23px;
+    padding-bottom: 4px;
+    width: 52%;
+    font-weight: 800;
+    border-bottom: 1px solid lightgrey;
+    margin-left: 23.5%;
+    margin-top: 20px;
+    font-family: 'Segoe UI Regular';
+
+}.d0101{
+    float: left;
+    margin-top: 30px;
+    width: 65%;
+    margin-left: -162px;
+}.d0102{
+    float: left;
+    width: 100%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    height: 270px;
+    position: relative;
+}
+
+
+@media only screen and (max-width: 700px) {
+   .c1{
+       width: auto;
+   }.cppp{
+    width: 30%;
+   }.cppp4{
+    margin-right: 45px;
+   }.cppp5{
+    margin-right: 4px;
+   }.c11{
+       width: 110%;
+   }.d0101{
+    width: 100%;
+    margin-left: -90px;
+
+   }.cppp8 {
+  
+    margin-left: auto;
+}
+
+
 }

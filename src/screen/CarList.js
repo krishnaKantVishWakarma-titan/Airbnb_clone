@@ -68,8 +68,8 @@ export default function CarList () {
                         <>
                             {CarLists
                             .filter(l => {
-                                return l.cityName.toLowerCase().match( searchString );
-                              })
+                                return l.cityName.toLowerCase().match(searchString);
+                            })
                             .map((carElm, indx)=>{ return(
                                 <>
                                     <div className="DetailList0" key={indx}>

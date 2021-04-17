@@ -418,8 +418,8 @@ export default function profile() {
                                                             </td>
                                                             <td className={ds.d20td3}>{host.customer_phone}</td>
                                                             <td className={ds.d20td4}>{host.guests}</td>
-                                                            <td className={ds.d20td5}>{new Date(host.fromDate).getDate()}/{new Date(host.fromDate).getMonth()}/{new Date(host.fromDate).getFullYear()}</td>
-                                                            <td className={ds.d20td6}>{new Date(host.toDate).getDate()}/{new Date(host.toDate).getMonth()}/{new Date(host.toDate).getFullYear()}</td>
+                                                            <td className={ds.d20td5}>{new Date(host.fromDate).getDate()}/{new Date(host.fromDate).getMonth()+1}/{new Date(host.fromDate).getFullYear()}</td>
+                                                            <td className={ds.d20td6}>{new Date(host.toDate).getDate()}/{new Date(host.toDate).getMonth()+1}/{new Date(host.toDate).getFullYear()}</td>
                                                             <td className={ds.d20td7}><Link to={`/chat?name=${JSON.parse(localStorage.getItem('token')).userName}&room=${host.room}&username=${host.customer_name}&profile=${host.customer_pic}`}><img src={ChatImage} alt='' /></Link></td>
                                                         </tr>
                                                     )})}
@@ -454,8 +454,8 @@ export default function profile() {
                                                             </td>
                                                             <td className={ds.d20td3}>{host.customer_phone}</td>
                                                             <td className={ds.d20td4}>{host.guests}</td>
-                                                            <td className={ds.d20td5}>{new Date(host.fromDate).getDate()}/{new Date(host.fromDate).getMonth()}/{new Date(host.fromDate).getFullYear()}</td>
-                                                            <td className={ds.d20td6}>{new Date(host.toDate).getDate()}/{new Date(host.toDate).getMonth()}/{new Date(host.toDate).getFullYear()}</td>
+                                                            <td className={ds.d20td5}>{new Date(host.fromDate).getDate()}/{new Date(host.fromDate).getMonth()+1}/{new Date(host.fromDate).getFullYear()}</td>
+                                                            <td className={ds.d20td6}>{new Date(host.toDate).getDate()}/{new Date(host.toDate).getMonth()+1}/{new Date(host.toDate).getFullYear()}</td>
                                                             <td className={ds.d20td7}><Link to={`/chat?name=${JSON.parse(localStorage.getItem('token')).userName}&room=${host.room}&username=${host.customer_name}&profile=${host.customer_pic}`}><img src={ChatImage} alt='' /></Link></td>
                                                         </tr>
                                                     )})}

@@ -484,7 +484,7 @@ export default function Header() {
                 name: signupVal.firstName,
                 email: signupVal.email,
                 password: signupVal.password,
-                phone: signupVal.otp,
+                phone: signupVal.lastName,
             })
         })
         .then(res => res.json())
