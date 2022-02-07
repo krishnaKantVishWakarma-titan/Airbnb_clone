@@ -1370,3 +1370,37 @@
     
   //       );
   //   }
+
+import React, { useState, useEffect } from "react";
+import io from "socket.io-client";
+let socket;
+
+export default function Examples () {
+
+  const ENDPOINT = 'http://13.233.154.141:5000/';
+
+  useEffect(() => {
+    // connect to socket
+    socket = io(ENDPOINT);
+    console.log(socket);
+
+    const name = 'kk';
+    const room = '12';
+
+    // bind funtion
+    socket.emit('join', { name, room }, (error) => {
+      if(error) {
+        alert(error);
+      }
+    });
+
+  }, [ENDPOINT]);
+
+  return (
+    <>
+    
+      <div>krihsna</div>
+    
+    </>
+  );
+}
