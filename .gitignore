@@ -3,4 +3,8 @@ npm-debug.log
 yarn-error.log
 build/
 .env
+
 src/screen/Examples.js
+src/serviceWorker.js
+src/subscription.js
+
