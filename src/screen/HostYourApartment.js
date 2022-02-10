@@ -10,7 +10,7 @@ import lightBulbIcon from '../img/icons/lightbulb.svg';
 import v1 from '../img/undraw/1.png';
 import v2 from '../img/undraw/2.png';
 import v3 from '../img/undraw/3.png';
-import v4 from '../img/undraw/4.png';
+// import v4 from '../img/undraw/4.png';
 import v5 from '../img/undraw/5.png';
 import v6 from '../img/undraw/6.png';
 import v7 from '../img/undraw/7.png';
@@ -163,7 +163,7 @@ export default function HostYourApartment() {
     // }
 
     // images
-   const handleClickUploadImage=()=>{
+//    const handleClickUploadImage=()=>{
 //     var formdata = new FormData();
         
 //     for(var  j = 0; j < e.target.files.length; j++) {
@@ -187,15 +187,7 @@ export default function HostYourApartment() {
 //     .catch(error => console.log('error', error));
     
 
-   }
-
-
-
-
-
-
-
-
+//    }
 
     const [imageList, setImageList] = useState([]);
     const [selectedImage, setSelectedImage] = useState([]);

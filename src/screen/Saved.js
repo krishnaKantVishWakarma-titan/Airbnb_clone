@@ -7,13 +7,13 @@ import sidebarIcon from '../img/icons/sidebar.png';
 import worldIcon from '../img/icons/blackWorldIcon.png';
 import { useEffect, useState } from 'react';
 import trips from '../css/trips.module.css';
-import v1 from '../img/demo/16.png';
+// import v1 from '../img/demo/16.png';
 import starIcon from '../img/icons/star.png';
 import favRed from '../img/icons/favRed.svg';
 import backIconGrey from '../img/icons/backGrey.svg';
 import url from '../data/urls.json';
 
-import userIcon from '../img/icons/user.png';
+// import userIcon from '../img/icons/user.png';
 export default function Saved () {
 
     const history = useHistory();

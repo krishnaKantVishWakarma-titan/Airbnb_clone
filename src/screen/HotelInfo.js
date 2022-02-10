@@ -7,7 +7,7 @@ import starIcon from '../img/icons/star.svg';
 // mobile
 import backIconGrey from '../img/icons/backGrey.svg';
 import fav from '../img/icons/fav.svg';
-import userIcon from '../img/icons/user.png';
+// import userIcon from '../img/icons/user.png';
 import bg from '../img/banners/ad1.jpg';
 // import favRed from '../img/icons/favRed.svg';
 import SetFav from '../components/SetFavHostelInfo';
@@ -235,7 +235,7 @@ console.log(HostId);
     const getUserDetailsThree = (data1, data2, hostId) => {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        myHeaders.append("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl9pZCI6MSwidHlwZSI6ImRldmljZSIsImlhdCI6MTYxNjU2MjM2NX0.n8dGBHbi9_I6JObUpSEa2k-fC-mcwVK-JFh920344_o");
+        // myHeaders.append("Authorization", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl9pZCI6MSwidHlwZSI6ImRldmljZSIsImlhdCI6MTYxNjU2MjM2NX0.n8dGBHbi9_I6JObUpSEa2k-fC-mcwVK-JFh920344_o");
         
         var userid = JSON.parse(localStorage.getItem("token")).userId;
         console.log(userid);
@@ -1007,7 +1007,7 @@ console.log(HostId);
                                     <span className="sign0241">Or Login with</span>
                                     <div className="sign0242">
                                         <GoogleLogin
-                                            clientId="712330131270-mbt3jl3i2ohaqsuk3cqvm6gkpf2qaefo.apps.googleusercontent.com"
+                                            clientId=""
                                             onSuccess={responseGoogle}
                                             onFailure={responseGoogleFail}
                                             render={renderProp => (
@@ -1021,8 +1021,8 @@ console.log(HostId);
                                     <div className="sign0242">
                                         <TwitterLogin
                                             authCallback={authHandler}
-                                            consumerKey="oY4NkDIMi7E3iLlmr0JXZn0oZ"
-                                            consumerSecret="swRWHCK1JOUSK8TzORMzUfzxAcEG8Pk17B4Hv0FYwpFkYY7Csz"
+                                            consumerKey=""
+                                            consumerSecret=""
                                         >
                                             <button className="GoogleBtn">
                                                 <img src={twitter} alt="" />
@@ -1031,7 +1031,7 @@ console.log(HostId);
                                     </div>
                                     <div className="sign0242">
                                         <FacebookLogin
-                                            appId="225590285712276"
+                                            appId=""
                                             autoLoad={false}
                                             fields="name,email,picture"
                                             cookie={true}
@@ -1101,7 +1101,7 @@ console.log(HostId);
                                     <span className="sign0241">Or Sign Up with</span>
                                     <div className="sign0242">
                                         <GoogleLogin
-                                            clientId="712330131270-mbt3jl3i2ohaqsuk3cqvm6gkpf2qaefo.apps.googleusercontent.com"
+                                            clientId=""
                                             onSuccess={responseGoogle}
                                             onFailure={responseGoogleFail}
                                             render={renderProp => (
@@ -1115,8 +1115,8 @@ console.log(HostId);
                                     <div className="sign0242">
                                         <TwitterLogin
                                             authCallback={authHandler}
-                                            consumerKey="oY4NkDIMi7E3iLlmr0JXZn0oZ"
-                                            consumerSecret="swRWHCK1JOUSK8TzORMzUfzxAcEG8Pk17B4Hv0FYwpFkYY7Csz"
+                                            consumerKey=""
+                                            consumerSecret=""
                                         >
                                             <button className="GoogleBtn">
                                                 <img src={twitter} alt="" />
@@ -1125,7 +1125,7 @@ console.log(HostId);
                                     </div>
                                     <div className="sign0242">
                                         <FacebookLogin
-                                            appId="225590285712276"
+                                            appId=""
                                             autoLoad={false}
                                             status={true}
                                             xfbml={true}

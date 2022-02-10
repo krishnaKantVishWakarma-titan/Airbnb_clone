@@ -191,6 +191,3 @@ function App() {
 }
 
 export default App;
-
-
-// http://localhost:3000/NewTraveller/3/Krishna%20vishwakarma/1nc2/https://checkin-images-upload.s3.ap-south-1.amazonaws.com/fd86011c-1791-4454-ab61-56e89022c9f6IMG_20190314_121121.jpg

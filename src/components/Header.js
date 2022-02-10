@@ -1220,7 +1220,7 @@ export default function Header() {
                                 <span className="sign0241">Or Login with</span>
                                 <div className="sign0242">
                                     <GoogleLogin
-                                        clientId="712330131270-mbt3jl3i2ohaqsuk3cqvm6gkpf2qaefo.apps.googleusercontent.com"
+                                        clientId=""
                                         onSuccess={responseGoogle}
                                         onFailure={responseGoogleFail}
                                         render={renderProp => (
@@ -1234,8 +1234,8 @@ export default function Header() {
                                 <div className="sign0242">
                                     <TwitterLogin
                                         authCallback={authHandler}
-                                        consumerKey="oY4NkDIMi7E3iLlmr0JXZn0oZ"
-                                        consumerSecret="swRWHCK1JOUSK8TzORMzUfzxAcEG8Pk17B4Hv0FYwpFkYY7Csz"
+                                        consumerKey=""
+                                        consumerSecret=""
                                     >
                                         <button className="GoogleBtn">
                                             <img src={twitter} alt="" />
@@ -1244,7 +1244,7 @@ export default function Header() {
                                 </div>
                                 <div className="sign0242">
                                     <FacebookLogin
-                                        appId="225590285712276"
+                                        appId=""
                                         autoLoad={false}
                                         fields="name,email,picture"
                                         cookie={true}
@@ -1320,7 +1320,7 @@ export default function Header() {
                                         <span className="sign0241">Or Sign Up with</span>
                                         <div className="sign0242">
                                             <GoogleLogin
-                                                clientId="712330131270-mbt3jl3i2ohaqsuk3cqvm6gkpf2qaefo.apps.googleusercontent.com"
+                                                clientId=""
                                                 onSuccess={responseGoogle}
                                                 onFailure={responseGoogleFail}
                                                 render={renderProp => (
@@ -1334,8 +1334,8 @@ export default function Header() {
                                         <div className="sign0242">
                                             <TwitterLogin
                                                 authCallback={authHandler}
-                                                consumerKey="oY4NkDIMi7E3iLlmr0JXZn0oZ"
-                                                consumerSecret="swRWHCK1JOUSK8TzORMzUfzxAcEG8Pk17B4Hv0FYwpFkYY7Csz"
+                                                consumerKey=""
+                                                consumerSecret=""
                                             >
                                                 <button className="GoogleBtn">
                                                     <img src={twitter} alt="" />
@@ -1344,7 +1344,7 @@ export default function Header() {
                                         </div>
                                         <div className="sign0242">
                                             <FacebookLogin
-                                                appId="225590285712276"
+                                                appId=""
                                                 autoLoad={false}
                                                 status={true}
                                                 xfbml={true}
